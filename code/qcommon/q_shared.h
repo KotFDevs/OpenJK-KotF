@@ -322,8 +322,8 @@ typedef enum
 	SABER_YELLOW,
 	SABER_GREEN,
 	SABER_BLUE,
-	SABER_PURPLE
-
+	SABER_PURPLE,
+	SABER_RGB = (1 << 24)
 } saber_colors_t;
 
 #define MAX_BATTERIES	2500
@@ -821,8 +821,8 @@ typedef struct
 	int		inAction;	// controls whether should we even consider starting one
 	int		duration;	// how long each trail seg stays in existence
 	int		lastTime;	// time a saber segement was last stored
-	vec3_t	base;
-	vec3_t	tip;
+	vec3_t	base, dualbase;
+	vec3_t	tip, dualtip;
 
 	// Marks stuff
 	qboolean	haveOldPos[2];

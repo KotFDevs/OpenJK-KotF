@@ -174,6 +174,8 @@ typedef struct {
 	qhandle_t	blueSaberCoreShader;
 	qhandle_t	purpleSaberGlowShader;
 	qhandle_t	purpleSaberCoreShader;
+	qhandle_t	rgbSaberGlowShader;
+	qhandle_t	rgbSaberCoreShader;
 
 	qhandle_t	explosionModel;
 	qhandle_t	surfaceExplosionShader;
@@ -257,6 +259,11 @@ typedef struct {
 	qhandle_t	forceShell;
 	qhandle_t	sightShell;
 	qhandle_t	drainShader;
+	
+	//SFX Sabers
+	qhandle_t SaberTrailShader;
+	qhandle_t SaberBladeShader;
+	qhandle_t SaberEndShader;
 
 	// sounds
 	sfxHandle_t disintegrateSound;

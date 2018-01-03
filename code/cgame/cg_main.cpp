@@ -341,6 +341,10 @@ vmCvar_t	cg_fovViewmodelAdjust;
 
 vmCvar_t	cg_scaleVehicleSensitivity;
 
+vmCvar_t	cg_SFXSabers;
+vmCvar_t	cg_SFXSabersGlowSize;
+vmCvar_t	cg_SFXSabersCoreSize;
+
 typedef struct {
 	vmCvar_t	*vmCvar;
 	const char	*cvarName;
@@ -459,6 +463,12 @@ static cvarTable_t cvarTable[] = {
 	{ &cg_fovViewmodelAdjust, "cg_fovViewmodelAdjust", "1", CVAR_ARCHIVE },
 
 	{ &cg_scaleVehicleSensitivity, "cg_scaleVehicleSensitivity", "1", CVAR_ARCHIVE },
+	
+	{ &cg_SFXSabers,	"cg_SFXSabers",	"0", CVAR_ARCHIVE },
+	{ &cg_SFXSabersGlowSize,	"cg_SFXSabersGlowSize",	"1.0", CVAR_ARCHIVE },
+	{ &cg_SFXSabersCoreSize,	"cg_SFXSabersCoreSize",	"1.0", CVAR_ARCHIVE },
+
+
 };
 
 static const size_t cvarTableSize = ARRAY_LEN( cvarTable );
@@ -1384,7 +1394,11 @@ static void CG_RegisterGraphics( void ) {
 	//gore decal shaders -rww
 	cgs.media.bdecal_burnmark1		= cgi_R_RegisterShader( "gfx/damage/burnmark1" );
 	cgs.media.bdecal_saberglowmark	= cgi_R_RegisterShader( "gfx/damage/saberglowmark" );
-
+	
+	cgs.media.SaberTrailShader = cgi_R_RegisterShader( "SFX_Sabers/saber_trail" );
+	cgs.media.SaberBladeShader = cgi_R_RegisterShader( "SFX_Sabers/saber_blade" );
+	cgs.media.SaberEndShader = cgi_R_RegisterShader( "SFX_Sabers/saber_end" );
+	
 	cg.loadLCARSStage = 5;
 	CG_LoadingString( "game media models" );
 

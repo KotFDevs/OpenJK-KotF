@@ -39,6 +39,13 @@ USER INTERFACE SABER LOADING & DISPLAY CODE
 char	SaberParms[MAX_SABER_DATA_SIZE];
 qboolean	ui_saber_parms_parsed = qfalse;
 
+extern vmCvar_t	ui_rgb_saber_red;
+extern vmCvar_t	ui_rgb_saber_green;
+extern vmCvar_t	ui_rgb_saber_blue;
+extern vmCvar_t	ui_rgb_saber2_red;
+extern vmCvar_t	ui_rgb_saber2_green;
+extern vmCvar_t	ui_rgb_saber2_blue;
+
 static qhandle_t redSaberGlowShader;
 static qhandle_t redSaberCoreShader;
 static qhandle_t orangeSaberGlowShader;
@@ -51,6 +58,8 @@ static qhandle_t blueSaberGlowShader;
 static qhandle_t blueSaberCoreShader;
 static qhandle_t purpleSaberGlowShader;
 static qhandle_t purpleSaberCoreShader;
+static qhandle_t rgbSaberGlowShader;
+static qhandle_t rgbSaberCoreShader;
 void UI_CacheSaberGlowGraphics( void )
 {//FIXME: these get fucked by vid_restarts
 	redSaberGlowShader		= re.RegisterShader( "gfx/effects/sabers/red_glow" );
@@ -65,6 +74,8 @@ void UI_CacheSaberGlowGraphics( void )
 	blueSaberCoreShader		= re.RegisterShader( "gfx/effects/sabers/blue_line" );
 	purpleSaberGlowShader		= re.RegisterShader( "gfx/effects/sabers/purple_glow" );
 	purpleSaberCoreShader		= re.RegisterShader( "gfx/effects/sabers/purple_line" );
+	rgbSaberGlowShader		= re.RegisterShader( "gfx/effects/sabers/rgb_glow" );
+	rgbSaberCoreShader		= re.RegisterShader( "gfx/effects/sabers/rgb_line" );
 }
 
 qboolean UI_ParseLiteral( const char **data, const char *string )
@@ -338,7 +349,7 @@ void UI_SaberLoadParms( void )
 	}
 }
 
-void UI_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float radius, saber_colors_t color )
+void UI_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float radius, saber_colors_t color, int whichSaber )
 {
 	vec3_t		mid, rgb={1,1,1};
 	qhandle_t	blade = 0, glow = 0;
@@ -386,6 +397,18 @@ void UI_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float
 			blade = purpleSaberCoreShader;
 			VectorSet( rgb, 0.9f, 0.2f, 1.0f );
 			break;
+		default:
+			glow = rgbSaberGlowShader;
+			blade = rgbSaberCoreShader;
+			if (whichSaber == 0)
+			{
+				VectorSet( rgb, ui_rgb_saber_red.integer/255.0f, ui_rgb_saber_green.integer/255.0f, ui_rgb_saber_blue.integer/255.0f );
+			}
+			else
+			{
+				VectorSet( rgb, ui_rgb_saber2_red.integer/255.0f, ui_rgb_saber2_green.integer/255.0f, ui_rgb_saber2_blue.integer/255.0f );
+			}
+			break;
 	}
 
 	// always add a light because sabers cast a nice glow before they slice you in half!!  or something...
@@ -426,6 +449,22 @@ void UI_DoSaber( vec3_t origin, vec3_t dir, float length, float lengthMax, float
 	saber.customShader = glow;
 	saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 	//saber.renderfx = rfx;
+	
+	if (color >= SABER_RGB)
+	{
+		if (whichSaber == 0)
+		{
+			saber.shaderRGBA[0] = ui_rgb_saber_red.integer;
+			saber.shaderRGBA[1] = ui_rgb_saber_green.integer;
+			saber.shaderRGBA[2] = ui_rgb_saber_blue.integer;
+		}
+		else
+		{
+			saber.shaderRGBA[0] = ui_rgb_saber2_red.integer;
+			saber.shaderRGBA[1] = ui_rgb_saber2_green.integer;
+			saber.shaderRGBA[2] = ui_rgb_saber2_blue.integer;
+		}
+	}
 
 	DC->addRefEntityToScene( &saber );
 
@@ -471,7 +510,14 @@ saber_colors_t TranslateSaberColor( const char *name )
 	{
 		return ((saber_colors_t)(Q_irand( SABER_ORANGE, SABER_PURPLE )));
 	}
-	return SABER_BLUE;
+	float colors[3];
+	Q_parseSaberColor(name, colors);
+	int colourArray[3];
+	for (int i = 0; i < 3; i++)
+	{
+		colourArray[i] = (int)(colors[i] * 255);
+	}
+	return (saber_colors_t)((colourArray[0]) + (colourArray[1] << 8) + (colourArray[2] << 16) + (1 << 24));
 }
 
 saberType_t TranslateSaberType( const char *name )
@@ -531,7 +577,8 @@ void UI_SaberDrawBlade( itemDef_t *item, char *saberName, int saberModel, saberT
 {
 	char bladeColorString[MAX_QPATH];
 	vec3_t	angles={0};
-
+	int whichSaber = 0;
+	
 	if ( item->flags&(ITF_ISANYSABER) && item->flags&(ITF_ISCHARACTER) )
 	{	//it's bolted to a dude!
 		angles[YAW] = curYaw;
@@ -549,9 +596,18 @@ void UI_SaberDrawBlade( itemDef_t *item, char *saberName, int saberModel, saberT
 
 	if ( (item->flags&ITF_ISSABER) && saberModel < 2 )
 	{
-		DC->getCVarString( "ui_saber_color", bladeColorString, sizeof(bladeColorString) );
+		whichSaber = 0;
 	}
 	else//if ( item->flags&ITF_ISSABER2 ) - presumed
+	{
+		whichSaber = 1;
+	}
+	
+	if ( whichSaber == 0 )
+	{
+		DC->getCVarString( "ui_saber_color", bladeColorString, sizeof(bladeColorString) );
+	}
+	else//if ( whichSaber == 1 ) - presumed
 	{
 		DC->getCVarString( "ui_saber2_color", bladeColorString, sizeof(bladeColorString) );
 	}
@@ -750,7 +806,7 @@ void UI_SaberDrawBlade( itemDef_t *item, char *saberName, int saberModel, saberT
 		return;
 	}
 
-	UI_DoSaber( bladeOrigin, axis[0], bladeLength, bladeLength, bladeRadius, bladeColor );
+	UI_DoSaber( bladeOrigin, axis[0], bladeLength, bladeLength, bladeRadius, bladeColor, whichSaber );
 }
 
 extern qboolean ItemParse_asset_model_go( itemDef_t *item, const char *name );

@@ -478,6 +478,8 @@ void WP_SaberSetDefaults( saberInfo_t *saber, qboolean setColors = qtrue )
 //=========================================================================================================================================
 }
 
+qboolean forcedRGBColours[MAX_BLADES];
+
 static void Saber_ParseName( saberInfo_t *saber, const char **p ) {
 	const char *value;
 	if ( COM_ParseString( p, &value ) )
@@ -551,7 +553,12 @@ static void Saber_ParseSaberColor( saberInfo_t *saber, const char **p ) {
 
 	color = TranslateSaberColor( value );
 	for ( i=0; i<MAX_BLADES; i++ )
-		saber->blade[i].color = color;
+	{
+		if (!forcedRGBColours[i])
+		{
+			saber->blade[i].color = color;
+		}
+	}
 }
 static void Saber_ParseSaberColor2( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -566,7 +573,10 @@ static void Saber_ParseSaberColor2( saberInfo_t *saber, const char **p ) {
 		return;
 
 	color = TranslateSaberColor( value );
-	saber->blade[1].color = color;
+	if (!forcedRGBColours[1])
+	{
+		saber->blade[1].color = color;
+	}
 }
 static void Saber_ParseSaberColor3( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -581,7 +591,10 @@ static void Saber_ParseSaberColor3( saberInfo_t *saber, const char **p ) {
 		return;
 
 	color = TranslateSaberColor( value );
-	saber->blade[2].color = color;
+	if (!forcedRGBColours[2])
+	{
+		saber->blade[2].color = color;
+	}
 }
 static void Saber_ParseSaberColor4( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -596,7 +609,10 @@ static void Saber_ParseSaberColor4( saberInfo_t *saber, const char **p ) {
 		return;
 
 	color = TranslateSaberColor( value );
-	saber->blade[3].color = color;
+	if (!forcedRGBColours[3])
+	{
+		saber->blade[3].color = color;
+	}
 }
 static void Saber_ParseSaberColor5( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -611,7 +627,10 @@ static void Saber_ParseSaberColor5( saberInfo_t *saber, const char **p ) {
 		return;
 
 	color = TranslateSaberColor( value );
-	saber->blade[4].color = color;
+	if (!forcedRGBColours[4])
+	{
+		saber->blade[4].color = color;
+	}
 }
 static void Saber_ParseSaberColor6( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -626,7 +645,10 @@ static void Saber_ParseSaberColor6( saberInfo_t *saber, const char **p ) {
 		return;
 
 	color = TranslateSaberColor( value );
-	saber->blade[5].color = color;
+	if (!forcedRGBColours[5])
+	{
+		saber->blade[5].color = color;
+	}
 }
 static void Saber_ParseSaberColor7( saberInfo_t *saber, const char **p ) {
 	const char *value;
@@ -641,8 +663,128 @@ static void Saber_ParseSaberColor7( saberInfo_t *saber, const char **p ) {
 		return;
 
 	color = TranslateSaberColor( value );
-	saber->blade[6].color = color;
+	if (!forcedRGBColours[6])
+	{
+		saber->blade[6].color = color;
+	}
 }
+static void Saber_ParseSaberRGBColor( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	int i=0;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	for ( i=0; i<MAX_BLADES; i++ )
+	{
+		saber->blade[i].color = color;
+	}
+	forcedRGBColours[0] = qtrue;
+}
+static void Saber_ParseSaberRGBColor2( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	saber->blade[1].color = color;
+	forcedRGBColours[1] = qtrue;
+}
+static void Saber_ParseSaberRGBColor3( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	saber->blade[2].color = color;
+	forcedRGBColours[2] = qtrue;
+}
+static void Saber_ParseSaberRGBColor4( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	saber->blade[3].color = color;
+	forcedRGBColours[3] = qtrue;
+}
+static void Saber_ParseSaberRGBColor5( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	saber->blade[4].color = color;
+	forcedRGBColours[4] = qtrue;
+}
+static void Saber_ParseSaberRGBColor6( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	saber->blade[5].color = color;
+	forcedRGBColours[5] = qtrue;
+}
+static void Saber_ParseSaberRGBColor7( saberInfo_t *saber, const char **p ) {
+	const char *value;
+	saber_colors_t color;
+	
+	if ( COM_ParseString( p, &value ) )
+		return;
+	
+	// don't actually want to set the colors
+	// read the color out anyway just to advance the *p pointer
+	if ( !Saber_SetColor )
+		return;
+	
+	color = TranslateSaberColor( value );
+	saber->blade[6].color = color;
+	forcedRGBColours[6] = qtrue;
+}
+
 static void Saber_ParseSaberLength( saberInfo_t *saber, const char **p ) {
 	int i=0;
 	float f;
@@ -1835,6 +1977,13 @@ static keywordHash_t saberParseKeywords[] = {
 	{ "saberColor5",			Saber_ParseSaberColor5,			NULL	},
 	{ "saberColor6",			Saber_ParseSaberColor6,			NULL	},
 	{ "saberColor7",			Saber_ParseSaberColor7,			NULL	},
+	{ "saberColorRGB",			Saber_ParseSaberRGBColor,			NULL	},
+	{ "saberColorRGB2",			Saber_ParseSaberRGBColor2,			NULL	},
+	{ "saberColorRGB3",			Saber_ParseSaberRGBColor3,			NULL	},
+	{ "saberColorRGB4",			Saber_ParseSaberRGBColor4,			NULL	},
+	{ "saberColorRGB5",			Saber_ParseSaberRGBColor5,			NULL	},
+	{ "saberColorRGB6",			Saber_ParseSaberRGBColor6,			NULL	},
+	{ "saberColorRGB7",			Saber_ParseSaberRGBColor7,			NULL	},
 	{ "saberLength",			Saber_ParseSaberLength,			NULL	},
 	{ "saberLength2",			Saber_ParseSaberLength2,		NULL	},
 	{ "saberLength3",			Saber_ParseSaberLength3,		NULL	},
@@ -1991,6 +2140,11 @@ qboolean WP_SaberParseParms( const char *SaberName, saberInfo_t *saber, qboolean
 	const char	*token;
 	const char	*p;
 	keywordHash_t *key;
+	
+	for ( int i = 0; i < MAX_BLADES; i++ )
+	{
+		forcedRGBColours[i] = qfalse;
+	}
 
 	// make sure the hash table has been setup
 	if ( !hashSetup )

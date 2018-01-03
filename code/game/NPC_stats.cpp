@@ -297,7 +297,14 @@ saber_colors_t TranslateSaberColor( const char *name )
 	{
 		return ((saber_colors_t)(Q_irand( SABER_ORANGE, SABER_PURPLE )));
 	}
-	return SABER_BLUE;
+	float colors[3];
+	Q_parseSaberColor(name, colors);
+	int colourArray[3];
+	for (int i = 0; i < 3; i++)
+	{
+		colourArray[i] = (int)(colors[i] * 255);
+	}
+	return (saber_colors_t)((colourArray[0]) + (colourArray[1] << 8) + (colourArray[2] << 16) + (1 << 24));
 }
 
 /* static int MethodNameToNumber( const char *name ) {
@@ -1949,6 +1956,10 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 	char	surfOn[1024]={0};
 	qboolean parsingPlayer = qfalse;
 
+	
+	qboolean forcedRGBSaberColours[MAX_SABERS][MAX_BLADES] = {{qfalse, qfalse, qfalse, qfalse, qfalse, qfalse, qfalse, qfalse},
+																{qfalse, qfalse, qfalse, qfalse, qfalse, qfalse, qfalse, qfalse}};
+	
 	strcpy(customSkin,"default");
 	if ( !NPCName || !NPCName[0])
 	{
@@ -3693,7 +3704,10 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					saber_colors_t color = TranslateSaberColor( value );
 					for ( n = 0; n < MAX_BLADES; n++ )
 					{
-						NPC->client->ps.saber[0].blade[n].color = color;
+						if (!forcedRGBSaberColours[0][n])
+						{
+							NPC->client->ps.saber[0].blade[n].color = color;
+						}
 					}
 				}
 				else if (strlen(token)==11)
@@ -3708,7 +3722,10 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					{
 						continue;
 					}
-					NPC->client->ps.saber[0].blade[index].color = TranslateSaberColor( value );
+					if (!forcedRGBSaberColours[0][index])
+					{
+						NPC->client->ps.saber[0].blade[index].color = TranslateSaberColor( value );
+					}
 				}
 				else
 				{
@@ -3734,7 +3751,10 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					saber_colors_t color = TranslateSaberColor( value );
 					for ( n = 0; n < MAX_BLADES; n++ )
 					{
-						NPC->client->ps.saber[1].blade[n].color = color;
+						if (!forcedRGBSaberColours[1][n])
+						{
+							NPC->client->ps.saber[1].blade[n].color = color;
+						}
 					}
 				}
 				else if (strlen(token)==12)
@@ -3749,7 +3769,10 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 					{
 						continue;
 					}
-					NPC->client->ps.saber[1].blade[n].color = TranslateSaberColor( value );
+					if (!forcedRGBSaberColours[1][n])
+					{
+						NPC->client->ps.saber[1].blade[n].color = TranslateSaberColor( value );
+					}
 				}
 				else
 				{
@@ -3757,7 +3780,92 @@ qboolean NPC_ParseParms( const char *NPCName, gentity_t *NPC )
 				}
 				continue;
 			}
-
+			
+			// saberColor
+			if ( !Q_stricmpn( token, "saberColorRGB", 13) )
+			{
+				if ( !NPC->client )
+				{
+					continue;
+				}
+				
+				if (strlen(token)==13)
+				{
+					if ( COM_ParseString( &p, &value ) )
+					{
+						continue;
+					}
+					saber_colors_t color = TranslateSaberColor( value );
+					forcedRGBSaberColours[0][0] = qtrue;
+					for ( n = 0; n < MAX_BLADES; n++ )
+					{
+						NPC->client->ps.saber[0].blade[n].color = color;
+					}
+				}
+				else if (strlen(token)==14)
+				{
+					int index = atoi(&token[13])-1;
+					if (index > 7 || index < 1 )
+					{
+						gi.Printf( S_COLOR_YELLOW"WARNING: bad saberColorRGB '%s' in %s\n", token, NPCName );
+						continue;
+					}
+					if ( COM_ParseString( &p, &value ) )
+					{
+						continue;
+					}
+					forcedRGBSaberColours[0][index] = qtrue;
+					NPC->client->ps.saber[0].blade[index].color = TranslateSaberColor( value );
+				}
+				else
+				{
+					gi.Printf( S_COLOR_YELLOW"WARNING: bad saberColorRGB '%s' in %s\n", token, NPCName );
+				}
+				continue;
+			}
+			
+			
+			if ( !Q_stricmpn( token, "saber2ColorRGB", 14 ) )
+			{
+				if ( !NPC->client )
+				{
+					continue;
+				}
+				
+				if (strlen(token)==14)
+				{
+					if ( COM_ParseString( &p, &value ) )
+					{
+						continue;
+					}
+					forcedRGBSaberColours[1][0] = qtrue;
+					saber_colors_t color = TranslateSaberColor( value );
+					for ( n = 0; n < MAX_BLADES; n++ )
+					{
+						NPC->client->ps.saber[1].blade[n].color = color;
+					}
+				}
+				else if (strlen(token)==15)
+				{
+					n = atoi(&token[14])-1;
+					if (n > 7 || n < 1 )
+					{
+						gi.Printf( S_COLOR_YELLOW"WARNING: bad saber2ColorRGB '%s' in %s\n", token, NPCName );
+						continue;
+					}
+					if ( COM_ParseString( &p, &value ) )
+					{
+						continue;
+					}
+					forcedRGBSaberColours[1][n] = qtrue;
+					NPC->client->ps.saber[1].blade[n].color = TranslateSaberColor( value );
+				}
+				else
+				{
+					gi.Printf( S_COLOR_YELLOW"WARNING: bad saber2ColorRGB '%s' in %s\n", token, NPCName );
+				}
+				continue;
+			}
 
 			//saber length
 			if ( !Q_stricmpn( token, "saberLength", 11) )
