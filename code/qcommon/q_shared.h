@@ -324,6 +324,7 @@ typedef enum
 	SABER_BLUE,
 	SABER_PURPLE,
 	SABER_UNSTABLE_RED,
+	SABER_BLACK,
 	SABER_RGB = (1 << 24)
 } saber_colors_t;
 
