@@ -58,6 +58,12 @@ static vec3_t muzzle;
 #define THEFIRSTORDER_VELOCITY			2300
 #define THEFIRSTORDER_DAMAGE				20
 
+// DC-15 Carbine
+//---------
+#define CLONECARBINE_SPREAD				1.6f//1.2f
+#define CLONECARBINE_VELOCITY			2300
+#define CLONECARBINE_DAMAGE				20
+
 // Tenloss Disruptor
 //----------
 #define DISRUPTOR_MAIN_DAMAGE			30 //40
@@ -518,6 +524,32 @@ void WP_FireFirstOrderMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolea
 	// we don't want it to bounce forever
 	missile->bounceCount = 8;
 }
+//---------------------------------------------------------
+void WP_FireCloneCarbineMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
+//---------------------------------------------------------
+{
+	int velocity	= CLONECARBINE_VELOCITY;
+	int	damage		= CLONECARBINE_DAMAGE;
+	gentity_t *missile;
+
+	if (ent->s.eType == ET_NPC)
+	{ //animent
+		damage = 10;
+	}
+
+	missile = CreateMissile( start, dir, velocity, 10000, ent, altFire );
+
+	missile->classname = "clone_proj";
+	missile->s.weapon = WP_CLONECARBINE;
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	missile->methodOfDeath = MOD_CLONECARBINE;
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
 
 //---------------------------------------------------------
 void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir )
@@ -647,6 +679,26 @@ static void WP_FireFirstOrder( gentity_t *ent, qboolean altFire )
 	WP_FireFirstOrderMissile( ent, muzzle, dir, altFire );
 }
 
+//---------------------------------------------------------
+static void WP_FireCloneCarbine( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	vec3_t  dir, angs;
+
+	vectoangles( forward, angs );
+
+	if ( altFire )
+	{
+		// add some slop to the alt-fire direction
+		angs[PITCH] += Q_flrand(-1.0f, 1.0f) * CLONECARBINE_SPREAD;
+		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * CLONECARBINE_SPREAD;
+	}
+
+	AngleVectors( angs, dir, NULL, NULL );
+
+	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
+	WP_FireCloneCarbineMissile( ent, muzzle, dir, altFire );
+}
 
 
 int G_GetHitLocation(gentity_t *target, vec3_t ppoint);
@@ -4715,6 +4767,10 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 
 		case WP_THEFIRSTORDER:
 			WP_FireFirstOrder( ent, altFire );
+			break;
+
+		case WP_CLONECARBINE:
+			WP_FireCloneCarbine( ent, altFire );
 			break;
 
 		case WP_DISRUPTOR:

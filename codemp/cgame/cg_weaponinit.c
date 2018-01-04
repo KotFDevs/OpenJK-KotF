@@ -280,6 +280,36 @@ void CG_RegisterWeapon( int weaponNum) {
 		cgs.effects.blasterDroidImpactEffect	= trap->FX_RegisterEffect( "blaster/droid_impact" );
 		break;
 
+	case WP_CLONECARBINE:
+		weaponInfo->selectSound			= trap->S_RegisterSound("sound/weapons/blaster/select.wav");
+
+		weaponInfo->flashSound[0]		= trap->S_RegisterSound( "sound/weapons/blaster/fire.wav");
+		weaponInfo->firingSound			= NULL_SOUND;
+		weaponInfo->chargeSound			= NULL_SOUND;
+		weaponInfo->muzzleEffect		= trap->FX_RegisterEffect( "clone/muzzle_flash" );
+		weaponInfo->missileModel		= NULL_HANDLE;
+		weaponInfo->missileSound		= NULL_SOUND;
+		weaponInfo->missileDlight		= 0;
+//		weaponInfo->missileDlightColor	= {0,0,0};
+		weaponInfo->missileHitSound		= NULL_SOUND;
+		weaponInfo->missileTrailFunc	= FX_CloneProjectileThink;
+
+		weaponInfo->altFlashSound[0]	= trap->S_RegisterSound( "sound/weapons/blaster/alt_fire.wav");
+		weaponInfo->altFiringSound		= NULL_SOUND;
+		weaponInfo->altChargeSound		= NULL_SOUND;
+		weaponInfo->altMuzzleEffect		= trap->FX_RegisterEffect( "clone/muzzle_flash" );
+		weaponInfo->altMissileModel		= NULL_HANDLE;
+		weaponInfo->altMissileSound		= NULL_SOUND;
+		weaponInfo->altMissileDlight	= 0;
+//		weaponInfo->altMissileDlightColor= {0,0,0};
+		weaponInfo->altMissileHitSound	= NULL_SOUND;
+		weaponInfo->altMissileTrailFunc = FX_CloneProjectileThink;
+
+		cgs.effects.cloneShotEffect = trap->FX_RegisterEffect("clone/projectile");
+		cgs.effects.cloneWallImpactEffect = trap->FX_RegisterEffect("clone/wall_impact");
+		cgs.effects.cloneFleshImpactEffect = trap->FX_RegisterEffect("clone/flesh_impact");
+		break;
+
 	case WP_DISRUPTOR:
 		weaponInfo->selectSound			= trap->S_RegisterSound("sound/weapons/disruptor/select.wav");
 

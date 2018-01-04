@@ -48,6 +48,7 @@ vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS] =
 	{12,	6,		-6	},	// WP_BRYAR_OLD,
 	{12,	6,		-6	},	// WP_BATTLEDROID,
 	{12,	6,		-6	},	// WP_THEFIRSTORDER,
+	{12,	6,		-6	},	// WP_CLONECARBINE,
 };
 
 weaponData_t weaponData[WP_NUM_WEAPONS] =
@@ -361,6 +362,23 @@ weaponData_t weaponData[WP_NUM_WEAPONS] =
 	{	// WP_THEFIRSTORDER,
 //		"F-11D",			//	char	classname[32];		// Spawning name
 	  AMMO_BLASTER,			//	int		ammoIndex;			// Index to proper ammo slot
+	  5,						//	int		ammoLow;			// Count when ammo is low
+	  2,						//	int		energyPerShot;		// Amount of energy used per shot
+	  350,					//	int		fireTime;			// Amount of time between firings
+	  8192,					//	int		range;				// Range of weapon
+	  3,						//	int		altEnergyPerShot;	// Amount of energy used for alt-fire
+	  150,					//	int		altFireTime;		// Amount of time between alt-firings
+	  8192,					//	int		altRange;			// Range of alt-fire
+	  0,						//	int		chargeSubTime;		// ms interval for subtracting ammo during charge
+	  0,						//	int		altChargeSubTime;	// above for secondary
+	  0,						//	int		chargeSub;			// amount to subtract during charge on each interval
+	  0,						//int		altChargeSub;		// above for secondary
+	  0,						//	int		maxCharge;			// stop subtracting once charged for this many ms
+	  0						//	int		altMaxCharge;		// above for secondary
+	},
+	{	// WP_CLONECARBINE,
+	//		"DC-15 Carbine",			//	char	classname[32];		// Spawning name
+	  AMMO_METAL_BOLTS,			//	int		ammoIndex;			// Index to proper ammo slot
 	  5,						//	int		ammoLow;			// Count when ammo is low
 	  2,						//	int		energyPerShot;		// Amount of energy used per shot
 	  350,					//	int		fireTime;			// Amount of time between firings
