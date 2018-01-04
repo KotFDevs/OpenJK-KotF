@@ -64,6 +64,12 @@ static vec3_t muzzle;
 #define CLONECARBINE_VELOCITY			2300
 #define CLONECARBINE_DAMAGE				20
 
+// DH-17
+//---------
+#define REBELBLASTER_SPREAD				1.6f//1.2f
+#define REBELBLASTER_VELOCITY			1000
+#define REBELBLASTER_DAMAGE				35
+
 // Tenloss Disruptor
 //----------
 #define DISRUPTOR_MAIN_DAMAGE			30 //40
@@ -552,6 +558,34 @@ void WP_FireCloneCarbineMissile( gentity_t *ent, vec3_t start, vec3_t dir, qbool
 }
 
 //---------------------------------------------------------
+void WP_FireRebelBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
+//---------------------------------------------------------
+{
+	int velocity	= REBELBLASTER_VELOCITY;
+	int	damage		= REBELBLASTER_DAMAGE;
+	gentity_t *missile;
+
+	if (ent->s.eType == ET_NPC)
+	{ //animent
+		damage = 10;
+	}
+
+	missile = CreateMissile( start, dir, velocity, 10000, ent, altFire );
+
+	missile->classname = "blaster_proj";
+	missile->s.weapon = WP_REBELBLASTER;
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	missile->methodOfDeath = MOD_REBELBLASTER;
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
+
+
+//---------------------------------------------------------
 void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir )
 //---------------------------------------------------------
 {
@@ -698,6 +732,27 @@ static void WP_FireCloneCarbine( gentity_t *ent, qboolean altFire )
 
 	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
 	WP_FireCloneCarbineMissile( ent, muzzle, dir, altFire );
+}
+
+//---------------------------------------------------------
+static void WP_FireRebelBlaster( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	vec3_t  dir, angs;
+
+	vectoangles( forward, angs );
+
+	if ( altFire )
+	{
+		// add some slop to the alt-fire direction
+		angs[PITCH] += Q_flrand(-1.6f, 1.6f) * REBELBLASTER_SPREAD;
+		angs[YAW]       += Q_flrand(-1.6f, 1.6f) * REBELBLASTER_SPREAD;
+	}
+
+	AngleVectors( angs, dir, NULL, NULL );
+
+	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
+	WP_FireRebelBlasterMissile( ent, muzzle, dir, altFire );
 }
 
 
@@ -4761,6 +4816,10 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 			WP_FireBryarPistol( ent, altFire );
 			break;
 
+		case WP_BLASTER:
+			WP_FireBlaster( ent, altFire );
+			break;
+
 		case WP_BATTLEDROID:
 			WP_FireBattleDroid( ent, altFire );
 			break;
@@ -4771,6 +4830,10 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 
 		case WP_CLONECARBINE:
 			WP_FireCloneCarbine( ent, altFire );
+			break;
+
+		case WP_REBELBLASTER:
+			WP_FireRebelBlaster( ent, altFire );
 			break;
 
 		case WP_DISRUPTOR:

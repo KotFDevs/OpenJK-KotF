@@ -249,6 +249,7 @@ void CG_RegisterWeapon( int weaponNum) {
 	case WP_EMPLACED_GUN: //rww - just use the same as this for now..
 	case WP_BATTLEDROID:
 	case WP_THEFIRSTORDER:
+	case WP_REBELBLASTER:
 		weaponInfo->selectSound			= trap->S_RegisterSound("sound/weapons/blaster/select.wav");
 
 		weaponInfo->flashSound[0]		= trap->S_RegisterSound( "sound/weapons/blaster/fire.wav");
