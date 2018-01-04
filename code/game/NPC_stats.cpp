@@ -305,6 +305,10 @@ saber_colors_t TranslateSaberColor( const char *name )
 	{
 		return ((saber_colors_t)(Q_irand( SABER_ORANGE, SABER_PURPLE )));
 	}
+	if (!Q_stricmp(name, "prequel_random"))
+	{
+		return ((saber_colors_t)(Q_irand(SABER_GREEN, SABER_BLUE)));
+	}
 	float colors[3];
 	Q_parseSaberColor(name, colors);
 	int colourArray[3];
