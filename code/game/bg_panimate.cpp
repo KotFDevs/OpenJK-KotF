@@ -5990,9 +5990,7 @@ void PM_TorsoAnimation( void )
 					break;
 
 				case WP_BLASTER:
-				case WP_BATTLEDROID:
 				case WP_THEFIRSTORDER:
-				case WP_CLONECARBINE:
 				case WP_REBELBLASTER:
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
 					//PM_SetAnim(pm,SETANIM_LEGS,BOTH_ATTACK2,SETANIM_FLAG_NORMAL);
@@ -6073,6 +6071,8 @@ void PM_TorsoAnimation( void )
 					}
 					break;
 				case WP_REPEATER:
+				case WP_CLONECARBINE:
+				case WP_BATTLEDROID:
 					if ( pm->gent && pm->gent->client && pm->gent->client->NPC_class == CLASS_GALAKMECH )
 					{//
 						if ( pm->gent->alt_fire )
@@ -6173,6 +6173,8 @@ void PM_TorsoAnimation( void )
 			if ( !weaponBusy
 				&& pm->ps->weapon != WP_BOWCASTER
 				&& pm->ps->weapon != WP_REPEATER
+				&& pm->ps->weapon != WP_BATTLEDROID
+				&& pm->ps->weapon != WP_CLONECARBINE
 				&& pm->ps->weapon != WP_FLECHETTE
 				&& pm->ps->weapon != WP_ROCKET_LAUNCHER
 				&& pm->ps->weapon != WP_CONCUSSION
