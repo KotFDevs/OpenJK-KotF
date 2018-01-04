@@ -52,6 +52,12 @@ static vec3_t muzzle;
 #define BATTLEDROID_VELOCITY			2300
 #define BATTLEDROID_DAMAGE				20
 
+// F-11D
+//---------
+#define THEFIRSTORDER_SPREAD				1.6f//1.2f
+#define THEFIRSTORDER_VELOCITY			2300
+#define THEFIRSTORDER_DAMAGE				20
+
 // Tenloss Disruptor
 //----------
 #define DISRUPTOR_MAIN_DAMAGE			30 //40
@@ -487,6 +493,33 @@ void WP_FireBattleDroidMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboole
 }
 
 //---------------------------------------------------------
+void WP_FireFirstOrderMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
+//---------------------------------------------------------
+{
+	int velocity	= THEFIRSTORDER_VELOCITY;
+	int	damage		= THEFIRSTORDER_DAMAGE;
+	gentity_t *missile;
+
+	if (ent->s.eType == ET_NPC)
+	{ //animent
+		damage = 10;
+	}
+
+	missile = CreateMissile( start, dir, velocity, 10000, ent, altFire );
+
+	missile->classname = "blaster_proj";
+	missile->s.weapon = WP_THEFIRSTORDER;
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	missile->methodOfDeath = MOD_THEFIRSTORDER;
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
+
+//---------------------------------------------------------
 void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir )
 //---------------------------------------------------------
 {
@@ -583,14 +616,35 @@ static void WP_FireBattleDroid( gentity_t *ent, qboolean altFire )
 	if ( altFire )
 	{
 		// add some slop to the alt-fire direction
-		angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BLASTER_SPREAD;
-		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * BLASTER_SPREAD;
+		angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BATTLEDROID_SPREAD;
+		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * BATTLEDROID_SPREAD;
 	}
 
 	AngleVectors( angs, dir, NULL, NULL );
 
 	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
 	WP_FireBattleDroidMissile( ent, muzzle, dir, altFire );
+}
+
+//---------------------------------------------------------
+static void WP_FireFirstOrder( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	vec3_t  dir, angs;
+
+	vectoangles( forward, angs );
+
+	if ( altFire )
+	{
+		// add some slop to the alt-fire direction
+		angs[PITCH] += Q_flrand(-1.0f, 1.0f) * THEFIRSTORDER_SPREAD;
+		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * THEFIRSTORDER_SPREAD;
+	}
+
+	AngleVectors( angs, dir, NULL, NULL );
+
+	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
+	WP_FireFirstOrderMissile( ent, muzzle, dir, altFire );
 }
 
 
@@ -4657,6 +4711,10 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 
 		case WP_BATTLEDROID:
 			WP_FireBattleDroid( ent, altFire );
+			break;
+
+		case WP_THEFIRSTORDER:
+			WP_FireFirstOrder( ent, altFire );
 			break;
 
 		case WP_DISRUPTOR:

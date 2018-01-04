@@ -2078,6 +2078,10 @@ void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, imp
 		FX_BlasterWeaponHitWall( origin, dir );
 		break;
 
+	case WP_THEFIRSTORDER:
+		FX_BlasterWeaponHitWall( origin, dir );
+		break;
+
 	case WP_EMPLACED_GUN:
 		FX_BlasterWeaponHitWall( origin, dir );
 		//FIXME: Give it its own hit wall effect
@@ -2203,6 +2207,10 @@ void CG_MissileHitPlayer(int weapon, vec3_t origin, vec3_t dir, int entityNum, q
 		break;
 
 	case WP_BATTLEDROID:
+		FX_BlasterWeaponHitPlayer( origin, dir, humanoid );
+		break;
+
+	case WP_THEFIRSTORDER:
 		FX_BlasterWeaponHitPlayer( origin, dir, humanoid );
 		break;
 

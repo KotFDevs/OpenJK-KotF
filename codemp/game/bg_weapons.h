@@ -47,6 +47,7 @@ typedef enum {
 	WP_CONCUSSION,
 	WP_BRYAR_OLD,
 	WP_BATTLEDROID,
+	WP_THEFIRSTORDER,
 	WP_EMPLACED_GUN,
 	WP_TURRET,
 
@@ -62,7 +63,7 @@ typedef enum {
 } weapon_t;
 
 //anything > this will be considered not player useable
-#define LAST_USEABLE_WEAPON			WP_BATTLEDROID
+#define LAST_USEABLE_WEAPON			WP_THEFIRSTORDER
 
 typedef enum //# ammo_e
 {
