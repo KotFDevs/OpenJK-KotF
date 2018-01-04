@@ -394,6 +394,10 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 			attDelay -= Q_irand( 500, 1500 );
 			break;
 			
+		case WP_JANGO:
+			attDelay -= Q_irand( 500, 1500 );
+			break;
+			
 		/*
 		case WP_DEMP2:
 			break;
@@ -1306,6 +1310,44 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 				ent->NPC->burstSpacing = 500;//attack debounce
 		}
 		break;
+		
+	case WP_JANGO:
+		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
+		if (ent->weaponModel[1] > 0)
+		{//commando
+			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
+			ent->NPC->burstMin = 4;
+#ifdef BASE_SAVE_COMPAT
+			ent->NPC->burstMean = 8;
+#endif
+			ent->NPC->burstMax = 12;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 600;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 400;//attack debounce
+			else
+				ent->NPC->burstSpacing = 250;//attack debounce
+		}
+		else if (ent->client->NPC_class == CLASS_SABOTEUR)
+		{
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 900;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 600;//attack debounce
+			else
+				ent->NPC->burstSpacing = 400;//attack debounce
+		}
+		else
+		{
+			//	ent->NPC->burstSpacing = 1000;//attackdebounce
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 750;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+		}
+		break;
 
 	default:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
@@ -1730,6 +1772,10 @@ int NPC_AttackDebounceForWeapon (void)
 	case WP_REY:
 		return 3000;
 		break;
+		
+	case WP_JANGO:
+		return 3000;
+		break;
 
 	case WP_SABER:
 		return 100;
@@ -1785,6 +1831,10 @@ float NPC_MaxDistSquaredForWeapon (void)
 	case WP_REY:
 	    return 1024 * 1024;
 	    break;
+		
+	case WP_JANGO:
+		return 1024 * 1024;
+		break;
 
 	case WP_BLASTER_PISTOL://prifle
 		return 1024 * 1024;
@@ -2874,6 +2924,7 @@ float IdealDistance ( gentity_t *self )
 	case WP_BLASTER_PISTOL:
 	case WP_BLASTER:
 	case WP_REY:
+	case WP_JANGO:
 	default:
 		break;
 	}

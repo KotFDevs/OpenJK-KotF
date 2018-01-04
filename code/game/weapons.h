@@ -86,6 +86,7 @@ typedef enum //# weapon_e
 	WP_CLONECOMMANDO,
 	WP_REBELRIFLE,
 	WP_REY,
+	WP_JANGO,
 
 	//# #eol
 	WP_NUM_WEAPONS
@@ -251,6 +252,19 @@ typedef struct ammoData_s
 #define REY_VEL				1800
 #define REY_DAMAGE			14
 #define REY_CHARGE_UNIT		200.0f
+
+// Westar 34
+//--------
+#define JANGO_MAIN_SPREAD			0.1f
+#define JANGO_ALT_SPREAD			0.1f
+#define JANGO_NPC_SPREAD			0.1f
+#define JANGO_VELOCITY				3800
+#define JANGO_NPC_VEL_CUT			0.5f
+#define JANGO_NPC_HARD_VEL_CUT		0.7f
+#define JANGO_DAMAGE				8
+#define	JANGO_NPC_DAMAGE_EASY		6
+#define	JANGO_NPC_DAMAGE_NORMAL		8
+#define	JANGO_NPC_DAMAGE_HARD		10
 
 // Tenloss Disruptor
 //----------
