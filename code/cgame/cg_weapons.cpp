@@ -405,6 +405,7 @@ void CG_RegisterWeapon( int weaponNum ) {
 		break;
 
 	case WP_BLASTER:
+	case WP_THEFIRSTORDER:
 		cgs.effects.blasterShotEffect			= theFxScheduler.RegisterEffect( "blaster/shot" );
 													theFxScheduler.RegisterEffect( "blaster/NPCshot" );
 //		cgs.effects.blasterOverchargeEffect		= theFxScheduler.RegisterEffect( "blaster/overcharge" );
@@ -1463,6 +1464,7 @@ const char *weaponDesc[WP_NUM_WEAPONS - 1] =
 "SCEPTER_DESC",
 "NOGHRI_STICK_DESC",
 "BATTLEDROID_DESC",
+"THEFIRSTORDER_DESC",
 };
 
 /*
@@ -3073,6 +3075,10 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 	case WP_BATTLEDROID:
 		FX_BlasterWeaponHitWall(origin, dir);
 		break;
+	
+	case WP_THEFIRSTORDER:
+		FX_BlasterWeaponHitWall(origin, dir);
+		break;
 
 	}
 }
@@ -3214,7 +3220,12 @@ void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir
 	case WP_NOGHRI_STICK:
 		FX_NoghriShotWeaponHitPlayer( other, origin, dir, humanoid );
 		break;
+	
 	case WP_BATTLEDROID:
+		FX_BlasterWeaponHitPlayer(other, origin, dir, humanoid);
+		break;
+		
+	case WP_THEFIRSTORDER:
 		FX_BlasterWeaponHitPlayer(other, origin, dir, humanoid);
 		break;
 			

@@ -79,7 +79,7 @@ typedef enum //# weapon_e
 	WP_SCEPTER,
 	WP_NOGHRI_STICK,
 	WP_BATTLEDROID,
-	
+	WP_THEFIRSTORDER,
 
 	//# #eol
 	WP_NUM_WEAPONS

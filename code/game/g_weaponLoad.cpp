@@ -155,6 +155,7 @@ qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 	qtrue,//WP_NOGHRI_STICK,
 
 	qtrue,//WP_BATTLEDROID
+	qtrue,//WP_THEFIRSTORDER,
 
 	//# #eol
 	//WP_NUM_WEAPONS
@@ -261,7 +262,8 @@ const int defaultDamage[] = {
 	0,							// WP_TUSKEN_STAFF
 	0,							// WP_SCEPTER
 	0,							// WP_NOGHRI_STICK
-	BLASTER_DAMAGE,				// WP_BATTLEDROID
+	BLASTER_DAMAGE,				// WP_BATTLEDROID 
+	BLASTER_DAMAGE,				// WP_THEFIRSTORDER
 };
 
 const int defaultAltDamage[] = {
@@ -300,6 +302,7 @@ const int defaultAltDamage[] = {
 	0,						// WP_SCEPTER
 	0,						// WP_NOGHRI_STICK
 	BLASTER_DAMAGE,			// WP_BATTLEDROID
+	BLASTER_DAMAGE,			// WP_THEFIRSTORDER
 };
 
 const int defaultSplashDamage[] = {
@@ -338,6 +341,7 @@ const int defaultSplashDamage[] = {
 	0,								// WP_SCEPTER
 	0,								// WP_NOGHRI_STICK
 	0,								// WP_BATTLEDROID
+	0,				   				// WP_THEFIRSTORDER
 };
 
 const float defaultSplashRadius[] = {
@@ -452,6 +456,7 @@ const float defaultAltSplashRadius[] = {
 	0.0f,							// WP_SCEPTER
 	0.0f,							// WP_NOGHRI_STICK
 	0.0f,							// WP_BATTLEDROID
+	0.0f,							// WP_THEFIRSTORDER
 };
 
 wpnParms_t WpnParms[] =
@@ -587,6 +592,8 @@ void WPN_WeaponType( const char **holdBuf)
 		weaponNum = WP_NOGHRI_STICK;
 	else if (!Q_stricmp(tokenStr, "WP_BATTLEDROID"))
 		weaponNum = WP_BATTLEDROID;
+	else if (!Q_stricmp(tokenStr, "WP_THEFIRSTORDER"))
+		weaponNum = WP_THEFIRSTORDER;
 	else
 	{
 		weaponNum = 0;
