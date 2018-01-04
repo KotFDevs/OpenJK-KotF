@@ -267,6 +267,7 @@ int WeaponReadyAnim[WP_NUM_WEAPONS] =
 	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_CLONECARBINE,
 	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_REBELBLASTER,
 	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_CLONERIFLE,
+	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_CLONECOMMANDO,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -298,6 +299,7 @@ int WeaponReadyLegsAnim[WP_NUM_WEAPONS] =
 	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_CLONECARBINE,
 	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_REBELBLASTER,
 	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_CLONERIFLE,
+	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_CLONECOMMANDO,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -329,6 +331,7 @@ int WeaponAttackAnim[WP_NUM_WEAPONS] =
 	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_CLONECARBINE,
 	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_REBELBLASTER,
 	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_CLONERIFLE,
+	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_CLONECOMMANDO,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -1307,6 +1310,25 @@ Don't place this
 /* sounds */ "",
 		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
 	},
+
+/*QUAKED weapon_clonecommando (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_clonecommando",
+		"sound/weapons/w_pkup.wav",
+						 { "models/weapons2/DC-17m/dc-17m_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/DC-17m/dc-17m_mp.md3",
+/* icon */		"gfx/hud/w_icon_dc-17m",
+/* pickup *///	"DC-17M",
+		100,
+		IT_WEAPON,
+		WP_CLONECOMMANDO,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
 
 /*QUAKED weapon_disruptor (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
 */

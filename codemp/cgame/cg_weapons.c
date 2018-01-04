@@ -2094,6 +2094,10 @@ void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, imp
 		FX_CloneWeaponHitWall( origin, dir );
 		break;
 
+	case WP_CLONECOMMANDO:
+		FX_CloneWeaponHitWall( origin, dir );
+		break;
+
 	case WP_EMPLACED_GUN:
 		FX_BlasterWeaponHitWall( origin, dir );
 		//FIXME: Give it its own hit wall effect
@@ -2235,6 +2239,10 @@ void CG_MissileHitPlayer(int weapon, vec3_t origin, vec3_t dir, int entityNum, q
 		break;
 
 	case WP_CLONERIFLE:
+		FX_CloneWeaponHitPlayer( origin, dir, humanoid );
+		break;
+
+	case WP_CLONECOMMANDO:
 		FX_CloneWeaponHitPlayer( origin, dir, humanoid );
 		break;
 
