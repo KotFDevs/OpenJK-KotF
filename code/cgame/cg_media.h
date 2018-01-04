@@ -340,6 +340,12 @@ typedef struct
 	fxHandle_t	blasterWallImpactEffect;
 	fxHandle_t	blasterFleshImpactEffect;
 
+	// Clone
+	fxHandle_t	cloneShotEffect;
+	fxHandle_t	cloneOverchargeEffect;
+	fxHandle_t	cloneWallImpactEffect;
+	fxHandle_t	cloneFleshImpactEffect;
+
 	// BOWCASTER
 	fxHandle_t	bowcasterShotEffect;
 	fxHandle_t	bowcasterBounceEffect;
