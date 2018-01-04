@@ -1112,6 +1112,7 @@ void CG_G2MarkEvent(entityState_t *es)
 	case WP_REBELBLASTER:
 	case WP_CLONERIFLE:
 	case WP_CLONECOMMANDO:
+	case WP_REBELRIFLE:
 	case WP_BLASTER:
 	case WP_DISRUPTOR:
 	case WP_BOWCASTER:
