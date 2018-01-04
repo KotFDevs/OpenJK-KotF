@@ -5992,6 +5992,8 @@ void PM_TorsoAnimation( void )
 				case WP_BLASTER:
 				case WP_BATTLEDROID:
 				case WP_THEFIRSTORDER:
+				case WP_CLONECARBINE:
+				case WP_REBELBLASTER:
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
 					//PM_SetAnim(pm,SETANIM_LEGS,BOTH_ATTACK2,SETANIM_FLAG_NORMAL);
 					break;
@@ -6372,6 +6374,8 @@ void PM_TorsoAnimation( void )
 				case WP_REPEATER:
 				case WP_BATTLEDROID:
 				case WP_THEFIRSTORDER:
+				case WP_CLONECARBINE:
+				case WP_REBELBLASTER:
 					if ( weaponBusy )
 					{
 						PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);

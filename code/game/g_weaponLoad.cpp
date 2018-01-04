@@ -156,6 +156,8 @@ qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 
 	qtrue,//WP_BATTLEDROID
 	qtrue,//WP_THEFIRSTORDER,
+	qtrue,//WP_CLONECARBINE,
+	qtrue,//WP_REBELBLASTER,
 
 	//# #eol
 	//WP_NUM_WEAPONS
@@ -264,6 +266,8 @@ const int defaultDamage[] = {
 	0,							// WP_NOGHRI_STICK
 	BLASTER_DAMAGE,				// WP_BATTLEDROID 
 	BLASTER_DAMAGE,				// WP_THEFIRSTORDER
+	BLASTER_DAMAGE,				// WP_CLONECARBINE
+	BLASTER_DAMAGE,				// WP_REBELBLASTER
 };
 
 const int defaultAltDamage[] = {
@@ -303,6 +307,8 @@ const int defaultAltDamage[] = {
 	0,						// WP_NOGHRI_STICK
 	BLASTER_DAMAGE,			// WP_BATTLEDROID
 	BLASTER_DAMAGE,			// WP_THEFIRSTORDER
+	BLASTER_DAMAGE,			// WP_CLONECARBINE
+	BLASTER_DAMAGE,			// WP_REBELBLASTER
 };
 
 const int defaultSplashDamage[] = {
@@ -342,6 +348,8 @@ const int defaultSplashDamage[] = {
 	0,								// WP_NOGHRI_STICK
 	0,								// WP_BATTLEDROID
 	0,				   				// WP_THEFIRSTORDER
+	0,				   				// WP_CLONECARBINE
+	0,				   				// WP_REBELBLASTER
 };
 
 const float defaultSplashRadius[] = {
@@ -380,6 +388,9 @@ const float defaultSplashRadius[] = {
 	0.0f,							// WP_SCEPTER
 	0.0f,							// WP_NOGHRI_STICK
 	0.0f,							// WP_BATTLEDROID
+	0.0f,							// WP_THEFIRSTORDER
+	0.0f,							// WP_CLONECARBINE
+	0.0f,							// WP_REBELBLASTER
 };
 
 const int defaultAltSplashDamage[] = {
@@ -418,6 +429,9 @@ const int defaultAltSplashDamage[] = {
 	0,								// WP_SCEPTER
 	0,								// WP_NOGHRI_STICK
 	0,								// WP_BATTLEDROID
+	0,								// WP_THEFIRSTORDER
+	0,								// WP_CLONECARBINE
+	0,								// WP_REBELBLASTER
 };
 
 const float defaultAltSplashRadius[] = {
@@ -457,6 +471,8 @@ const float defaultAltSplashRadius[] = {
 	0.0f,							// WP_NOGHRI_STICK
 	0.0f,							// WP_BATTLEDROID
 	0.0f,							// WP_THEFIRSTORDER
+	0.0f,							// WP_CLONECARBINE
+	0.0f,							// WP_REBELBLASTER
 };
 
 wpnParms_t WpnParms[] =
@@ -594,6 +610,10 @@ void WPN_WeaponType( const char **holdBuf)
 		weaponNum = WP_BATTLEDROID;
 	else if (!Q_stricmp(tokenStr, "WP_THEFIRSTORDER"))
 		weaponNum = WP_THEFIRSTORDER;
+	else if (!Q_stricmp(tokenStr, "WP_CLONECARBINE"))
+		weaponNum = WP_CLONECARBINE;
+	else if (!Q_stricmp(tokenStr, "WP_REBELBLASTER"))
+		weaponNum = WP_REBELBLASTER;
 	else
 	{
 		weaponNum = 0;

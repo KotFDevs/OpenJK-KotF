@@ -269,6 +269,12 @@ gentity_t *TossClientItems( gentity_t *self )
 				case WP_THEFIRSTORDER:
 					dropped->count = 15;
 					break;
+				case WP_CLONECARBINE:
+					dropped->count = 15;
+					break;
+				case WP_REBELBLASTER:
+					dropped->count = 15;
+					break;
 				default:
 					dropped->count = 0;
 					break;
@@ -5350,6 +5356,8 @@ void G_TrackWeaponUsage( gentity_t *self, gentity_t *inflictor, int add, int mod
 		case MOD_BLASTER_ALT:
 			weapon = WP_BLASTER;
 			weapon = WP_THEFIRSTORDER;
+			weapon = WP_CLONECARBINE;
+			weapon = WP_REBELBLASTER;
 			break;
 		case MOD_DISRUPTOR:
 		case MOD_SNIPER:

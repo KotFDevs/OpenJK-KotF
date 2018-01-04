@@ -282,7 +282,9 @@ qboolean NPC_UpdateAngles ( qboolean doPitch, qboolean doYaw )
 			NPC->s.weapon==WP_BRYAR_PISTOL ||
 			NPC->s.weapon==WP_NOGHRI_STICK ||
 			NPC->s.weapon==WP_BATTLEDROID || 
-			NPC->s.weapon==WP_THEFIRSTORDER)
+			NPC->s.weapon==WP_THEFIRSTORDER ||
+			NPC->s.weapon==WP_CLONECARBINE ||
+			NPC->s.weapon==WP_REBELBLASTER)
 		{
 			yawSpeed *= 10.0f;
 		}

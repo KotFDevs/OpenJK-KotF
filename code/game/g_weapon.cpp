@@ -76,7 +76,7 @@ float weaponSpeed[WP_NUM_WEAPONS][2] =
 	{ 0,0 },//WP_TUSKEN_STAFF,
 	{ 0,0 },//WP_SCEPTER,
 	{ 0,0 },//WP_NOGHRI_STICK,
-	{ BLASTER_VELOCITY, BLASTER_VELOCITY }, // WP_BATTLEDROID, // WP_THEFIRSTORDER
+	{ BLASTER_VELOCITY, BLASTER_VELOCITY }, // WP_BATTLEDROID, // WP_THEFIRSTORDER, // WP_CLONECARBINE, // WP_REBELBLASTER
 
 };
 
@@ -387,6 +387,8 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case WP_BLASTER:
 		case WP_BATTLEDROID:
 		case WP_THEFIRSTORDER:
+		case WP_CLONECARBINE:
+		case WP_REBELBLASTER:
 		case WP_DISRUPTOR:
 		case WP_BOWCASTER:
 		case WP_ROCKET_LAUNCHER:
@@ -491,6 +493,8 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 	case WP_BLASTER:
 	case WP_THEFIRSTORDER:
+	case WP_CLONECARBINE:
+	case WP_REBELBLASTER:
 		ViewHeightFix(ent);
 		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
 		muzzlePoint[2] -= 1;
@@ -586,6 +590,8 @@ vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS] =
 	{12,	6,		-6	},	// WP_BRYAR_PISTOL,
 	{12,	6,		-6  },  // WP_BATTLEDROID,
 	{12,	6,		-6  },  // WP_THEFIRSTORDER,
+	{12,	6,		-6  },  // WP_CLONECARBINE,
+	{12,	6,		-6  },  // WP_REBELBLASTER,
 };
 
 void WP_RocketLock( gentity_t *ent, float lockDist )
@@ -1563,6 +1569,14 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		
 	case WP_THEFIRSTORDER:
 		WP_FireFirstOrder(ent, alt_fire);
+		break;
+		
+	case WP_CLONECARBINE:
+		WP_FireCloneCarbine(ent, alt_fire);
+		break;
+		
+	case WP_REBELBLASTER:
+		WP_FireRebelBlaster(ent, alt_fire);
 		break;
 
 	case WP_TUSKEN_STAFF:
