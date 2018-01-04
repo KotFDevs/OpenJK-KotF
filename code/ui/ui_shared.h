@@ -45,7 +45,7 @@ enum {
 #define TT_PUNCTUATION				5			// punctuation
 #endif
 
-#define SLIDER_WIDTH 128.0
+#define SLIDER_WIDTH 96.0
 #define SLIDER_HEIGHT 16.0
 #define SLIDER_THUMB_WIDTH 12.0
 #define SLIDER_THUMB_HEIGHT 16.0
