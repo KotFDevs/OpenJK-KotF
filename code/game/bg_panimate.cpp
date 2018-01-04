@@ -6073,6 +6073,7 @@ void PM_TorsoAnimation( void )
 				case WP_REPEATER:
 				case WP_CLONECARBINE:
 				case WP_BATTLEDROID:
+				case WP_CLONERIFLE:
 					if ( pm->gent && pm->gent->client && pm->gent->client->NPC_class == CLASS_GALAKMECH )
 					{//
 						if ( pm->gent->alt_fire )
@@ -6175,6 +6176,7 @@ void PM_TorsoAnimation( void )
 				&& pm->ps->weapon != WP_REPEATER
 				&& pm->ps->weapon != WP_BATTLEDROID
 				&& pm->ps->weapon != WP_CLONECARBINE
+				&& pm->ps->weapon != WP_CLONERIFLE
 				&& pm->ps->weapon != WP_FLECHETTE
 				&& pm->ps->weapon != WP_ROCKET_LAUNCHER
 				&& pm->ps->weapon != WP_CONCUSSION

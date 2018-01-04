@@ -417,10 +417,12 @@ void CG_RegisterWeapon( int weaponNum ) {
 		break;
 
 	case WP_CLONECARBINE:
+	case WP_CLONERIFLE:
 		cgs.effects.cloneShotEffect = theFxScheduler.RegisterEffect("clone/projectile");
 		cgs.effects.cloneWallImpactEffect = theFxScheduler.RegisterEffect("clone/wall_impact");
 		cgs.effects.cloneFleshImpactEffect = theFxScheduler.RegisterEffect("clone/flesh_impact");
 		break;
+	
 	case WP_BATTLEDROID:
 		cgs.effects.blasterShotEffect = theFxScheduler.RegisterEffect("blaster/shot");
 		theFxScheduler.RegisterEffect("blaster/NPCshot");
@@ -1473,6 +1475,7 @@ const char *weaponDesc[WP_NUM_WEAPONS - 1] =
 "THEFIRSTORDER_DESC",
 "CLONECARBINE_DESC",
 "REBELBLASTER_DESC",
+"CLONERIFLE_DESC",
 };
 
 /*
@@ -3095,6 +3098,10 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 	case WP_REBELBLASTER:
 		FX_BlasterWeaponHitWall(origin, dir);
 		break;
+		
+	case WP_CLONERIFLE:
+		FX_CloneWeaponHitWall(origin, dir);
+		break;
 
 	}
 }
@@ -3251,6 +3258,10 @@ void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir
 		
 	case WP_REBELBLASTER:
 		FX_BlasterWeaponHitPlayer(other, origin, dir, humanoid);
+		break;
+		
+	case WP_CLONERIFLE:
+		FX_CloneWeaponHitPlayer(other, origin, dir, humanoid);
 		break;
 			
 	}

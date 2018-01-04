@@ -82,6 +82,7 @@ typedef enum //# weapon_e
 	WP_THEFIRSTORDER,
 	WP_CLONECARBINE,
 	WP_REBELBLASTER,
+	WP_CLONERIFLE,
 
 	//# #eol
 	WP_NUM_WEAPONS
@@ -189,6 +190,19 @@ typedef struct ammoData_s
 #define	BLASTER_NPC_DAMAGE_EASY		6
 #define	BLASTER_NPC_DAMAGE_NORMAL	12 // 14
 #define	BLASTER_NPC_DAMAGE_HARD		16 // 18
+
+// DC-15
+//---------
+#define CLONERIFLE_MAIN_SPREAD			0.1f
+#define CLONERIFLE_ALT_SPREAD			0.5f
+#define CLONERIFLE_NPC_SPREAD			0.5f
+#define CLONERIFLE_VELOCITY				2300
+#define CLONERIFLE_NPC_VEL_CUT			0.5f
+#define CLONERIFLE_NPC_HARD_VEL_CUT		0.7f
+#define CLONERIFLE_DAMAGE				20
+#define	CLONERIFLE_NPC_DAMAGE_EASY		6
+#define	CLONERIFLE_NPC_DAMAGE_NORMAL	12 // 14
+#define	CLONERIFLE_NPC_DAMAGE_HARD		16 // 18
 
 // Tenloss Disruptor
 //----------
