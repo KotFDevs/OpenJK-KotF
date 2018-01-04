@@ -7235,6 +7235,69 @@ void WP_SaberThrow( gentity_t *self, usercmd_t *ucmd )
 	}
 }
 
+extern void	G_CreateG2AttachedWeaponModel( gentity_t *ent, const char *weaponModel, int boltNum, int weaponNum );
+void WP_SaberFireGun( gentity_t *self, usercmd_t *ucmd, int whichGun )
+{
+	int addTime, oldWeapon;
+	qboolean chargedShot = qfalse;
+	
+	if ( self->health <= 0 )
+	{
+		return;
+	}
+	
+	if ( !self->s.number && (cg.zoomMode || in_camera) )
+	{//can't shoot when zoomed in or in cinematic
+		return;
+	}
+	
+	if ( self->client->ps.leanofs )
+	{
+		return;
+	}
+	
+	if ( self->client->ps.weaponTime > 0 )
+	{
+		return;
+	}
+	
+	if ( self->s.weapon != WP_SABER )
+	{
+		return;
+	}
+	
+	if ( !(ucmd->buttons & BUTTON_ALT_ATTACK) )
+	{
+		return;
+	}
+	
+	addTime = weaponData[whichGun].fireTime;
+	self->client->ps.weaponTime += addTime;
+	self->client->ps.lastShotTime = level.time;
+//TODO:proper addTime scaling
+	
+	if ( whichGun == WP_BRYAR_PISTOL && self->client->ps.saberLockTime > level.time )
+	{
+		//shoot your way out of saberlocks!
+		G_StartMatrixEffect( self );
+		chargedShot = qtrue;
+		self->client->ps.weaponChargeTime = level.time - 10*BRYAR_CHARGE_UNIT;
+	}
+	
+	self->client->ps.saberBlocked = BLOCKED_NONE;
+	self->client->ps.saberMove = self->client->ps.saberBounceMove = LS_READY;
+	NPC_SetAnim( self, SETANIM_TORSO, BOTH_FORCELIGHTNING, SETANIM_FLAG_OVERRIDE|SETANIM_FLAG_HOLD|SETANIM_FLAG_RESTART );
+	
+	oldWeapon = self->s.weapon;
+	self->s.weapon = whichGun;
+	FireWeapon(self, chargedShot);
+	
+	cg_entities[self->s.number].muzzleFlashTime = level.time;
+	
+	self->s.weapon = oldWeapon;
+}
+
+
 
 //SABER BLOCKING============================================================================
 //SABER BLOCKING============================================================================
@@ -8258,7 +8321,7 @@ void WP_DropWeapon( gentity_t *dropper, vec3_t velocity )
 		}
 	}
 	//FIXME: does this work on the player?
-	dropper->client->ps.stats[STAT_WEAPONS] |= ( 1 << replaceWeap );
+	dropper->client->ps.weapons[replaceWeap] = 1;
 	if ( !dropper->s.number )
 	{
 		if ( oldWeap == WP_THERMAL )
@@ -8267,13 +8330,13 @@ void WP_DropWeapon( gentity_t *dropper, vec3_t velocity )
 		}
 		else
 		{
-			dropper->client->ps.stats[STAT_WEAPONS] &= ~( 1 << oldWeap );
+			dropper->client->ps.weapons[oldWeap] = 0;
 		}
 		CG_ChangeWeapon( replaceWeap );
 	}
 	else
 	{
-		dropper->client->ps.stats[STAT_WEAPONS] &= ~( 1 << oldWeap );
+		dropper->client->ps.weapons[oldWeap] = 0;
 	}
 	ChangeWeapon( dropper, replaceWeap );
 	dropper->s.weapon = replaceWeap;

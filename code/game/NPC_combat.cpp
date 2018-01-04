@@ -604,14 +604,14 @@ void G_SetEnemy( gentity_t *self, gentity_t *enemy )
 		//FIXME: this is a disgusting hack that is supposed to make the Imperials start with their weapon holstered- need a better way
 		if ( self->client->ps.weapon == WP_NONE && !Q_stricmpn( self->NPC_type, "imp", 3 ) && !(self->NPC->scriptFlags & SCF_FORCED_MARCH)  )
 		{
-			if ( self->client->ps.stats[STAT_WEAPONS] & ( 1 << WP_BLASTER ) )
+			if ( self->client->ps.weapons[WP_BLASTER] )
 			{
 				ChangeWeapon( self, WP_BLASTER );
 				self->client->ps.weapon = WP_BLASTER;
 				self->client->ps.weaponstate = WEAPON_READY;
 				G_CreateG2AttachedWeaponModel( self, weaponData[WP_BLASTER].weaponMdl, self->handRBolt, 0 );
 			}
-			else if ( self->client->ps.stats[STAT_WEAPONS] & ( 1 << WP_BLASTER_PISTOL ) )
+			else if ( self->client->ps.weapons[WP_BLASTER_PISTOL] )
 			{
 				ChangeWeapon( self, WP_BLASTER_PISTOL );
 				self->client->ps.weapon = WP_BLASTER_PISTOL;
@@ -1244,7 +1244,7 @@ HaveWeapon
 
 qboolean HaveWeapon( int weapon )
 {
-	return (qboolean)( client->ps.stats[STAT_WEAPONS] & ( 1 << weapon ) );
+	return ( (qboolean)(client->ps.weapons[weapon] != 0) );
 }
 
 qboolean EntIsGlass (gentity_t *check)

@@ -8892,7 +8892,7 @@ static void PM_BeginWeaponChange( int weapon ) {
 		return;
 	}
 
-	if ( !( pm->ps->stats[STAT_WEAPONS] & ( 1 << weapon ) ) ) {
+	if ( !( pm->ps->weapons[weapon] ) ) {
 		return;
 	}
 
@@ -8976,7 +8976,7 @@ static void PM_FinishWeaponChange( void ) {
 		weapon = WP_NONE;
 	}
 
-	if ( !( pm->ps->stats[STAT_WEAPONS] & ( 1 << weapon ) ) ) {
+	if ( !( pm->ps->weapons[weapon] ) ) {
 		weapon = WP_NONE;
 	}
 
@@ -8984,6 +8984,21 @@ static void PM_FinishWeaponChange( void ) {
 	{
 		trueSwitch = qfalse;
 	}
+	
+	if ( trueSwitch && pm->ps->weapon == WP_EMPLACED_GUN && !(pm->ps->eFlags & EF_LOCKED_TO_WEAPON) )
+	{
+		gitem_t *item;
+		item = FindItemForWeapon( WP_EMPLACED_GUN );
+		gentity_t *dropped = Drop_Item(pm->gent, item, 0, qfalse);
+		dropped->count = pm->ps->ammo[AMMO_EMPLACED];
+		gi.G2API_InitGhoul2Model( dropped->ghoul2, "models/map_objects/hoth/eweb_model.glm", G_ModelIndex( "models/map_objects/hoth/eweb_model.glm" ), NULL_HANDLE, NULL_HANDLE, 0, 0);
+		gi.G2API_SetSurfaceOnOff(&dropped->ghoul2[0], "eweb_cannon", 0x00000002);
+		dropped->s.radius = 10;
+		dropped->delay = level.time + 1000;
+		pm->ps->ammo[AMMO_EMPLACED] = 0;
+		pm->ps->weapons[WP_EMPLACED_GUN] = 0;
+	}
+	
 	//int oldWeap = pm->ps->weapon;
 	pm->ps->weapon = weapon;
 	pm->ps->weaponstate = WEAPON_RAISING;
@@ -11951,7 +11966,7 @@ void PM_WeaponLightsaber(void)
 		}
 	}
 
-	if ( pm->ps->stats[STAT_WEAPONS]&(1<<WP_SCEPTER)
+	if ( pm->ps->weapons[WP_SCEPTER]
 		&& !pm->ps->dualSabers
 		&& pm->gent
 		&& pm->gent->weaponModel[1] )

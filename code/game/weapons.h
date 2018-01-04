@@ -78,13 +78,15 @@ typedef enum //# weapon_e
 	WP_TUSKEN_STAFF,
 	WP_SCEPTER,
 	WP_NOGHRI_STICK,
+	
 
 	//# #eol
 	WP_NUM_WEAPONS
 } weapon_t;
 
 #define FIRST_WEAPON		WP_SABER		// this is the first weapon for next and prev weapon switching
-#define MAX_PLAYER_WEAPONS	WP_STUN_BATON	// this is the max you can switch to and get with the give all. - FIXME: it's actually this one *minus* one... why?
+
+extern qboolean playerUsableWeapons[WP_NUM_WEAPONS];
 
 // AMMO_NONE must be first and AMMO_MAX must be last, cause weapon load validates based off of these vals
 typedef enum //# ammo_e

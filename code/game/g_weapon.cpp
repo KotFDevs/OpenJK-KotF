@@ -76,6 +76,7 @@ float weaponSpeed[WP_NUM_WEAPONS][2] =
 	{ 0,0 },//WP_TUSKEN_STAFF,
 	{ 0,0 },//WP_SCEPTER,
 	{ 0,0 },//WP_NOGHRI_STICK,
+
 };
 
 float WP_SpeedOfMissileForWeapon( int wp, qboolean alt_fire )
@@ -1532,9 +1533,12 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		{
 			WP_FireNoghriStick( ent );
 		}
-		//else does melee attack/damage/func
+		else
+		{
+			WP_Melee( ent );
+		}
 		break;
-
+			
 	case WP_TUSKEN_STAFF:
 	default:
 		return;
