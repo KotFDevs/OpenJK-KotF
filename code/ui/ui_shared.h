@@ -96,7 +96,7 @@ typedef struct editFieldDef_s {
 	int			paintOffset;				//
 } editFieldDef_t;
 
-#define MAX_MULTI_CVARS 64//32
+#define MAX_MULTI_CVARS 128//32
 
 typedef struct multiDef_s {
 	const char *cvarList[MAX_MULTI_CVARS];
