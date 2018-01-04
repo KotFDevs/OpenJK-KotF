@@ -5359,12 +5359,15 @@ void G_TrackWeaponUsage( gentity_t *self, gentity_t *inflictor, int add, int mod
 		case MOD_CLONERIFLE_ALT:
 			weapon = WP_CLONERIFLE;
 			break;
+		case MOD_REBELBLASTER:
+		case MOD_REBELBLASTER_ALT:
+			weapon = WP_REBELBLASTER;
+			break;
 		case MOD_BLASTER:
 		case MOD_BLASTER_ALT:
 			weapon = WP_BLASTER;
 			weapon = WP_THEFIRSTORDER;
 			weapon = WP_CLONECARBINE;
-			weapon = WP_REBELBLASTER;
 			break;
 		case MOD_DISRUPTOR:
 		case MOD_SNIPER:

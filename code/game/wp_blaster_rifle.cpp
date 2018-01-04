@@ -428,7 +428,7 @@ void WP_FireFirstOrder(gentity_t *ent, qboolean alt_fire)
 void WP_FireRebelBlasterMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire)
 //---------------------------------------------------------
 {
-	int velocity = BLASTER_VELOCITY;
+	int velocity = REBELBLASTER_VELOCITY;
 	int	damage = altFire ? weaponData[WP_REBELBLASTER].altDamage : weaponData[WP_REBELBLASTER].damage;
 
 	if (ent && ent->client && ent->client->NPC_class == CLASS_VEHICLE)
@@ -443,11 +443,11 @@ void WP_FireRebelBlasterMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboole
 		{
 			if (g_spskill->integer < 2)
 			{
-				velocity *= BLASTER_NPC_VEL_CUT;
+				velocity *= REBELBLASTER_NPC_VEL_CUT;
 			}
 			else
 			{
-				velocity *= BLASTER_NPC_HARD_VEL_CUT;
+				velocity *= REBELBLASTER_NPC_HARD_VEL_CUT;
 			}
 		}
 	}
@@ -466,15 +466,15 @@ void WP_FireRebelBlasterMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboole
 	{
 		if (g_spskill->integer == 0)
 		{
-			damage = BLASTER_NPC_DAMAGE_EASY;
+			damage = REBELBLASTER_NPC_DAMAGE_EASY;
 		}
 		else if (g_spskill->integer == 1)
 		{
-			damage = BLASTER_NPC_DAMAGE_NORMAL;
+			damage = REBELBLASTER_NPC_DAMAGE_NORMAL;
 		}
 		else
 		{
-			damage = BLASTER_NPC_DAMAGE_HARD;
+			damage = REBELBLASTER_NPC_DAMAGE_HARD;
 		}
 	}
 
@@ -492,11 +492,11 @@ void WP_FireRebelBlasterMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboole
 	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
 	if (altFire)
 	{
-		missile->methodOfDeath = MOD_BLASTER_ALT;
+		missile->methodOfDeath = MOD_REBELBLASTER_ALT;
 	}
 	else
 	{
-		missile->methodOfDeath = MOD_BLASTER;
+		missile->methodOfDeath = MOD_REBELBLASTER;
 	}
 	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
 
@@ -522,8 +522,8 @@ void WP_FireRebelBlaster(gentity_t *ent, qboolean alt_fire)
 		if (alt_fire)
 		{
 			// add some slop to the alt-fire direction
-			angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BLASTER_ALT_SPREAD;
-			angs[YAW] += Q_flrand(-1.0f, 1.0f) * BLASTER_ALT_SPREAD;
+			angs[PITCH] += Q_flrand(-1.0f, 1.0f) * REBELBLASTER_ALT_SPREAD;
+			angs[YAW] += Q_flrand(-1.0f, 1.0f) * REBELBLASTER_ALT_SPREAD;
 		}
 		else
 		{
@@ -533,14 +533,14 @@ void WP_FireRebelBlaster(gentity_t *ent, qboolean alt_fire)
 				(ent->client->NPC_class == CLASS_STORMTROOPER ||
 				ent->client->NPC_class == CLASS_SWAMPTROOPER))
 			{
-				angs[PITCH] += (Q_flrand(-1.0f, 1.0f) * (BLASTER_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));//was 0.5f
-				angs[YAW] += (Q_flrand(-1.0f, 1.0f) * (BLASTER_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));//was 0.5f
+				angs[PITCH] += (Q_flrand(-1.0f, 1.0f) * (REBELBLASTER_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));//was 0.5f
+				angs[YAW] += (Q_flrand(-1.0f, 1.0f) * (REBELBLASTER_NPC_SPREAD + (6 - ent->NPC->currentAim)*0.25f));//was 0.5f
 			}
 			else
 			{
 				// add some slop to the main-fire direction
-				angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BLASTER_MAIN_SPREAD;
-				angs[YAW] += Q_flrand(-1.0f, 1.0f) * BLASTER_MAIN_SPREAD;
+				angs[PITCH] += Q_flrand(-1.0f, 1.0f) * REBELBLASTER_MAIN_SPREAD;
+				angs[YAW] += Q_flrand(-1.0f, 1.0f) * REBELBLASTER_MAIN_SPREAD;
 			}
 		}
 	}
