@@ -108,3 +108,81 @@ void FX_CloneWeaponHitPlayer(gentity_t *hit, vec3_t origin, vec3_t normal, qbool
 
 	theFxScheduler.PlayEffect(cgs.effects.cloneFleshImpactEffect, origin, normal);
 }
+
+/*
+-------------------------
+FX_CloneAltProjectileThink
+-------------------------
+*/
+
+void FX_CloneAltProjectileThink(centity_t *cent, const struct weaponInfo_s *weapon)
+{
+	vec3_t forward;
+
+	if (VectorNormalize2(cent->gent->s.pos.trDelta, forward) == 0.0f)
+	{
+		if (VectorNormalize2(cent->currentState.pos.trDelta, forward) == 0.0f)
+		{
+			forward[2] = 1.0f;
+		}
+	}
+
+	// hack the scale of the forward vector if we were just fired or bounced...this will shorten up the tail for a split second so tails don't clip so harshly
+	int dif = cg.time - cent->gent->s.pos.trTime;
+
+	if (dif < 75)
+	{
+		if (dif < 0)
+		{
+			dif = 0;
+		}
+
+		float scale = (dif / 75.0f) * 0.95f + 0.05f;
+
+		VectorScale(forward, scale, forward);
+	}
+
+	// see if we have some sort of extra charge going on
+	for (int t = 1; t < cent->gent->count; t++)
+	{
+		// just add ourselves over, and over, and over when we are charged
+		theFxScheduler.PlayEffect(cgs.effects.clonePowerupShotEffect, cent->lerpOrigin, forward);
+	}
+
+	theFxScheduler.PlayEffect(cgs.effects.cloneShotEffect, cent->lerpOrigin, forward);
+}
+
+/*
+-------------------------
+FX_CloneAltHitWall
+-------------------------
+*/
+void FX_CloneAltHitWall(vec3_t origin, vec3_t normal, int power)
+{
+	switch (power)
+	{
+	case 4:
+	case 5:
+		theFxScheduler.PlayEffect(cgs.effects.cloneWallImpactEffect3, origin, normal);
+		break;
+
+	case 2:
+	case 3:
+		theFxScheduler.PlayEffect(cgs.effects.cloneWallImpactEffect2, origin, normal);
+		break;
+
+	default:
+		theFxScheduler.PlayEffect(cgs.effects.cloneWallImpactEffect, origin, normal);
+		break;
+	}
+}
+
+/*
+-------------------------
+FX_CloneAltHitPlayer
+-------------------------
+*/
+void FX_CloneAltHitPlayer(vec3_t origin, vec3_t normal, qboolean humanoid)
+{
+	theFxScheduler.PlayEffect(cgs.effects.cloneFleshImpactEffect, origin, normal);
+}

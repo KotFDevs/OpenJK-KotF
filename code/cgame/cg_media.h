@@ -342,8 +342,11 @@ typedef struct
 
 	// Clone
 	fxHandle_t	cloneShotEffect;
+	fxHandle_t	clonePowerupShotEffect;
 	fxHandle_t	cloneOverchargeEffect;
 	fxHandle_t	cloneWallImpactEffect;
+	fxHandle_t	cloneWallImpactEffect2;
+	fxHandle_t	cloneWallImpactEffect3;
 	fxHandle_t	cloneFleshImpactEffect;
 
 	// BOWCASTER

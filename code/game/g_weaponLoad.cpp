@@ -42,6 +42,7 @@ void FX_BlasterAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon 
 // Clone
 void FX_CloneProjectileThink(centity_t *cent, const struct weaponInfo_s *weapon);
 void FX_CloneAltFireThink(centity_t *cent, const struct weaponInfo_s *weapon);
+void FX_CloneAltProjectileThink(centity_t *cent, const struct weaponInfo_s *weapon);
 
 
 // Bowcaster
@@ -110,6 +111,7 @@ func_t	funcs[] = {
 	{"noghri_shot_func",	FX_NoghriShotProjectileThink},
 	{ "clone_func",			FX_CloneProjectileThink},
 	{ "clone_alt_func",     FX_CloneAltFireThink },
+	{ "clone_pistol_alt_func", FX_CloneAltProjectileThink },
 	{NULL,					NULL}
 };
 

@@ -271,7 +271,7 @@ void WP_FireClonePistol( gentity_t *ent, qboolean alt_fire )
 
 	gentity_t	*missile = CreateMissile( start, forwardVec, BRYAR_PISTOL_VEL, 10000, ent, alt_fire );
 
-	missile->classname = "bryar_proj";
+	missile->classname = "clone_proj";
 	if ( ent->s.weapon == WP_BLASTER_PISTOL
 		|| ent->s.weapon == WP_JAWA )
 	{//*SIGH*... I hate our weapon system...
