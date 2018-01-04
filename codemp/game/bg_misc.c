@@ -262,6 +262,7 @@ int WeaponReadyAnim[WP_NUM_WEAPONS] =
 	TORSO_WEAPONREADY10,//TORSO_WEAPONREADY12,//WP_DET_PACK,
 	TORSO_WEAPONREADY3,//WP_CONCUSSION
 	TORSO_WEAPONREADY2,//WP_BRYAR_OLD,
+	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_BATTLEDROID,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -288,6 +289,7 @@ int WeaponReadyLegsAnim[WP_NUM_WEAPONS] =
 	BOTH_STAND1,//TORSO_WEAPONREADY12,//WP_DET_PACK,
 	BOTH_STAND1,//WP_CONCUSSION
 	BOTH_STAND1,//WP_BRYAR_OLD,
+	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_BATTLEDROID,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -312,10 +314,9 @@ int WeaponAttackAnim[WP_NUM_WEAPONS] =
 	BOTH_THERMAL_THROW,//WP_THERMAL,
 	BOTH_ATTACK3,//BOTH_ATTACK11,//WP_TRIP_MINE,
 	BOTH_ATTACK3,//BOTH_ATTACK12,//WP_DET_PACK,
-	#ifndef BASE_COMPAT
-		BOTH_ATTACK3,//WP_CONCUSSION,
-	#endif // BASE_COMPAT
-	BOTH_ATTACK2,//WP_BRYAR_OLD,
+        BOTH_ATTACK3,//WP_CONCUSSION,
+    BOTH_ATTACK2,//WP_BRYAR_OLD,
+    BOTH_ATTACK3,//BOTH_ATTACK6,//WP_BATTLEDROID,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -1200,6 +1201,24 @@ Don't place this
 		100,
 		IT_WEAPON,
 		WP_BLASTER,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_battledroid (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_battledroid",
+		"sound/weapons/w_pkup.wav",
+	       { "models/weapons2/droidblaster/bd_blaster_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/droidblaster/bd_blaster_mp.md3",
+/* icon */		"gfx/hud/w_icon_droidblaster",
+/* pickup *///	"E-5 Carbine",
+		100,
+		IT_WEAPON,
+		WP_BATTLEDROID,
 /* precache */ "",
 /* sounds */ "",
 		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description

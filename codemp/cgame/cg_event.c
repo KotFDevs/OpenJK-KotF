@@ -1106,6 +1106,7 @@ void CG_G2MarkEvent(entityState_t *es)
 	case WP_BRYAR_PISTOL:
 	case WP_CONCUSSION:
 	case WP_BRYAR_OLD:
+	case WP_BATTLEDROID:
 	case WP_BLASTER:
 	case WP_DISRUPTOR:
 	case WP_BOWCASTER:
@@ -3481,4 +3482,3 @@ void CG_CheckEvents( centity_t *cent ) {
 
 	CG_EntityEvent( cent, cent->lerpOrigin );
 }
-

@@ -2074,6 +2074,10 @@ void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, imp
 		trap->FX_PlayEffectID( cgs.effects.thermalShockwaveEffect, origin, up, -1, -1, qfalse );
 		break;
 
+	case WP_BATTLEDROID:
+		FX_BlasterWeaponHitWall( origin, dir );
+		break;
+
 	case WP_EMPLACED_GUN:
 		FX_BlasterWeaponHitWall( origin, dir );
 		//FIXME: Give it its own hit wall effect
@@ -2195,6 +2199,10 @@ void CG_MissileHitPlayer(int weapon, vec3_t origin, vec3_t dir, int entityNum, q
 		break;
 	case WP_EMPLACED_GUN:
 		//FIXME: Its own effect?
+		FX_BlasterWeaponHitPlayer( origin, dir, humanoid );
+		break;
+
+	case WP_BATTLEDROID:
 		FX_BlasterWeaponHitPlayer( origin, dir, humanoid );
 		break;
 
