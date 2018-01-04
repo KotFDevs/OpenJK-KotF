@@ -67,6 +67,8 @@ void WP_FireCloneRifleMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 void WP_FireCloneRifle(gentity_t *ent, qboolean alt_fire);
 void WP_FireCloneCommandoMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire);
 void WP_FireCloneCommando(gentity_t *ent, qboolean alt_fire);
+void WP_FireRebelRifleMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire);
+void WP_FireRebelRifle(gentity_t *ent, qboolean alt_fire);
 void WP_BotLaser( gentity_t *ent );
 void WP_FireBowcaster( gentity_t *ent, qboolean alt_fire );
 void WP_Concussion( gentity_t *ent, qboolean alt_fire );

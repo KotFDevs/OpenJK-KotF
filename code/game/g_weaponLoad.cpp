@@ -167,6 +167,7 @@ qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 	qtrue,//WP_REBELBLASTER,
 	qtrue,//WP_CLONERIFLE,
 	qtrue,//WP_CLONECOMMANDO,
+	qtrue,//WP_REBELRIFLE,
 
 	//# #eol
 	//WP_NUM_WEAPONS
@@ -282,6 +283,8 @@ const int defaultDamage[] = {
 	REBELBLASTER_DAMAGE,		// WP_REBELBLASTER
 	
 	CLONECOMMANDO_DAMAGE,			// WP_CLONERIFLE
+	
+	REBELRIFLE_DAMAGE,			// WP_REBELRIFLE
 };
 
 const int defaultAltDamage[] = {
@@ -328,6 +331,8 @@ const int defaultAltDamage[] = {
 	REBELBLASTER_DAMAGE,	// WP_REBELBLASTER
 	
 	CLONECOMMANDO_DAMAGE,	// WP_REBELBLASTER
+	
+	REBELRIFLE_DAMAGE,	// WP_REBELRIFLE
 };
 
 const int defaultSplashDamage[] = {
@@ -371,6 +376,7 @@ const int defaultSplashDamage[] = {
 	0,				   				// WP_REBELBLASTER
 	0,				   				// WP_CLONERIFLE
 	0,				   				// WP_CLONECOMMANDO
+	0,				   				// WP_REBELRIFLE
 };
 
 const float defaultSplashRadius[] = {
@@ -414,6 +420,7 @@ const float defaultSplashRadius[] = {
 	0.0f,							// WP_REBELBLASTER
 	0.0f,							// WP_CLONERIFLE
 	0.0f,							// WP_CLONECOMMANDO
+	0.0f,							// WP_REBELRIFLE
 };
 
 const int defaultAltSplashDamage[] = {
@@ -497,7 +504,7 @@ const float defaultAltSplashRadius[] = {
 	0.0f,							// WP_CLONECARBINE
 	0.0f,							// WP_REBELBLASTER
 	0.0f,							// WP_CLONERIFLE
-	0.0f,							// WP_CLONECOMMANDO
+	0.0f,							// WP_REBELRIFLE
 };
 
 wpnParms_t WpnParms[] =
@@ -643,6 +650,8 @@ void WPN_WeaponType( const char **holdBuf)
 		weaponNum = WP_CLONERIFLE;
 	else if (!Q_stricmp(tokenStr, "WP_CLONECOMMANDO"))
 		weaponNum = WP_CLONECOMMANDO;
+	else if (!Q_stricmp(tokenStr, "WP_REBELRIFLE"))
+		weaponNum = WP_REBELRIFLE;
 	else
 	{
 		weaponNum = 0;
