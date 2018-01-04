@@ -359,39 +359,53 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
 		case WP_CLONECARBINE:
 			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
 		case WP_REBELBLASTER:
 			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
 		case WP_CLONERIFLE:
 			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
 		case WP_CLONECOMMANDO:
 			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
 
 		case WP_REBELRIFLE:
-			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
-			{//rapid-fire blasters
-				attDelay += Q_irand( 0, 500 );
-			}
-
-		case WP_BOBA:
-			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
-			{//rapid-fire blasters
-				attDelay += Q_irand( 0, 500 );
-			}
-		case WP_CLONEPISTOL:
 			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
@@ -400,13 +414,35 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 			{//regular blaster
 				attDelay -= Q_irand( 0, 500 );
 			}
+			break;
+
+		case WP_BOBA:
+			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
+			{//rapid-fire blasters
+				attDelay += Q_irand( 0, 500 );
+			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
+		case WP_CLONEPISTOL:
+			attDelay -= Q_irand(500, 1500);
+			break;
 
 		case WP_REY:
 			attDelay -= Q_irand( 500, 1500 );
 			break;
 
 		case WP_JANGO:
-			attDelay -= Q_irand( 500, 1500 );
+			if (self->NPC->scriptFlags & SCF_ALT_FIRE)
+			{//rapid-fire blasters
+				attDelay += Q_irand(0, 500);
+			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
 			break;
 
 		/*
