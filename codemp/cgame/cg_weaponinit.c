@@ -405,6 +405,46 @@ void CG_RegisterWeapon( int weaponNum) {
 		cgs.effects.blasterDroidImpactEffect	= trap->FX_RegisterEffect( "blaster/droid_impact" );
 		break;
 
+	case WP_REY:
+		weaponInfo->selectSound			= trap->S_RegisterSound("sound/weapons/bryar/select.wav");
+
+		weaponInfo->flashSound[0]		= trap->S_RegisterSound( "sound/weapons/LPA_NN-14/fire.wav");
+		weaponInfo->firingSound			= NULL_SOUND;
+		weaponInfo->chargeSound			= NULL_SOUND;
+		weaponInfo->muzzleEffect		= trap->FX_RegisterEffect( "bryar/muzzle_flash" );
+		weaponInfo->missileModel		= NULL_HANDLE;
+		weaponInfo->missileSound		= NULL_SOUND;
+		weaponInfo->missileDlight		= 0;
+		//weaponInfo->missileDlightColor= {0,0,0};
+		weaponInfo->missileHitSound		= NULL_SOUND;
+		weaponInfo->missileTrailFunc	= FX_BryarProjectileThink;
+
+		weaponInfo->altFlashSound[0]	= trap->S_RegisterSound( "sound/weapons/LPA_NN-14/alt_fire.wav");
+		weaponInfo->altFiringSound		= NULL_SOUND;
+		weaponInfo->altChargeSound		= trap->S_RegisterSound( "sound/weapons/LPA_NN-14/charge.wav");
+		weaponInfo->altMuzzleEffect		= trap->FX_RegisterEffect( "bryar/muzzle_flash" );
+		weaponInfo->altMissileModel		= NULL_HANDLE;
+		weaponInfo->altMissileSound		= NULL_SOUND;
+		weaponInfo->altMissileDlight	= 0;
+		//weaponInfo->altMissileDlightColor= {0,0,0};
+		weaponInfo->altMissileHitSound	= NULL_SOUND;
+		weaponInfo->altMissileTrailFunc = FX_BryarAltProjectileThink;
+
+		cgs.effects.bryarShotEffect			= trap->FX_RegisterEffect( "bryar/shot" );
+		cgs.effects.bryarPowerupShotEffect	= trap->FX_RegisterEffect( "bryar/crackleShot" );
+		cgs.effects.bryarWallImpactEffect	= trap->FX_RegisterEffect( "bryar/wall_impact" );
+		cgs.effects.bryarWallImpactEffect2	= trap->FX_RegisterEffect( "bryar/wall_impact2" );
+		cgs.effects.bryarWallImpactEffect3	= trap->FX_RegisterEffect( "bryar/wall_impact3" );
+		cgs.effects.bryarFleshImpactEffect	= trap->FX_RegisterEffect( "bryar/flesh_impact" );
+		cgs.effects.bryarDroidImpactEffect	= trap->FX_RegisterEffect( "bryar/droid_impact" );
+
+		cgs.media.bryarFrontFlash = trap->R_RegisterShader( "gfx/effects/bryarFrontFlash" );
+
+		// Note these are temp shared effects
+		trap->FX_RegisterEffect("blaster/wall_impact.efx");
+		trap->FX_RegisterEffect("blaster/flesh_impact.efx");
+
+		break;
 
 	case WP_DISRUPTOR:
 		weaponInfo->selectSound			= trap->S_RegisterSound("sound/weapons/disruptor/select.wav");

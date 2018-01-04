@@ -269,6 +269,7 @@ int WeaponReadyAnim[WP_NUM_WEAPONS] =
 	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_CLONERIFLE,
 	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_CLONECOMMANDO,
 	TORSO_WEAPONREADY3,//TORSO_WEAPONREADY6,//WP_REBELRIFLE,
+	TORSO_WEAPONREADY2,//WP_REY,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -302,6 +303,7 @@ int WeaponReadyLegsAnim[WP_NUM_WEAPONS] =
 	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_CLONERIFLE,
 	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_CLONECOMMANDO,
 	BOTH_STAND1,//TORSO_WEAPONREADY6,//WP_REBELRIFLE,
+	BOTH_STAND1,//WP_REY,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -335,6 +337,7 @@ int WeaponAttackAnim[WP_NUM_WEAPONS] =
 	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_CLONERIFLE,
 	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_CLONECOMMANDO,
 	BOTH_ATTACK3,//BOTH_ATTACK6,//WP_REBELRIFLE,
+	BOTH_ATTACK2,//WP_REY,
 
 	//NOT VALID (e.g. should never really be used):
 	BOTH_STAND1,//WP_EMPLACED_GUN,
@@ -1347,6 +1350,25 @@ Don't place this
 /* precache */ "",
 /* sounds */ "",
 		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_rey (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+Don't place this
+*/
+	{
+		"weapon_rey",
+		"sound/weapons/w_pkup.wav",
+	       { "models/weapons2/lpa_nn-14/blaster_pistol_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/lpa_nn-14/blaster_pistol_mp.md3",
+/* icon */		"gfx/hud/w_icon_lpa_nn-14",//"gfx/hud/w_icon_lpa_nn-14",
+/* pickup *///	"LPA NN-14",
+		100,
+		IT_WEAPON,
+		WP_REY,
+/* precache */ "",
+/* sounds */ "",
+		"@SP_INGAME_REY"					// description
 	},
 
 /*QUAKED weapon_disruptor (.3 .3 1) (-16 -16 -16) (16 16 16) suspended

@@ -88,6 +88,13 @@ static vec3_t muzzle;
 #define REBELRIFLE_VELOCITY			1250
 #define REBELRIFLE_DAMAGE				30
 
+// LPA NN-14
+//--------
+#define REY_VEL			1600
+#define REY_DAMAGE			10
+#define REY_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
+#define REY_ALT_SIZE				1.0f
+
 // Tenloss Disruptor
 //----------
 #define DISRUPTOR_MAIN_DAMAGE			30 //40
@@ -345,6 +352,66 @@ static void WP_FireBryarPistol( gentity_t *ent, qboolean altFire )
 	else
 	{
 		missile->methodOfDeath = MOD_BRYAR_PISTOL;
+	}
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
+
+//----------------------------------------------
+static void WP_FireReyPistol( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	int damage = REY_DAMAGE;
+	int count;
+
+	gentity_t	*missile = CreateMissile( muzzle, forward, REY_VEL, 10000, ent, altFire );
+
+	missile->classname = "bryar_proj";
+	missile->s.weapon = WP_REY;
+
+	if ( altFire )
+	{
+		float boxSize = 0;
+
+		count = ( level.time - ent->client->ps.weaponChargeTime ) / REY_CHARGE_UNIT;
+
+		if ( count < 1 )
+		{
+			count = 1;
+		}
+		else if ( count > 5 )
+		{
+			count = 5;
+		}
+
+		if (count > 1)
+		{
+			damage *= (count*1.7);
+		}
+		else
+		{
+			damage *= (count*1.5);
+		}
+
+		missile->s.generic1 = count; // The missile will then render according to the charge level.
+
+		boxSize = REY_ALT_SIZE*(count*0.5);
+
+		VectorSet( missile->r.maxs, boxSize, boxSize, boxSize );
+		VectorSet( missile->r.mins, -boxSize, -boxSize, -boxSize );
+	}
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	if (altFire)
+	{
+		missile->methodOfDeath = MOD_REY_ALT;
+	}
+	else
+	{
+		missile->methodOfDeath = MOD_REY;
 	}
 	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
 
@@ -5007,6 +5074,10 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 
 		case WP_REBELRIFLE:
 			WP_FireRebelRifle( ent, altFire );
+			break;
+
+		case WP_REY:
+			WP_FireReyPistol( ent, altFire );
 			break;
 
 		case WP_DISRUPTOR:

@@ -584,7 +584,8 @@ Ghoul2 Insert End
 		( ( cent->currentState.modelindex2 == WEAPON_CHARGING_ALT && cent->currentState.weapon == WP_BRYAR_PISTOL ) ||
 		  ( cent->currentState.modelindex2 == WEAPON_CHARGING_ALT && cent->currentState.weapon == WP_BRYAR_OLD ) ||
 		  ( cent->currentState.weapon == WP_BOWCASTER && cent->currentState.modelindex2 == WEAPON_CHARGING ) ||
-		  ( cent->currentState.weapon == WP_DEMP2 && cent->currentState.modelindex2 == WEAPON_CHARGING_ALT) ) )
+		  ( cent->currentState.weapon == WP_DEMP2 && cent->currentState.modelindex2 == WEAPON_CHARGING_ALT ) ||
+			( cent->currentState.modelindex2 == WEAPON_CHARGING_ALT && cent->currentState.weapon == WP_REY) ) )
 	{
 		int		shader = 0;
 		float	val = 0.0f;
@@ -634,6 +635,13 @@ Ghoul2 Insert End
 			val = ( cg.time - cent->currentState.constantLight ) * 0.001f;
 			shader = cgs.media.lightningFlash;
 			scale = 1.75f;
+		}
+		else if ( cent->currentState.weapon == WP_REY ||
+			cent->currentState.weapon == WP_REY)
+		{
+			// Hardcoded max charge time of 1 second
+			val = ( cg.time - cent->currentState.constantLight ) * 0.001f;
+			shader = cgs.media.bryarFrontFlash;
 		}
 
 		if ( val < 0.0f )
@@ -1852,7 +1860,8 @@ void CG_FireWeapon( centity_t *cent, qboolean altFire ) {
 		if ((ent->weapon == WP_BRYAR_PISTOL && altFire) ||
 			(ent->weapon == WP_BRYAR_OLD && altFire) ||
 			(ent->weapon == WP_BOWCASTER && !altFire) ||
-			(ent->weapon == WP_DEMP2 && altFire))
+			(ent->weapon == WP_DEMP2 && altFire) ||
+			(ent->weapon == WP_REY && altFire))
 		{
 			float val = ( cg.time - cent->currentState.constantLight ) * 0.001f;
 
@@ -2102,6 +2111,18 @@ void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, imp
 		FX_BlasterWeaponHitWall( origin, dir );
 		break;
 
+	case WP_REY:
+		if ( altFire )
+		{
+			parm = charge;
+			FX_BryarAltHitWall( origin, dir, parm );
+		}
+		else
+		{
+			FX_BryarHitWall( origin, dir );
+		}
+		break;
+
 	case WP_EMPLACED_GUN:
 		FX_BlasterWeaponHitWall( origin, dir );
 		//FIXME: Give it its own hit wall effect
@@ -2252,6 +2273,17 @@ void CG_MissileHitPlayer(int weapon, vec3_t origin, vec3_t dir, int entityNum, q
 
 	case WP_REBELRIFLE:
 		FX_BlasterWeaponHitPlayer( origin, dir, humanoid );
+		break;
+
+	case WP_REY:
+		if ( altFire )
+		{
+			FX_BryarAltHitPlayer( origin, dir, humanoid );
+		}
+		else
+		{
+			FX_BryarHitPlayer( origin, dir, humanoid );
+		}
 		break;
 
 	default:
