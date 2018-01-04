@@ -1412,6 +1412,12 @@ typedef struct cgEffects_s {
 	fxHandle_t  blasterFleshImpactEffect;
 	fxHandle_t  blasterDroidImpactEffect;
 
+	// Clone
+	fxHandle_t	cloneShotEffect;
+	fxHandle_t	cloneOverchargeEffect;
+	fxHandle_t	cloneWallImpactEffect;
+	fxHandle_t	cloneFleshImpactEffect;
+
 	// DISRUPTOR
 	fxHandle_t  disruptorRingsEffect;
 	fxHandle_t  disruptorProjectileEffect;
@@ -2025,6 +2031,11 @@ void FX_BlasterProjectileThink( centity_t *cent, const struct weaponInfo_s *weap
 void FX_BlasterAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
 void FX_BlasterWeaponHitWall( vec3_t origin, vec3_t normal );
 void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+
+void FX_CloneProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_CloneAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_CloneWeaponHitWall( vec3_t origin, vec3_t normal );
+void FX_CloneWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
 
 
 void FX_ForceDrained(vec3_t origin, vec3_t dir);
