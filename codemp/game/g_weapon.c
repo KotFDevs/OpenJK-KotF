@@ -46,55 +46,6 @@ static vec3_t muzzle;
 #define BLASTER_VELOCITY			2300
 #define BLASTER_DAMAGE				20
 
-// E-5 carbine
-//---------
-#define BATTLEDROID_SPREAD				1.6f//1.2f
-#define BATTLEDROID_VELOCITY			2300
-#define BATTLEDROID_DAMAGE				20
-
-// F-11D
-//---------
-#define THEFIRSTORDER_SPREAD				1.6f//1.2f
-#define THEFIRSTORDER_VELOCITY			2300
-#define THEFIRSTORDER_DAMAGE				20
-
-// DC-15 Carbine
-//---------
-#define CLONECARBINE_SPREAD				1.6f//1.2f
-#define CLONECARBINE_VELOCITY			2300
-#define CLONECARBINE_DAMAGE				20
-
-// DH-17
-//---------
-#define REBELBLASTER_SPREAD				1.6f//1.2f
-#define REBELBLASTER_VELOCITY			1000
-#define REBELBLASTER_DAMAGE				35
-
-// DC-15 Rifle
-//---------
-#define CLONERIFLE_SPREAD				0.1f//1.2f
-#define CLONERIFLE_VELOCITY			2300
-#define CLONERIFLE_DAMAGE				20
-
-// DC-17M
-//---------
-#define CLONECOMMANDO_SPREAD				0.1f//1.2f
-#define CLONECOMMANDO_VELOCITY			3500
-#define CLONECOMMANDO_DAMAGE				15
-
-// A280
-//---------
-#define REBELRIFLE_SPREAD				0.1f//1.2f
-#define REBELRIFLE_VELOCITY			1250
-#define REBELRIFLE_DAMAGE				30
-
-// LPA NN-14
-//--------
-#define REY_VEL			1600
-#define REY_DAMAGE			10
-#define REY_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
-#define REY_ALT_SIZE				1.0f
-
 // Tenloss Disruptor
 //----------
 #define DISRUPTOR_MAIN_DAMAGE			30 //40
@@ -192,6 +143,56 @@ static vec3_t muzzle;
 #define MELEE_SWING1_DAMAGE			10
 #define MELEE_SWING2_DAMAGE			12
 #define MELEE_RANGE					8
+
+// E-5 carbine
+//---------
+#define BATTLEDROID_SPREAD				1.6f//1.2f
+#define BATTLEDROID_VELOCITY			2300
+#define BATTLEDROID_DAMAGE				20
+
+// F-11D
+//---------
+#define THEFIRSTORDER_SPREAD				1.6f//1.2f
+#define THEFIRSTORDER_VELOCITY			2300
+#define THEFIRSTORDER_DAMAGE				20
+
+// DC-15 Carbine
+//---------
+#define CLONECARBINE_SPREAD				1.6f//1.2f
+#define CLONECARBINE_VELOCITY			2300
+#define CLONECARBINE_DAMAGE				20
+
+// DH-17
+//---------
+#define REBELBLASTER_SPREAD				1.6f//1.2f
+#define REBELBLASTER_VELOCITY			1000
+#define REBELBLASTER_DAMAGE				35
+
+// DC-15 Rifle
+//---------
+#define CLONERIFLE_SPREAD				0.1f//1.2f
+#define CLONERIFLE_VELOCITY			2300
+#define CLONERIFLE_DAMAGE				20
+
+// DC-17M
+//---------
+#define CLONECOMMANDO_SPREAD				0.1f//1.2f
+#define CLONECOMMANDO_VELOCITY			3500
+#define CLONECOMMANDO_DAMAGE				15
+
+// A280
+//---------
+#define REBELRIFLE_SPREAD				1.6f//1.2f
+#define REBELRIFLE_VELOCITY			1250
+#define REBELRIFLE_DAMAGE				30
+
+// LPA NN-14
+//--------
+#define REY_VEL			1600
+#define REY_DAMAGE			10
+#define REY_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
+#define REY_ALT_SIZE				1.0f
+
 
 // ATST Main Gun
 //--------------
@@ -973,8 +974,8 @@ static void WP_FireRebelRifle( gentity_t *ent, qboolean altFire )
 	if ( altFire )
 	{
 		// add some slop to the alt-fire direction
-    angs[PITCH] += Q_flrand(-1.0f, 1.0f) * REBELRIFLE_SPREAD;
-		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * REBELRIFLE_SPREAD;
+    angs[PITCH] += Q_flrand(-1.4f, 1.4f) * REBELRIFLE_SPREAD;
+		angs[YAW]       += Q_flrand(-1.4f, 1.4f) * REBELRIFLE_SPREAD;
 	}
 
 	AngleVectors( angs, dir, NULL, NULL );

@@ -1227,150 +1227,6 @@ Don't place this
 		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
 	},
 
-/*QUAKED weapon_battledroid (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_battledroid",
-		"sound/weapons/w_pkup.wav",
-	       { "models/weapons2/droidblaster/bd_blaster_w.glm",
-		0, 0, 0},
-/* view */		"models/weapons2/droidblaster/bd_blaster_mp.md3",
-/* icon */		"gfx/hud/w_icon_droidblaster",
-/* pickup *///	"E-5 Carbine",
-		100,
-		IT_WEAPON,
-		WP_BATTLEDROID,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_thefirstorder (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_thefirstorder",
-		"sound/weapons/w_pkup.wav",
-		     { "models/weapons2/f11d_blaster/blaster_w.GLM",
-		0, 0, 0},
-/* view */		"models/weapons2/f11d_blaster/blaster.md3",
-/* icon */		"gfx/hud/w_icon_f11d",
-/* pickup *///	"F-11D",
-		100,
-		IT_WEAPON,
-		WP_THEFIRSTORDER,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_clonecarbine (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_clonecarbine",
-		"sound/weapons/w_pkup.wav",
-				   { "models/weapons2/cloneblst/blaster_w.glm",
-		0, 0, 0},
-/* view */		"models/weapons2/cloneblst/blaster.md3",
-/* icon */		"gfx/hud/w_icon_dc-15c",
-/* pickup *///	"DC-15 Carbine",
-		100,
-		IT_WEAPON,
-		WP_CLONECARBINE,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_rebelblaster (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_rebelblaster",
-		"sound/weapons/w_pkup.wav",
-				   { "models/weapons2/dh-17/dh-17_w.glm",
-		0, 0, 0},
-/* view */		"models/weapons2/dh-17/dh-17_mp.md3",
-/* icon */		"gfx/hud/w_icon_dh-17",
-/* pickup *///	"DH-17",
-		100,
-		IT_WEAPON,
-		WP_REBELBLASTER,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_clonerifle (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_clonerifle",
-		"sound/weapons/w_pkup.wav",
-					  { "models/weapons2/clone_repeater/heavy_repeater_w.glm",
-		0, 0, 0},
-/* view */		"models/weapons2/clone_repeater/heavy_repeater.md3",
-/* icon */		"gfx/hud/w_icon_clonerifle",
-/* pickup *///	"DC-15 Rifle",
-		100,
-		IT_WEAPON,
-		WP_CLONERIFLE,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_clonecommando (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_clonecommando",
-		"sound/weapons/w_pkup.wav",
-						 { "models/weapons2/DC-17m/dc-17m_w.glm",
-		0, 0, 0},
-/* view */		"models/weapons2/DC-17m/dc-17m_mp.md3",
-/* icon */		"gfx/hud/w_icon_dc-17m",
-/* pickup *///	"DC-17M",
-		100,
-		IT_WEAPON,
-		WP_CLONECOMMANDO,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_rebelrifle (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-*/
-	{
-		"weapon_rebelrifle",
-		"sound/weapons/w_pkup.wav",
-						 { "models/weapons2/A280/a280_w.glm", 0, 0, 0},
-/* view */		"models/weapons2/A280/a280_mp.md3",
-/* icon */		"gfx/hud/w_icon_A280",
-/* pickup *///	"A280",
-		100,
-		IT_WEAPON,
-		WP_REBELRIFLE,
-/* precache */ "",
-/* sounds */ "",
-		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
-	},
-
-/*QUAKED weapon_rey (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
-Don't place this
-*/
-	{
-		"weapon_rey",
-		"sound/weapons/w_pkup.wav",
-	       { "models/weapons2/lpa_nn-14/blaster_pistol_w.glm",
-		0, 0, 0},
-/* view */		"models/weapons2/lpa_nn-14/blaster_pistol_mp.md3",
-/* icon */		"gfx/hud/w_icon_lpa_nn-14",//"gfx/hud/w_icon_lpa_nn-14",
-/* pickup *///	"LPA NN-14",
-		100,
-		IT_WEAPON,
-		WP_REY,
-/* precache */ "",
-/* sounds */ "",
-		"@SP_INGAME_REY"					// description
-	},
-
 /*QUAKED weapon_disruptor (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
 */
 	{
@@ -1584,6 +1440,150 @@ NOTENOTE This weapon is not yet complete.  Don't place it.
 /* precache */ "",
 /* sounds */ "",
 		"@MENUS_A_DETONATION_PACK_IS"					// description
+	},
+
+/*QUAKED weapon_battledroid (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_battledroid",
+		"sound/weapons/w_pkup.wav",
+		      { "models/weapons2/droidblaster/bd_blaster_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/droidblaster/bd_blaster_mp.md3",
+/* icon */		"gfx/hud/w_icon_droidblaster",
+/* pickup *///	"E-5 Carbine",
+		100,
+		IT_WEAPON,
+		WP_BATTLEDROID,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_thefirstorder (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_thefirstorder",
+		"sound/weapons/w_pkup.wav",
+			    { "models/weapons2/f11d_blaster/blaster_w.GLM",
+		0, 0, 0},
+/* view */		"models/weapons2/f11d_blaster/blaster.md3",
+/* icon */		"gfx/hud/w_icon_f11d",
+/* pickup *///	"F-11D",
+		100,
+		IT_WEAPON,
+		WP_THEFIRSTORDER,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_clonecarbine (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_clonecarbine",
+		"sound/weapons/w_pkup.wav",
+					  { "models/weapons2/cloneblst/blaster_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/cloneblst/blaster.md3",
+/* icon */		"gfx/hud/w_icon_dc-15c",
+/* pickup *///	"DC-15 Carbine",
+		100,
+		IT_WEAPON,
+		WP_CLONECARBINE,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_rebelblaster (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_rebelblaster",
+		"sound/weapons/w_pkup.wav",
+					  { "models/weapons2/dh-17/dh-17_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/dh-17/dh-17_mp.md3",
+/* icon */		"gfx/hud/w_icon_dh-17",
+/* pickup *///	"DH-17",
+		100,
+		IT_WEAPON,
+		WP_REBELBLASTER,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_clonerifle (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_clonerifle",
+		"sound/weapons/w_pkup.wav",
+						 { "models/weapons2/clone_repeater/heavy_repeater_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/clone_repeater/heavy_repeater.md3",
+/* icon */		"gfx/hud/w_icon_clonerifle",
+/* pickup *///	"DC-15 Rifle",
+		100,
+		IT_WEAPON,
+		WP_CLONERIFLE,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_clonecommando (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_clonecommando",
+		"sound/weapons/w_pkup.wav",
+							{ "models/weapons2/DC-17m/dc-17m_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/DC-17m/dc-17m_mp.md3",
+/* icon */		"gfx/hud/w_icon_dc-17m",
+/* pickup *///	"DC-17M",
+		100,
+		IT_WEAPON,
+		WP_CLONECOMMANDO,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_rebelrifle (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"weapon_rebelrifle",
+		"sound/weapons/w_pkup.wav",
+							{ "models/weapons2/A280/a280_w.glm", 0, 0, 0},
+/* view */		"models/weapons2/A280/a280_mp.md3",
+/* icon */		"gfx/hud/w_icon_A280",
+/* pickup *///	"A280",
+		100,
+		IT_WEAPON,
+		WP_REBELRIFLE,
+/* precache */ "",
+/* sounds */ "",
+		"@MENUS_THE_PRIMARY_WEAPON_OF"				// description
+	},
+
+/*QUAKED weapon_rey (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+Don't place this
+*/
+	{
+		"weapon_rey",
+		"sound/weapons/w_pkup.wav",
+		      { "models/weapons2/lpa_nn-14/blaster_pistol_w.glm",
+		0, 0, 0},
+/* view */		"models/weapons2/lpa_nn-14/blaster_pistol_mp.md3",
+/* icon */		"gfx/hud/w_icon_lpa_nn-14",//"gfx/hud/w_icon_lpa_nn-14",
+/* pickup *///	"LPA NN-14",
+		100,
+		IT_WEAPON,
+		WP_REY,
+/* precache */ "",
+/* sounds */ "",
+		"@SP_INGAME_REY"					// description
 	},
 
 /*QUAKED weapon_emplaced (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
