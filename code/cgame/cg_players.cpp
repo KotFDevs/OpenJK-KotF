@@ -8294,8 +8294,10 @@ extern vmCvar_t	cg_thirdPersonAlpha;
 					&& cent->gent->NPC->rank >= RANK_LT_COMM//commando
 					*/
 					&& cent->gent->s.weapon == WP_BLASTER_PISTOL//using blaster pistol
+					&& cent->gent->s.weapon == WP_REY//using blaster pistol
 					&& cent->gent->weaponModel[1] )//one in each hand
 				{
+						
 					qboolean getBoth = qfalse;
 					int	oldOne = 0;
 					if ( cent->muzzleFlashTime > 0 && wData && !(cent->currentState.eFlags & EF_LOCKED_TO_WEAPON ))
@@ -8995,6 +8997,7 @@ Ghoul2 Insert End
 
 		if (( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BRYAR_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BLASTER_PISTOL )
+			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_REY )
 			|| ( ps->weapon == WP_BOWCASTER && ps->weaponstate == WEAPON_CHARGING )
 			|| ( ps->weapon == WP_DEMP2 && ps->weaponstate == WEAPON_CHARGING_ALT ))
 		{
@@ -9004,6 +9007,13 @@ Ghoul2 Insert End
 
 			if ( ps->weapon == WP_BRYAR_PISTOL
 				|| ps->weapon == WP_BLASTER_PISTOL )
+			{
+				// Hardcoded max charge time of 1 second
+				val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
+				shader = cgi_R_RegisterShader( "gfx/effects/bryarFrontFlash" );
+			}
+			if ( ps->weapon == WP_REY
+				|| ps->weapon == WP_REY )
 			{
 				// Hardcoded max charge time of 1 second
 				val = ( cg.time - ps->weaponChargeTime ) * 0.001f;

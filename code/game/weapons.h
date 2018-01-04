@@ -85,6 +85,7 @@ typedef enum //# weapon_e
 	WP_CLONERIFLE,
 	WP_CLONECOMMANDO,
 	WP_REBELRIFLE,
+	WP_REY,
 
 	//# #eol
 	WP_NUM_WEAPONS
@@ -244,6 +245,12 @@ typedef struct ammoData_s
 #define	REBELRIFLE_NPC_DAMAGE_EASY		25
 #define	REBELRIFLE_NPC_DAMAGE_NORMAL	30
 #define	REBELRIFLE_NPC_DAMAGE_HARD		35
+
+// LPA NN-14
+//--------
+#define REY_VEL				1800
+#define REY_DAMAGE			14
+#define REY_CHARGE_UNIT		200.0f
 
 // Tenloss Disruptor
 //----------

@@ -83,6 +83,7 @@ float weaponSpeed[WP_NUM_WEAPONS][2] =
 	{ REBELBLASTER_VELOCITY, REBELBLASTER_VELOCITY },// WP_REBELBLASTER
 	{ CLONECOMMANDO_VELOCITY, CLONECOMMANDO_VELOCITY },// WP_CLONECOMMANDO
 	{ REBELRIFLE_VELOCITY, REBELRIFLE_VELOCITY },// WP_REBELRIFLE
+	{ REY_VEL,REY_VEL },//WP_REY,
 
 };
 
@@ -362,6 +363,8 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case MOD_CLONECOMMANDO_ALT:
 		case MOD_REBELRIFLE:
 		case MOD_REBELRIFLE_ALT:
+		case MOD_REY:
+		case MOD_REY_ALT:
 		case MOD_DISRUPTOR:
 		case MOD_SNIPER:
 		case MOD_BOWCASTER:
@@ -406,6 +409,7 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case WP_CLONERIFLE:
 		case WP_CLONECOMMANDO:
 		case WP_REBELRIFLE:
+		case WP_REY:
 		case WP_DISRUPTOR:
 		case WP_BOWCASTER:
 		case WP_ROCKET_LAUNCHER:
@@ -581,7 +585,15 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
-
+		
+	case WP_REY:
+		ViewHeightFix(ent);
+		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
+		muzzlePoint[2] -= 16;
+		VectorMA( muzzlePoint, 28, forwardVec, muzzlePoint );
+		VectorMA( muzzlePoint, 6, vrightVec, muzzlePoint );
+		break;
+		
 	case WP_SABER:
 		if(ent->NPC!=NULL &&
 			(ent->client->ps.torsoAnim == TORSO_WEAPONREADY2 ||
@@ -659,6 +671,7 @@ vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS] =
 	{12,	6,		-6  },  // WP_CLONERIFLE,
 	{12,	6,		-6  },  // WP_CLONECOMMANDO,
 	{12,	6,		-6  },  // WP_REBELRIFLE,
+	{12,	6,		-6	},	// WP_REY,
 };
 
 void WP_RocketLock( gentity_t *ent, float lockDist )
@@ -1656,6 +1669,10 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		
 	case WP_REBELRIFLE:
 		WP_FireRebelRifle(ent, alt_fire);
+		break;
+		
+	case WP_REY:
+		WP_FireReyPistol(ent, alt_fire);
 		break;
 
 	case WP_TUSKEN_STAFF:
