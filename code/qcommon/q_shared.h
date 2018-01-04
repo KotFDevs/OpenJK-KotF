@@ -73,17 +73,17 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define HOMEPATH_NAME_WIN "OpenJO"
 #define HOMEPATH_NAME_MACOSX HOMEPATH_NAME_WIN
 #else
-#define PRODUCT_NAME			"openjk_sp"
+#define PRODUCT_NAME			"KotF_2.1_SP"
 
-#define CLIENT_WINDOW_TITLE "OpenJK (SP)"
-#define CLIENT_CONSOLE_TITLE "OpenJK Console (SP)"
-#define HOMEPATH_NAME_UNIX "openjk"
-#define HOMEPATH_NAME_WIN "OpenJK"
+#define CLIENT_WINDOW_TITLE "Knights of the Force 2.1 SP"
+#define CLIENT_CONSOLE_TITLE "Knights of the Force 2.1 SP Console"
+#define HOMEPATH_NAME_UNIX "KotF"
+#define HOMEPATH_NAME_WIN "KotF 2.1"
 #define HOMEPATH_NAME_MACOSX HOMEPATH_NAME_WIN
 #endif
 
 #define	BASEGAME "base"
-#define OPENJKGAME "OpenJK"
+#define OPENJKGAME "KotF"
 
 #define Q3CONFIG_NAME PRODUCT_NAME ".cfg"
 

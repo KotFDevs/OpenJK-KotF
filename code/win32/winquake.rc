@@ -53,7 +53,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "starwars.ico"
+IDI_ICON1               ICON                    "kotf-2.1.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -80,12 +80,12 @@ BEGIN
         BEGIN
             VALUE "Comments", "Raven Software"
             VALUE "CompanyName", "Activision Inc"
-            VALUE "FileDescription", "OpenJK Singleplayer"
+            VALUE "FileDescription", "KotF 2.1 SP"
             VALUE "FileVersion",  VERSION_STRING
             VALUE "InternalName", "JASP"
-            VALUE "LegalCopyright", "Copyright (C) 2013"
+            VALUE "LegalCopyright", "Copyright (C) 2018"
             VALUE "OriginalFilename", "jasp.exe"
-            VALUE "ProductName", "OpenJK Singleplayer"
+            VALUE "ProductName", "KotF 2.1 SP"
             VALUE "ProductVersion",  VERSION_STRING
         END
     END

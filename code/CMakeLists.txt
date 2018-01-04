@@ -321,6 +321,7 @@ if(BuildSPEngine OR BuildJK2SPEngine)
 
 	if(WIN32)
 		set(SPEngineWin32Files
+			"${SPDir}/win32/kotf-2.1.ico"
 			"${SPDir}/win32/resource.h"
 			"${SPDir}/win32/winquake.rc"
 			)
@@ -371,8 +372,8 @@ if(BuildSPEngine OR BuildJK2SPEngine)
 	# project macro so we can invoke it twice: for jk2 and for ja
 	function(add_sp_project ProjectName Label SPDirName InstallDir Component)
 		if(MakeApplicationBundles)
-			set_source_files_properties(${SPDirName}/macosx/OpenJK.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
-			set(SPEngineFiles ${SPEngineFiles} ${SPDirName}/macosx/OpenJK.icns)
+			set_source_files_properties(${SPDirName}/macosx/kotf-2.1.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+			set(SPEngineFiles ${SPEngineFiles} ${SPDirName}/macosx/kotf-2.1.icns)
 			set_source_files_properties(${SPDirName}/macosx/English.lproj/InfoPlist.strings PROPERTIES MACOSX_PACKAGE_LOCATION Resources/English.lproj)
 			set(SPEngineFiles ${SPEngineFiles} ${SPDirName}/macosx/English.lproj/InfoPlist.strings)
 		endif(MakeApplicationBundles)
