@@ -13876,6 +13876,7 @@ static void PM_Weapon( void )
 				break;
 
 			case WP_REPEATER:
+			case WP_BATTLEDROID:
 				if ( pm->gent && pm->gent->client && pm->gent->client->NPC_class == CLASS_GALAKMECH )
 				{//
 					if ( pm->cmd.buttons & BUTTON_ALT_ATTACK )

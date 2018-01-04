@@ -55,6 +55,8 @@ void WP_ATSTSideFire( gentity_t *ent );
 void WP_FireBryarPistol( gentity_t *ent, qboolean alt_fire );
 void WP_FireBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire );
 void WP_FireBlaster( gentity_t *ent, qboolean alt_fire );
+void WP_FireBattleDroidMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire);
+void WP_FireBattleDroid(gentity_t *ent, qboolean alt_fire);
 void WP_BotLaser( gentity_t *ent );
 void WP_FireBowcaster( gentity_t *ent, qboolean alt_fire );
 void WP_Concussion( gentity_t *ent, qboolean alt_fire );

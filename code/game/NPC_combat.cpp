@@ -344,6 +344,16 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 		case WP_NOGHRI_STICK:
 			attDelay += Q_irand( 0, 500 );
 			break;
+		case WP_BATTLEDROID:
+			if (self->NPC->scriptFlags & SCF_ALT_FIRE)
+			{//rapid-fire blasters
+				attDelay += Q_irand(0, 500);
+			}
+			else
+			{//regular blaster
+				attDelay -= Q_irand(0, 500);
+			}
+			break;
 		/*
 		case WP_DEMP2:
 			break;
@@ -680,9 +690,9 @@ int ChooseBestWeapon( void )
 }
 */
 
-void ChangeWeapon( gentity_t *ent, int newWeapon )
+void ChangeWeapon(gentity_t *ent, int newWeapon)
 {
-	if ( !ent || !ent->client || !ent->NPC )
+	if (!ent || !ent->client || !ent->NPC)
 	{
 		return;
 	}
@@ -693,7 +703,7 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	ent->NPC->attackHold = 0;
 	ent->NPC->currentAmmo = ent->client->ps.ammo[weaponData[newWeapon].ammoIndex];
 
-	switch ( newWeapon )
+	switch (newWeapon)
 	{
 	case WP_BRYAR_PISTOL://prifle
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
@@ -702,7 +712,7 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_BLASTER_PISTOL:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-		if ( ent->weaponModel[1] > 0 )
+		if (ent->weaponModel[1] > 0)
 		{//commando
 			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
 			ent->NPC->burstMin = 4;
@@ -710,28 +720,28 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			ent->NPC->burstMean = 8;
 #endif
 			ent->NPC->burstMax = 12;
-			if ( g_spskill->integer == 0 )
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 600;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 400;//attack debounce
 			else
 				ent->NPC->burstSpacing = 250;//attack debounce
 		}
-		else if ( ent->client->NPC_class == CLASS_SABOTEUR )
+		else if (ent->client->NPC_class == CLASS_SABOTEUR)
 		{
-			if ( g_spskill->integer == 0 )
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 900;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 600;//attack debounce
 			else
 				ent->NPC->burstSpacing = 400;//attack debounce
 		}
 		else
 		{
-		//	ent->NPC->burstSpacing = 1000;//attackdebounce
-			if ( g_spskill->integer == 0 )
+			//	ent->NPC->burstSpacing = 1000;//attackdebounce
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 1000;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 750;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -740,10 +750,10 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_BOT_LASER://probe attack
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-	//	ent->NPC->burstSpacing = 600;//attackdebounce
-		if ( g_spskill->integer == 0 )
+		//	ent->NPC->burstSpacing = 600;//attackdebounce
+		if (g_spskill->integer == 0)
 			ent->NPC->burstSpacing = 600;//attack debounce
-		else if ( g_spskill->integer == 1 )
+		else if (g_spskill->integer == 1)
 			ent->NPC->burstSpacing = 400;//attack debounce
 		else
 			ent->NPC->burstSpacing = 200;//attack debounce
@@ -756,9 +766,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_DISRUPTOR:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
-			switch( g_spskill->integer )
+			switch (g_spskill->integer)
 			{
 			case 0:
 				ent->NPC->burstSpacing = 2500;//attackdebounce
@@ -779,9 +789,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_TUSKEN_RIFLE:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
-			switch( g_spskill->integer )
+			switch (g_spskill->integer)
 			{
 			case 0:
 				ent->NPC->burstSpacing = 2500;//attackdebounce
@@ -802,17 +812,17 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_BOWCASTER:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-	//	ent->NPC->burstSpacing = 1000;//attackdebounce
-		if ( g_spskill->integer == 0 )
+		//	ent->NPC->burstSpacing = 1000;//attackdebounce
+		if (g_spskill->integer == 0)
 			ent->NPC->burstSpacing = 1000;//attack debounce
-		else if ( g_spskill->integer == 1 )
+		else if (g_spskill->integer == 1)
 			ent->NPC->burstSpacing = 750;//attack debounce
 		else
 			ent->NPC->burstSpacing = 500;//attack debounce
 		break;
 
 	case WP_REPEATER:
-		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
 			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 			ent->NPC->burstSpacing = 2000;//attackdebounce
@@ -825,9 +835,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			ent->NPC->burstMean = 6;
 #endif
 			ent->NPC->burstMax = 10;
-			if ( g_spskill->integer == 0 )
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 1500;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 1000;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -841,7 +851,7 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_FLECHETTE:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
 			ent->NPC->burstSpacing = 2000;//attackdebounce
 		}
@@ -853,10 +863,10 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_ROCKET_LAUNCHER:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-	//	ent->NPC->burstSpacing = 2500;//attackdebounce
-		if ( g_spskill->integer == 0 )
+		//	ent->NPC->burstSpacing = 2500;//attackdebounce
+		if (g_spskill->integer == 0)
 			ent->NPC->burstSpacing = 2500;//attack debounce
-		else if ( g_spskill->integer == 1 )
+		else if (g_spskill->integer == 1)
 			ent->NPC->burstSpacing = 2000;//attack debounce
 		else
 			ent->NPC->burstSpacing = 1500;//attack debounce
@@ -864,15 +874,15 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_CONCUSSION:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{//beam
 			ent->NPC->burstSpacing = 1200;//attackdebounce
 		}
 		else
 		{//rocket
-			if ( g_spskill->integer == 0 )
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 2300;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 1800;//attack debounce
 			else
 				ent->NPC->burstSpacing = 1200;//attack debounce
@@ -881,29 +891,29 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_THERMAL:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-	//	ent->NPC->burstSpacing = 3000;//attackdebounce
-		if ( g_spskill->integer == 0 )
-//			ent->NPC->burstSpacing = 3000;//attack debounce
+		//	ent->NPC->burstSpacing = 3000;//attackdebounce
+		if (g_spskill->integer == 0)
+			//			ent->NPC->burstSpacing = 3000;//attack debounce
 			ent->NPC->burstSpacing = 4500;//attack debounce
-		else if ( g_spskill->integer == 1 )
-//			ent->NPC->burstSpacing = 2500;//attack debounce
+		else if (g_spskill->integer == 1)
+			//			ent->NPC->burstSpacing = 2500;//attack debounce
 			ent->NPC->burstSpacing = 3000;//attack debounce
 		else
 			ent->NPC->burstSpacing = 2000;//attack debounce
 		break;
 
-	/*
-	case WP_SABER:
+		/*
+		case WP_SABER:
 		ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
 		ent->NPC->burstMin = 5;//0.5 sec
 		ent->NPC->burstMax = 20;//3 seconds
 		ent->NPC->burstSpacing = 2000;//2 seconds
 		ent->NPC->attackHold = 1000;//Hold attack button for a 1-second burst
 		break;
-	*/
+		*/
 
 	case WP_BLASTER:
-		if ( ent->NPC->scriptFlags & SCF_ALT_FIRE )
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
 			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
 			ent->NPC->burstMin = 3;
@@ -911,9 +921,9 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			ent->NPC->burstMean = 3;
 #endif
 			ent->NPC->burstMax = 3;
-			if ( g_spskill->integer == 0 )
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 1500;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 1000;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
@@ -921,13 +931,13 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 		else
 		{
 			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-			if ( g_spskill->integer == 0 )
+			if (g_spskill->integer == 0)
 				ent->NPC->burstSpacing = 1000;//attack debounce
-			else if ( g_spskill->integer == 1 )
+			else if (g_spskill->integer == 1)
 				ent->NPC->burstSpacing = 750;//attack debounce
 			else
 				ent->NPC->burstSpacing = 500;//attack debounce
-		//	ent->NPC->burstSpacing = 1000;//attackdebounce
+			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
 
@@ -940,27 +950,27 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 	case WP_ATST_MAIN:
 	case WP_ATST_SIDE:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-	//	ent->NPC->burstSpacing = 1000;//attackdebounce
-			if ( g_spskill->integer == 0 )
-				ent->NPC->burstSpacing = 1000;//attack debounce
-			else if ( g_spskill->integer == 1 )
-				ent->NPC->burstSpacing = 750;//attack debounce
-			else
-				ent->NPC->burstSpacing = 500;//attack debounce
+		//	ent->NPC->burstSpacing = 1000;//attackdebounce
+		if (g_spskill->integer == 0)
+			ent->NPC->burstSpacing = 1000;//attack debounce
+		else if (g_spskill->integer == 1)
+			ent->NPC->burstSpacing = 750;//attack debounce
+		else
+			ent->NPC->burstSpacing = 500;//attack debounce
 		break;
 
 	case WP_EMPLACED_GUN:
 		//FIXME: give some designer-control over this?
-		if ( ent->client && ent->client->NPC_class == CLASS_REELO )
+		if (ent->client && ent->client->NPC_class == CLASS_REELO)
 		{
 			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 			ent->NPC->burstSpacing = 1000;//attack debounce
-	//		if ( g_spskill->integer == 0 )
-	//			ent->NPC->burstSpacing = 300;//attack debounce
-	//		else if ( g_spskill->integer == 1 )
-	//			ent->NPC->burstSpacing = 200;//attack debounce
-	//		else
-	//			ent->NPC->burstSpacing = 100;//attack debounce
+			//		if ( g_spskill->integer == 0 )
+			//			ent->NPC->burstSpacing = 300;//attack debounce
+			//		else if ( g_spskill->integer == 1 )
+			//			ent->NPC->burstSpacing = 200;//attack debounce
+			//		else
+			//			ent->NPC->burstSpacing = 100;//attack debounce
 		}
 		else
 		{
@@ -971,14 +981,14 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 #endif
 			ent->NPC->burstMax = 2;
 
-			if ( ent->owner ) // if we have an owner, it should be the chair at this point...so query the chair for its shot debounce times, etc.
+			if (ent->owner) // if we have an owner, it should be the chair at this point...so query the chair for its shot debounce times, etc.
 			{
-				if ( g_spskill->integer == 0 )
+				if (g_spskill->integer == 0)
 				{
 					ent->NPC->burstSpacing = ent->owner->wait + 400;//attack debounce
 					ent->NPC->burstMin = ent->NPC->burstMax = 1; // two shots
 				}
-				else if ( g_spskill->integer == 1 )
+				else if (g_spskill->integer == 1)
 				{
 					ent->NPC->burstSpacing = ent->owner->wait + 200;//attack debounce
 				}
@@ -989,12 +999,12 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 			}
 			else
 			{
-				if ( g_spskill->integer == 0 )
+				if (g_spskill->integer == 0)
 				{
 					ent->NPC->burstSpacing = 1200;//attack debounce
 					ent->NPC->burstMin = ent->NPC->burstMax = 1; // two shots
 				}
-				else if ( g_spskill->integer == 1 )
+				else if (g_spskill->integer == 1)
 				{
 					ent->NPC->burstSpacing = 1000;//attack debounce
 				}
@@ -1008,19 +1018,50 @@ void ChangeWeapon( gentity_t *ent, int newWeapon )
 
 	case WP_NOGHRI_STICK:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
-		if ( g_spskill->integer == 0 )
+		if (g_spskill->integer == 0)
 			ent->NPC->burstSpacing = 2250;//attack debounce
-		else if ( g_spskill->integer == 1 )
+		else if (g_spskill->integer == 1)
 			ent->NPC->burstSpacing = 1500;//attack debounce
 		else
 			ent->NPC->burstSpacing = 750;//attack debounce
 		break;
 
+	case WP_BATTLEDROID:
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
+		{
+			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
+			ent->NPC->burstMin = 3;
+	#ifdef BASE_SAVE_COMPAT
+			ent->NPC->burstMean = 3;
+	#endif
+			ent->NPC->burstMax = 3;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1500;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+		}
+		else
+		{
+			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 750;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+			//	ent->NPC->burstSpacing = 1000;//attackdebounce
+		}
+		break;
+
 	default:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 		break;
+
 	}
 }
+	
 
 void NPC_ChangeWeapon( int newWeapon )
 {

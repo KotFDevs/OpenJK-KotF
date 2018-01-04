@@ -78,6 +78,7 @@ typedef enum //# weapon_e
 	WP_TUSKEN_STAFF,
 	WP_SCEPTER,
 	WP_NOGHRI_STICK,
+	WP_BATTLEDROID,
 	
 
 	//# #eol

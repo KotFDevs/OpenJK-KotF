@@ -5990,6 +5990,7 @@ void PM_TorsoAnimation( void )
 					break;
 
 				case WP_BLASTER:
+				case WP_BATTLEDROID:
 					PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
 					//PM_SetAnim(pm,SETANIM_LEGS,BOTH_ATTACK2,SETANIM_FLAG_NORMAL);
 					break;
@@ -6368,6 +6369,7 @@ void PM_TorsoAnimation( void )
 					break;
 
 				case WP_REPEATER:
+				case WP_BATTLEDROID:
 					if ( weaponBusy )
 					{
 						PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);

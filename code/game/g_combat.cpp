@@ -263,6 +263,9 @@ gentity_t *TossClientItems( gentity_t *self )
 				case WP_NOGHRI_STICK:
 					dropped->count = 15;
 					break;
+				case WP_BATTLEDROID:
+					dropped->count = 15;
+					break;
 				default:
 					dropped->count = 0;
 					break;
