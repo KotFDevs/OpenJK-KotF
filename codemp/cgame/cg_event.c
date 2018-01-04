@@ -1106,6 +1106,10 @@ void CG_G2MarkEvent(entityState_t *es)
 	case WP_BRYAR_PISTOL:
 	case WP_CONCUSSION:
 	case WP_BRYAR_OLD:
+	case WP_BLASTER:
+	case WP_DISRUPTOR:
+	case WP_BOWCASTER:
+	case WP_REPEATER:
 	case WP_BATTLEDROID:
 	case WP_THEFIRSTORDER:
 	case WP_CLONECARBINE:
@@ -1114,10 +1118,7 @@ void CG_G2MarkEvent(entityState_t *es)
 	case WP_CLONECOMMANDO:
 	case WP_REBELRIFLE:
 	case WP_REY:
-	case WP_BLASTER:
-	case WP_DISRUPTOR:
-	case WP_BOWCASTER:
-	case WP_REPEATER:
+	case WP_JANGO:
 	case WP_TURRET:
 		if ( !size )
 		{

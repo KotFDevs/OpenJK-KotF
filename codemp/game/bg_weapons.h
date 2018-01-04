@@ -54,6 +54,7 @@ typedef enum {
 	WP_CLONECOMMANDO,
 	WP_REBELRIFLE,
 	WP_REY,
+	WP_JANGO,
 	WP_EMPLACED_GUN,
 	WP_TURRET,
 
@@ -69,7 +70,7 @@ typedef enum {
 } weapon_t;
 
 //anything > this will be considered not player useable
-#define LAST_USEABLE_WEAPON			WP_REY
+#define LAST_USEABLE_WEAPON			WP_JANGO
 
 typedef enum //# ammo_e
 {

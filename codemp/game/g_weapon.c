@@ -193,6 +193,12 @@ static vec3_t muzzle;
 #define REY_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
 #define REY_ALT_SIZE				1.0f
 
+// Westar 34
+//---------
+#define JANGO_SPREAD				0.1f//1.2f
+#define JANGO_VELOCITY			3000
+#define JANGO_DAMAGE				15
+
 
 // ATST Main Gun
 //--------------
@@ -752,6 +758,33 @@ void WP_FireRebelRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolea
 }
 
 //---------------------------------------------------------
+void WP_FireJangoPistolMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
+//---------------------------------------------------------
+{
+	int velocity	= JANGO_VELOCITY;
+	int	damage		= JANGO_DAMAGE;
+	gentity_t *missile;
+
+	if (ent->s.eType == ET_NPC)
+	{ //animent
+		damage = 10;
+	}
+
+	missile = CreateMissile( start, dir, velocity, 10000, ent, altFire );
+
+	missile->classname = "blaster_proj";
+	missile->s.weapon = WP_JANGO;
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	missile->methodOfDeath = MOD_JANGO;
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
+
+//---------------------------------------------------------
 void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir )
 //---------------------------------------------------------
 {
@@ -984,6 +1017,26 @@ static void WP_FireRebelRifle( gentity_t *ent, qboolean altFire )
 	WP_FireRebelRifleMissile( ent, muzzle, dir, altFire );
 }
 
+//---------------------------------------------------------
+static void WP_FireJangoPistol( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	vec3_t  dir, angs;
+
+	vectoangles( forward, angs );
+
+	if ( altFire )
+	{
+		// add some slop to the alt-fire direction
+    angs[PITCH] += Q_flrand(-1.0f, 1.0f) * JANGO_SPREAD;
+		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * JANGO_SPREAD;
+	}
+
+	AngleVectors( angs, dir, NULL, NULL );
+
+	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
+	WP_FireJangoPistolMissile( ent, muzzle, dir, altFire );
+}
 
 int G_GetHitLocation(gentity_t *target, vec3_t ppoint);
 
@@ -5049,38 +5102,6 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 			WP_FireBlaster( ent, altFire );
 			break;
 
-		case WP_BATTLEDROID:
-			WP_FireBattleDroid( ent, altFire );
-			break;
-
-		case WP_THEFIRSTORDER:
-			WP_FireFirstOrder( ent, altFire );
-			break;
-
-		case WP_CLONECARBINE:
-			WP_FireCloneCarbine( ent, altFire );
-			break;
-
-		case WP_REBELBLASTER:
-			WP_FireRebelBlaster( ent, altFire );
-			break;
-
-		case WP_CLONERIFLE:
-			WP_FireCloneRifle( ent, altFire );
-			break;
-
-		case WP_CLONECOMMANDO:
-			WP_FireCloneCommando( ent, altFire );
-			break;
-
-		case WP_REBELRIFLE:
-			WP_FireRebelRifle( ent, altFire );
-			break;
-
-		case WP_REY:
-			WP_FireReyPistol( ent, altFire );
-			break;
-
 		case WP_DISRUPTOR:
 			WP_FireDisruptor( ent, altFire );
 			break;
@@ -5115,6 +5136,42 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 
 		case WP_DET_PACK:
 			WP_DropDetPack( ent, altFire );
+			break;
+
+		case WP_BATTLEDROID:
+			WP_FireBattleDroid( ent, altFire );
+			break;
+
+		case WP_THEFIRSTORDER:
+			WP_FireFirstOrder( ent, altFire );
+			break;
+
+		case WP_CLONECARBINE:
+			WP_FireCloneCarbine( ent, altFire );
+			break;
+
+		case WP_REBELBLASTER:
+			WP_FireRebelBlaster( ent, altFire );
+			break;
+
+		case WP_CLONERIFLE:
+			WP_FireCloneRifle( ent, altFire );
+			break;
+
+		case WP_CLONECOMMANDO:
+			WP_FireCloneCommando( ent, altFire );
+			break;
+
+		case WP_REBELRIFLE:
+			WP_FireRebelRifle( ent, altFire );
+			break;
+
+		case WP_REY:
+			WP_FireReyPistol( ent, altFire );
+			break;
+
+		case WP_JANGO:
+			WP_FireJangoPistol( ent, altFire );
 			break;
 
 		case WP_EMPLACED_GUN:
