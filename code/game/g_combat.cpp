@@ -278,6 +278,9 @@ gentity_t *TossClientItems( gentity_t *self )
 				case WP_CLONERIFLE:
 					dropped->count = 15;
 					break;	
+				case WP_CLONECOMMANDO:
+					dropped->count = 15;
+					break;
 				default:
 					dropped->count = 0;
 					break;
@@ -5363,6 +5366,10 @@ void G_TrackWeaponUsage( gentity_t *self, gentity_t *inflictor, int add, int mod
 		case MOD_REBELBLASTER_ALT:
 			weapon = WP_REBELBLASTER;
 			break;
+		case MOD_CLONECOMMANDO:
+		case MOD_CLONECOMMANDO_ALT:
+			weapon = WP_CLONECOMMANDO;
+			break;
 		case MOD_BLASTER:
 		case MOD_BLASTER_ALT:
 			weapon = WP_BLASTER;
@@ -5872,6 +5879,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 				case MOD_REPEATER:
 				case MOD_CLONERIFLE:
 				case MOD_CLONERIFLE_ALT
+				case MOD_CLONECOMMANDO:
+				case MOD_CLONECOMMANDO_ALT
 				case MOD_FLECHETTE:
 				case MOD_WATER:
 				case MOD_SLIME:
@@ -5930,6 +5939,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 				case MOD_BLASTER_ALT:
 				case MOD_CLONERIFLE:
 				case MOD_CLONERIFLE_ALT:
+				case MOD_CLONECOMMANDO:
+				case MOD_CLONECOMMANDO_ALT:
 				case MOD_REPEATER:
 				case MOD_FLECHETTE:
 				case MOD_WATER:

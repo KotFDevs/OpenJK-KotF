@@ -81,6 +81,7 @@ float weaponSpeed[WP_NUM_WEAPONS][2] =
 	{ BLASTER_VELOCITY, BLASTER_VELOCITY },// WP_CLONECARBINE, 
 	{ CLONERIFLE_VELOCITY, CLONERIFLE_VELOCITY },// WP_CLONERIFLE
 	{ REBELBLASTER_VELOCITY, REBELBLASTER_VELOCITY },// WP_REBELBLASTER
+	{ CLONECOMMANDO_VELOCITY, CLONECOMMANDO_VELOCITY },// WP_CLONECOMMANDO
 
 };
 
@@ -356,6 +357,8 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case MOD_CLONERIFLE_ALT:
 		case MOD_REBELBLASTER:
 		case MOD_REBELBLASTER_ALT:
+		case MOD_CLONECOMMANDO:
+		case MOD_CLONECOMMANDO_ALT:
 		case MOD_DISRUPTOR:
 		case MOD_SNIPER:
 		case MOD_BOWCASTER:
@@ -398,6 +401,7 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case WP_CLONECARBINE:
 		case WP_REBELBLASTER:
 		case WP_CLONERIFLE:
+		case WP_CLONECOMMANDO:
 		case WP_DISRUPTOR:
 		case WP_BOWCASTER:
 		case WP_ROCKET_LAUNCHER:
@@ -549,6 +553,18 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
+		
+	case WP_CLONECOMMANDO:
+		ViewHeightFix(ent);
+		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
+		muzzlePoint[2] -= 1;
+		if (ent->s.number == 0)
+			VectorMA(muzzlePoint, 12, forwardVec, muzzlePoint); // player, don't set this any lower otherwise the projectile will impact immediately when your back is to a wall
+		else
+			VectorMA(muzzlePoint, 2, forwardVec, muzzlePoint); // NPC, don't set too far forwardVec otherwise the projectile can go through doors
+
+		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
+		break;
 
 	case WP_SABER:
 		if(ent->NPC!=NULL &&
@@ -625,6 +641,7 @@ vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS] =
 	{12,	6,		-6  },  // WP_CLONECARBINE,
 	{12,	6,		-6  },  // WP_REBELBLASTER,
 	{12,	6,		-6  },  // WP_CLONERIFLE,
+	{12,	6,		-6  },  // WP_CLONECOMMANDO,
 };
 
 void WP_RocketLock( gentity_t *ent, float lockDist )
@@ -1614,6 +1631,10 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 		
 	case WP_CLONERIFLE:
 		WP_FireCloneRifle(ent, alt_fire);
+		break;
+		
+	case WP_CLONECOMMANDO:
+		WP_FireCloneCommando(ent, alt_fire);
 		break;
 
 	case WP_TUSKEN_STAFF:

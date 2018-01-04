@@ -374,6 +374,11 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
+		case WP_CLONECOMMANDO:
+			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
+			{//rapid-fire blasters
+				attDelay += Q_irand( 0, 500 );
+			}
 			else
 			{//regular blaster
 				attDelay -= Q_irand( 0, 500 );
@@ -1167,6 +1172,35 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 		break;
 		
 	case WP_CLONERIFLE:
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
+		{
+			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
+			ent->NPC->burstMin = 3;
+	#ifdef BASE_SAVE_COMPAT
+			ent->NPC->burstMean = 3;
+	#endif
+			ent->NPC->burstMax = 3;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1500;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+		}
+		else
+		{
+			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 750;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+			//	ent->NPC->burstSpacing = 1000;//attackdebounce
+		}
+		break;
+		
+	case WP_CLONECOMMANDO:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
 			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
