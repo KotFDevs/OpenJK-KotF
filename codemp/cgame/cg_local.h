@@ -1093,6 +1093,7 @@ typedef struct cgMedia_s {
 
 	qhandle_t	bryarFrontFlash;
 	qhandle_t	greenFrontFlash;
+	qhandle_t	cloneFrontFlash;
 	qhandle_t	lightningFlash;
 
 	qhandle_t	itemHoloModel;
@@ -1414,8 +1415,11 @@ typedef struct cgEffects_s {
 
 	// Clone
 	fxHandle_t	cloneShotEffect;
+	fxHandle_t	clonePowerupShotEffect;
 	fxHandle_t	cloneOverchargeEffect;
 	fxHandle_t	cloneWallImpactEffect;
+	fxHandle_t	cloneWallImpactEffect2;
+	fxHandle_t	cloneWallImpactEffect3;
 	fxHandle_t	cloneFleshImpactEffect;
 
 	// DISRUPTOR
@@ -2033,9 +2037,12 @@ void FX_BlasterWeaponHitWall( vec3_t origin, vec3_t normal );
 void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
 
 void FX_CloneProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_CloneAltProjectileThink(centity_t *cent, const struct weaponInfo_s *weapon);
 void FX_CloneAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_CloneAltHitWall(vec3_t origin, vec3_t normal, int power);
 void FX_CloneWeaponHitWall( vec3_t origin, vec3_t normal );
 void FX_CloneWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+void FX_CloneAltHitPlayer(vec3_t origin, vec3_t normal, qboolean humanoid);
 
 
 void FX_ForceDrained(vec3_t origin, vec3_t dir);

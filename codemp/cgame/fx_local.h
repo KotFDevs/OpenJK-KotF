@@ -48,9 +48,12 @@ void FX_BlasterWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid 
 
 // Clone
 void FX_CloneProjectileThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_CloneAltProjectileThink(centity_t *cent, const struct weaponInfo_s *weapon);
 void FX_CloneAltFireThink( centity_t *cent, const struct weaponInfo_s *weapon );
+void FX_CloneAltHitWall(vec3_t origin, vec3_t normal, int power);
 void FX_CloneWeaponHitWall( vec3_t origin, vec3_t normal );
 void FX_CloneWeaponHitPlayer( vec3_t origin, vec3_t normal, qboolean humanoid );
+void FX_CloneAltHitPlayer(vec3_t origin, vec3_t normal, qboolean humanoid);
 
 // Disruptor
 void FX_DisruptorMainShot( vec3_t start, vec3_t end );
