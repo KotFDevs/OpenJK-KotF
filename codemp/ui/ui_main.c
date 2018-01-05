@@ -5407,14 +5407,32 @@ static void UI_UpdateSaberHilt( qboolean secondSaber )
 	}
 }
 
-static void UI_UpdateSaberColor( qboolean secondSaber )
+static void UI_UpdateSaberColor(qboolean secondSaber)
 {
+	char str[32];
+	str[0] = '\0';
+
+	strncat(str, va("%i,%i,%i", ui_sab1_r.integer, ui_sab1_g.integer, ui_sab1_b.integer), sizeof(str));
+	trap->Cvar_Set("rgb_saber1", str);
+	str[0] = '\0';
+
+	strncat(str, va("%i,%i,%i", ui_sab2_r.integer, ui_sab2_g.integer, ui_sab2_b.integer), sizeof(str));
+	trap->Cvar_Set("rgb_saber2", str);
+
+	//	Com_Printf("update saber : %i\n",secondSaber);
 }
 
 const char *SaberColorToString( saber_colors_t color );
 
+void ParseRGBSaber(char * str, vec3_t c);
+void UI_ParseScriptedSaber(char *script, int snum);
+
 static void UI_GetSaberCvars ( void )
 {
+	char strgb1[64], strgb2[64];
+	char scr1[256], scr2[256];
+	vec3_t c1, c2;
+
 //	trap->Cvar_Set ( "ui_saber_type", UI_Cvar_VariableString ( "g_saber_type" ) );
 	trap->Cvar_Set ( "ui_saber", UI_Cvar_VariableString ( "saber1" ) );
 	trap->Cvar_Set ( "ui_saber2", UI_Cvar_VariableString ( "saber2" ));
@@ -5424,7 +5442,57 @@ static void UI_GetSaberCvars ( void )
 
 	trap->Cvar_Set ( "ui_saber_color", UI_Cvar_VariableString ( "g_saber_color" ) );
 	trap->Cvar_Set ( "ui_saber2_color", UI_Cvar_VariableString ( "g_saber2_color" ) );
+
+	strncpy(strgb1, UI_Cvar_VariableString("rgb_saber1"), sizeof(strgb1));
+	strncpy(strgb2, UI_Cvar_VariableString("rgb_saber2"), sizeof(strgb2));
+
+	ParseRGBSaber(strgb1, c1);
+	ParseRGBSaber(strgb2, c2);
+
+	trap->Cvar_Set("ui_sab1_r", va("%f", c1[0]));
+	trap->Cvar_Set("ui_sab1_g", va("%f", c1[1]));
+	trap->Cvar_Set("ui_sab1_b", va("%f", c1[2]));
+
+	trap->Cvar_Set("ui_sab2_r", va("%f", c2[0]));
+	trap->Cvar_Set("ui_sab2_g", va("%f", c2[1]));
+	trap->Cvar_Set("ui_sab2_b", va("%f", c2[2]));
+
+	/*
+	fs(set,"%f",c1[0]);
+	trap_Cvar_Set("ui_sab1_r",set);
+	fs(set,"%f",c1[1]);
+	trap_Cvar_Set("ui_sab1_g",set);
+	fs(set,"%f",c1[2]);
+	trap_Cvar_Set("ui_sab1_b",set);
+
+	fs(set,"%f",c2[0]);
+	trap_Cvar_Set("ui_sab2_r",set);
+	fs(set,"%f",c2[1]);
+	trap_Cvar_Set("ui_sab2_g",set);
+	fs(set,"%f",c2[2]);
+	trap_Cvar_Set("ui_sab2_b",set);
+	*/
+
+	strncpy(scr1, UI_Cvar_VariableString("rgb_script1"), sizeof(scr1));
+	strncpy(scr2, UI_Cvar_VariableString("rgb_script2"), sizeof(scr2));
+
+	if (scr1[0] != ':')
+	{
+		trap->Cvar_Set("rgb_script1", ":255,0,255:500:0,0,255:500:");
+		strncpy(scr1, ":255,0,255:500:0,0,255:500:\0", sizeof(scr1));
+	}
+	if (scr2[0] != ':')
+	{
+		trap->Cvar_Set("rgb_script2", ":0,255,255:500:0,0,255:500:");
+		strncpy(scr2, ":0,255,255:500:0,0,255:500:\0", sizeof(scr2));
+	}
+
+	UI_ParseScriptedSaber(scr1, 0);
+	UI_ParseScriptedSaber(scr2, 1);
+
+	//	Com_Printf("ui_getsabercvar > %i,%i,%i %i,%i,%i\n",ui_sab1_r.integer,ui_sab1_g.integer,ui_sab1_b.integer,ui_sab2_r.integer,ui_sab2_g.integer,ui_sab2_b.integer);
 }
+
 
 extern qboolean ItemParse_model_g2anim_go( itemDef_t *item, const char *animName );
 

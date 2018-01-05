@@ -2116,6 +2116,11 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 	qboolean modelChanged = qfalse;
 	gender_t gender = GENDER_MALE;
 
+	char	rgb1[MAX_INFO_STRING];
+	char	rgb2[MAX_INFO_STRING];
+	char	script1[MAX_INFO_STRING];
+	char	script2[MAX_INFO_STRING];
+
 	trap->GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
 
 	// check for malformed or illegal info strings
@@ -2307,6 +2312,12 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 	Q_strncpyz( color1, Info_ValueForKey( userinfo, "color1" ), sizeof( color1 ) );
 	Q_strncpyz( color2, Info_ValueForKey( userinfo, "color2" ), sizeof( color2 ) );
 
+	Q_strncpyz(rgb1, Info_ValueForKey(userinfo, "rgb_saber1"), sizeof(rgb1));
+	Q_strncpyz(rgb2, Info_ValueForKey(userinfo, "rgb_saber2"), sizeof(rgb2));
+
+	Q_strncpyz(script1, Info_ValueForKey(userinfo, "rgb_script1"), sizeof(script1));
+	Q_strncpyz(script2, Info_ValueForKey(userinfo, "rgb_script2"), sizeof(script2));
+
 	// gender hints
 	s = Info_ValueForKey( userinfo, "sex" );
 	if ( !Q_stricmp( s, "female" ) )
@@ -2331,6 +2342,12 @@ qboolean ClientUserinfoChanged( int clientNum ) {
 	Q_strcat( buf, sizeof( buf ), va( "c1\\%s\\", color1 ) );
 	Q_strcat( buf, sizeof( buf ), va( "c2\\%s\\", color2 ) );
 	Q_strcat( buf, sizeof( buf ), va( "hc\\%i\\", client->pers.maxHealth ) );
+
+	Q_strcat( buf, sizeof( buf ), va( "tc1\\%s\\", rgb1) );
+ 	Q_strcat( buf, sizeof( buf ), va( "tc2\\%s\\", rgb2) );
+	Q_strcat( buf, sizeof( buf ), va( "ss1\\%s\\", script1) );
+ 	Q_strcat( buf, sizeof( buf ), va( "ss2\\%s\\", script2) );
+
 	if ( ent->r.svFlags & SVF_BOT )
 		Q_strcat( buf, sizeof( buf ), va( "skill\\%s\\", Info_ValueForKey( userinfo, "skill" ) ) );
 	if ( level.gametype == GT_DUEL || level.gametype == GT_POWERDUEL ) {
@@ -4033,5 +4050,3 @@ void ClientDisconnect( int clientNum ) {
 
 	G_ClearClientLog(clientNum);
 }
-
-
