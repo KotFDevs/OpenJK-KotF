@@ -205,6 +205,13 @@ static vec3_t muzzle;
 #define BOBA_VELOCITY			2200
 #define BOBA_DAMAGE				30
 
+// DC-17 Hand Pistol
+//--------
+#define CLONEPISTOL_VEL			1600
+#define CLONEPISTOL_DAMAGE			10
+#define CLONEPISTOL_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
+#define CLONEPISTOL_ALT_SIZE				1.0f
+
 // ATST Main Gun
 //--------------
 #define ATST_MAIN_VEL				4000	//
@@ -424,6 +431,66 @@ static void WP_FireReyPistol( gentity_t *ent, qboolean altFire )
 	else
 	{
 		missile->methodOfDeath = MOD_REY;
+	}
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
+
+//----------------------------------------------
+static void WP_FireClonePistol( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	int damage = CLONEPISTOL_DAMAGE;
+	int count;
+
+	gentity_t	*missile = CreateMissile( muzzle, forward, CLONEPISTOL_VEL, 10000, ent, altFire );
+
+	missile->classname = "clone_proj";
+	missile->s.weapon = WP_CLONEPISTOL;
+
+	if ( altFire )
+	{
+		float boxSize = 0;
+
+		count = ( level.time - ent->client->ps.weaponChargeTime ) / CLONEPISTOL_CHARGE_UNIT;
+
+		if ( count < 1 )
+		{
+			count = 1;
+		}
+		else if ( count > 5 )
+		{
+			count = 5;
+		}
+
+		if (count > 1)
+		{
+			damage *= (count*1.7);
+		}
+		else
+		{
+			damage *= (count*1.5);
+		}
+
+		missile->s.generic1 = count; // The missile will then render according to the charge level.
+
+		boxSize = CLONEPISTOL_ALT_SIZE*(count*0.5);
+
+		VectorSet( missile->r.maxs, boxSize, boxSize, boxSize );
+		VectorSet( missile->r.mins, -boxSize, -boxSize, -boxSize );
+	}
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	if (altFire)
+	{
+		missile->methodOfDeath = MOD_CLONEPISTOL_ALT;
+	}
+	else
+	{
+		missile->methodOfDeath = MOD_CLONEPISTOL;
 	}
 	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
 
@@ -5246,6 +5313,10 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 				WP_FireBobaRifle(ent, altFire);
 				break;
 			}
+
+		case WP_CLONEPISTOL:
+			WP_FireClonePistol( ent, altFire );
+			break;
 
 		case WP_EMPLACED_GUN:
 			if (ent->client && ent->client->ewebIndex)
