@@ -91,6 +91,7 @@ int weaponFromMOD[MOD_MAX] =
 	WP_REY,				//MOD_REY,
 	WP_REY,				//MOD_REY_ALT,
 	WP_JANGO,				//MOD_JANGO,
+	WP_BOBA,				//MOD_BOBA,
 	WP_NONE,				//MOD_FORCE_DARK,
 	WP_NONE,				//MOD_SENTRY,
 	WP_NONE,				//MOD_WATER,

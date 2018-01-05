@@ -1119,6 +1119,7 @@ void CG_G2MarkEvent(entityState_t *es)
 	case WP_REBELRIFLE:
 	case WP_REY:
 	case WP_JANGO:
+	case WP_BOBA:
 	case WP_TURRET:
 		if ( !size )
 		{

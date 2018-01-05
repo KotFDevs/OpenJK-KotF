@@ -805,6 +805,7 @@ char	*modNames[MOD_MAX] = {
 	"MOD_REY",
 	"MOD_REY_ALT",
 	"MOD_JANGO",
+	"MOD_BOBA",
 	"MOD_VEHICLE",
 	"MOD_CONC",
 	"MOD_CONC_ALT",

@@ -199,6 +199,11 @@ static vec3_t muzzle;
 #define JANGO_VELOCITY			3000
 #define JANGO_DAMAGE				15
 
+// EE-3
+//---------
+#define BOBA_SPREAD				0.5f//1.2f
+#define BOBA_VELOCITY			2200
+#define BOBA_DAMAGE				30
 
 // ATST Main Gun
 //--------------
@@ -785,6 +790,38 @@ void WP_FireJangoPistolMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboole
 }
 
 //---------------------------------------------------------
+void WP_FireBobaRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean altFire )
+//---------------------------------------------------------
+{
+	int velocity	= BOBA_VELOCITY;
+	int	damage		= BOBA_DAMAGE;
+	gentity_t *missile;
+
+  if (altFire)
+	{
+		velocity = Q_irand(1500, 3000);
+	}
+
+	if (ent->s.eType == ET_NPC)
+	{ //animent
+		damage = 10;
+	}
+
+	missile = CreateMissile( start, dir, velocity, 10000, ent, altFire );
+
+	missile->classname = "blaster_proj";
+	missile->s.weapon = WP_BOBA;
+
+	missile->damage = damage;
+	missile->dflags = DAMAGE_DEATH_KNOCKBACK;
+	missile->methodOfDeath = MOD_BOBA;
+	missile->clipmask = MASK_SHOT | CONTENTS_LIGHTSABER;
+
+	// we don't want it to bounce forever
+	missile->bounceCount = 8;
+}
+
+//---------------------------------------------------------
 void WP_FireTurboLaserMissile( gentity_t *ent, vec3_t start, vec3_t dir )
 //---------------------------------------------------------
 {
@@ -1036,6 +1073,27 @@ static void WP_FireJangoPistol( gentity_t *ent, qboolean altFire )
 
 	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
 	WP_FireJangoPistolMissile( ent, muzzle, dir, altFire );
+}
+
+//---------------------------------------------------------
+static void WP_FireBobaRifle( gentity_t *ent, qboolean altFire )
+//---------------------------------------------------------
+{
+	vec3_t  dir, angs;
+
+	vectoangles( forward, angs );
+
+	if ( altFire )
+	{
+		// add some slop to the alt-fire direction
+    angs[PITCH] += Q_flrand(-1.0f, 1.0f) * BOBA_SPREAD;
+		angs[YAW]       += Q_flrand(-1.0f, 1.0f) * BOBA_SPREAD;
+	}
+
+	AngleVectors( angs, dir, NULL, NULL );
+
+	// FIXME: if temp_org does not have clear trace to inside the bbox, don't shoot!
+	WP_FireBobaRifleMissile( ent, muzzle, dir, altFire );
 }
 
 int G_GetHitLocation(gentity_t *target, vec3_t ppoint);
@@ -5173,6 +5231,21 @@ void FireWeapon( gentity_t *ent, qboolean altFire ) {
 		case WP_JANGO:
 			WP_FireJangoPistol( ent, altFire );
 			break;
+
+		case WP_BOBA:
+			if (altFire)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					WP_FireBobaRifle(ent, altFire);
+				}
+				break;
+			}
+			else
+			{
+				WP_FireBobaRifle(ent, altFire);
+				break;
+			}
 
 		case WP_EMPLACED_GUN:
 			if (ent->client && ent->client->ewebIndex)
