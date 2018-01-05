@@ -5446,6 +5446,9 @@ static void CG_RGBForSaberColor(saber_colors_t color, vec3_t rgb, int cnum, int 
 				VectorSet(rgb, 0.2f, 0.4f, 1.0f);
 			}
 			break;
+		case SABER_UNSTABLE_RED:
+			VectorSet(rgb, 1.0f, 0.2f, 0.2f);
+			break;
 		default:
 			break;
 	}
@@ -5550,7 +5553,7 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 	vec3_t rgb = { 1, 1, 1 };
 	int i;
 
-	qhandle_t	glow = 0;
+	qhandle_t	glow = 0, blade = 0;
 	refEntity_t saber, sbak;
 
 	VectorSubtract(blade_tip, blade_muz, blade_dir);
@@ -5576,24 +5579,51 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 	{
 	case SABER_RED:
 		glow = cgs.media.redSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	case SABER_ORANGE:
 		glow = cgs.media.orangeSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	case SABER_YELLOW:
 		glow = cgs.media.yellowSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	case SABER_GREEN:
 		glow = cgs.media.greenSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	case SABER_PURPLE:
 		glow = cgs.media.purpleSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	case SABER_RGB:
 		glow = cgs.media.rgbSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
+		break;
+	case SABER_UNSTABLE_RED:
+		glow = cgs.media.redSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade_unstable");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	default:
 		glow = cgs.media.blueSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
 		break;
 	}
 
@@ -5984,6 +6014,10 @@ void CG_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 		case SABER_RGB:
 			glow = cgs.media.rgbSaberGlowShader;
 			blade = cgs.media.rgbSaberCoreShader;
+			break;
+		case SABER_UNSTABLE_RED:
+			glow = cgs.media.unstableRedSaberGlowShader;
+			blade = cgs.media.unstableRedSaberCoreShader;
 			break;
 		default:
 			glow = cgs.media.blueSaberGlowShader;
@@ -7025,6 +7059,9 @@ CheckTrail:
 								VectorSet(rgb1, 0.0f, 64.0f, 255.0f);
 							}
 							break;
+						case SABER_UNSTABLE_RED:
+							VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
+							break;
 						default:
 							VectorSet( rgb1, 0.0f, 64.0f, 255.0f );
 							break;
@@ -7246,6 +7283,9 @@ CheckTrail:
 					VectorSet( rgb1, 0.0f, 64.0f, 255.0f );
 				}
 				break;
+			case SABER_UNSTABLE_RED:
+	 			VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
+	 			break;
 		   default:
 		     VectorSet(rgb1, 0.0f, 64.0f, 255.0f);
 		     break;

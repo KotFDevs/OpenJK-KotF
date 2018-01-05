@@ -55,6 +55,8 @@ static qhandle_t purpleSaberCoreShader;
 static qhandle_t SaberBladeShader;
 static qhandle_t rgbSaberGlowShader;
 static qhandle_t rgbSaberCoreShader;
+static qhandle_t unstableRedSaberGlowShader;
+static qhandle_t unstableRedSaberCoreShader;
 
 void UI_CacheSaberGlowGraphics( void )
 {//FIXME: these get fucked by vid_restarts
@@ -72,7 +74,8 @@ void UI_CacheSaberGlowGraphics( void )
 	purpleSaberCoreShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/purple_line" );
 	rgbSaberGlowShader			= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/rgb_glow" );
 	rgbSaberCoreShader 			= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/rgb_line" );
-	SaberBladeShader 			= trap->R_RegisterShaderNoMip( "SFX_Sabers/saber_blade" );
+	unstableRedSaberGlowShader 	= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/unstable_red_glow" );
+	unstableRedSaberCoreShader 	= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/unstable_red_line" );
 }
 
 qboolean UI_SaberModelForSaber( const char *saberName, char *saberModel )
@@ -255,7 +258,7 @@ void UI_DoSFXSaber( vec3_t blade_muz, vec3_t blade_dir, float lengthMax, float r
 	float	effectalpha = 0.8f;
 	float	AngleScale = 1.0f;
 
-	qhandle_t	glow = 0;
+	qhandle_t	glow = 0, blade = 0;
 	refEntity_t saber;
 
 	vec3_t rgb = { 1, 1, 1 };
@@ -271,22 +274,34 @@ void UI_DoSFXSaber( vec3_t blade_muz, vec3_t blade_dir, float lengthMax, float r
 	switch( color )
 	{
 		case SABER_RED:
-			glow = redSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/red_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/red_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 			break;
 		case SABER_ORANGE:
-			glow = orangeSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/orange_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/orange_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 			break;
 		case SABER_YELLOW:
-			glow = yellowSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/yellow_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/yellow_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 			break;
 		case SABER_GREEN:
-			glow = greenSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/green_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/green_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 			break;
 		case SABER_PURPLE:
-			glow = purpleSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/purple_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/purple_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 			break;
 		case SABER_BLUE:
-			glow = blueSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/blue_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/blue_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 			break;
 		case SABER_RGB:
 		{
@@ -298,9 +313,16 @@ void UI_DoSFXSaber( vec3_t blade_muz, vec3_t blade_dir, float lengthMax, float r
 			for (i = 0; i<3; i++)
 					rgb[i] /= 255;
 
-			glow = rgbSaberGlowShader;
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/rgb_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/rgb_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade");
 		}
 		break;
+		case SABER_UNSTABLE_RED:
+			glow = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_glow");
+			blade = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_line");
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade_unstable");
+			break;
 		default:
 			break;
 	}
@@ -589,6 +611,11 @@ void UI_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 		  glow = rgbSaberGlowShader;
 		  blade = rgbSaberCoreShader;
 		}
+			break;
+		case SABER_UNSTABLE_RED:
+			glow = unstableRedSaberGlowShader;
+			blade = unstableRedSaberCoreShader;
+			VectorSet(rgb, 1.0f, 0.2f, 0.2f);
 			break;
 		default:
 			break;
