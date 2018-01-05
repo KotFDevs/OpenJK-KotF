@@ -27,7 +27,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // q_shared.h -- included first by ALL program modules.
 // A user mod should never modify this file
 
-#define PRODUCT_NAME			"KotF_2.1_MP"
+#define PRODUCT_NAME			"KotFMPconfig"
 
 #define CLIENT_WINDOW_TITLE "Knights of the Force 2.1 MP"
 #define CLIENT_CONSOLE_TITLE "Knights of the Force 2.1 MP Console"

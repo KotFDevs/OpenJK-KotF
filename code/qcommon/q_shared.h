@@ -73,7 +73,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define HOMEPATH_NAME_WIN "OpenJO"
 #define HOMEPATH_NAME_MACOSX HOMEPATH_NAME_WIN
 #else
-#define PRODUCT_NAME			"KotF_2.1_SP"
+#define PRODUCT_NAME			"KotFSPconfig"
 
 #define CLIENT_WINDOW_TITLE "Knights of the Force 2.1 SP"
 #define CLIENT_CONSOLE_TITLE "Knights of the Force 2.1 SP Console"
