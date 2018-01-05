@@ -76,7 +76,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define CURSOR_ARROW				0x00000002
 #define CURSOR_SIZER				0x00000004
 
-#define STRING_POOL_SIZE (2*1024*1024)
+#define STRING_POOL_SIZE (4*1024*1024)
 
 #define MAX_STRING_HANDLES 4096
 #define MAX_SCRIPT_ARGS 12

@@ -127,9 +127,9 @@ extern qboolean ItemParse_model_g2anim_go( itemDef_t *item, const char *animName
 
 
 #ifdef _CGAME
-#define MEM_POOL_SIZE  (128 * 1024)
+#define MEM_POOL_SIZE  (256 * 1024)
 #else
-#define MEM_POOL_SIZE  (4 * 1024 * 1024)
+#define MEM_POOL_SIZE  (8 * 1024 * 1024)
 #endif
 
 static char memoryPool[MEM_POOL_SIZE];

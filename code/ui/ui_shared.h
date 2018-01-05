@@ -112,7 +112,7 @@ typedef struct multiDef_s {
 #define CVAR_HIDE		0x00000008
 #define CVAR_SUBSTRING	0x00000010	//when using enable or disable, just check for strstr instead of ==
 
-#define STRING_POOL_SIZE (2*1024*1024)
+#define STRING_POOL_SIZE (4*1024*1024)
 
 #define	NUM_CROSSHAIRS			9
 
