@@ -114,7 +114,7 @@ void CorpsePhysics( gentity_t *self )
 		{//can't be dismembered once dead
 			if ( self->client->NPC_class != CLASS_PROTOCOL )
 			{
-				self->client->dismembered = true;
+				//self->client->dismembered = true;
 			}
 		}
 	}
