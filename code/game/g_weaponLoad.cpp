@@ -116,7 +116,7 @@ func_t	funcs[] = {
 qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 {
 	qtrue,//WP_NONE,
-	
+
 	// Player weapons
 	qtrue,//WP_SABER,
 	qtrue,//WP_BLASTER_PISTOL,	// player and NPC weapon
@@ -131,30 +131,30 @@ qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 	qtrue,//WP_TRIP_MINE,		// NPC weapon - player can pick this up, but never starts with them
 	qtrue,//WP_DET_PACK,		// NPC weapon - player can pick this up, but never starts with them
 	qtrue,//WP_CONCUSSION,		// NPC weapon - player can pick this up, but never starts with them
-	
+
 	//extras
 	qtrue,//WP_MELEE,			// player and NPC weapon - Any ol' melee attack
-	
+
 	//when in atst
 	qtrue,//WP_ATST_MAIN,
 	qtrue,//WP_ATST_SIDE,
-	
+
 	// These can never be gotten directly by the player
 	qtrue,//WP_STUN_BATON,		// stupid weapon, should remove
-	
+
 	//NPC weapons
 	qtrue,//WP_BRYAR_PISTOL,	// NPC weapon - player can pick this up, but never starts with them
-	
+
 	qfalse,//WP_EMPLACED_GUN,
-	
+
 	qfalse,//WP_BOT_LASER,		// Probe droid	- Laser blast
-	
+
 	qfalse,//WP_TURRET,			// turret guns
-	
+
 	qfalse,//WP_TIE_FIGHTER,
-	
+
 	qfalse,//WP_RAPID_FIRE_CONC,
-	
+
 	qfalse,//WP_JAWA,
 	qtrue,//WP_TUSKEN_RIFLE,
 	qfalse,//WP_TUSKEN_STAFF,
@@ -276,22 +276,22 @@ const int defaultDamage[] = {
 	0,							// WP_TUSKEN_STAFF
 	0,							// WP_SCEPTER
 	0,							// WP_NOGHRI_STICK
-	BLASTER_DAMAGE,				// WP_BATTLEDROID 
+	BLASTER_DAMAGE,				// WP_BATTLEDROID
 	BLASTER_DAMAGE,				// WP_THEFIRSTORDER
 	BLASTER_DAMAGE,				// WP_CLONECARBINE
-	
+
 	CLONERIFLE_DAMAGE,			// WP_CLONERIFLE
-	
+
 	REBELBLASTER_DAMAGE,		// WP_REBELBLASTER
-	
+
 	CLONECOMMANDO_DAMAGE,		// WP_CLONERIFLE
-	
+
 	REBELRIFLE_DAMAGE,			// WP_REBELRIFLE
-	
+
 	REY_DAMAGE,					// WP_REY
-	
+
 	JANGO_DAMAGE,				// WP_JANGO
-};	
+};
 
 const int defaultAltDamage[] = {
 	0,						// WP_NONE
@@ -331,17 +331,17 @@ const int defaultAltDamage[] = {
 	BLASTER_DAMAGE,			// WP_BATTLEDROID
 	BLASTER_DAMAGE,			// WP_THEFIRSTORDER
 	BLASTER_DAMAGE,			// WP_CLONECARBINE
-	
+
 	CLONERIFLE_DAMAGE,		// WP_CLONERIFLE
-	
+
 	REBELBLASTER_DAMAGE,	// WP_REBELBLASTER
-	
+
 	CLONECOMMANDO_DAMAGE,	// WP_REBELBLASTER
-	
+
 	REBELRIFLE_DAMAGE,		// WP_REBELRIFLE
-	
+
 	REY_DAMAGE,				// WP_REY
-	
+
 	JANGO_DAMAGE,			// WP_JANGO
 };
 
@@ -386,7 +386,7 @@ const int defaultSplashDamage[] = {
 	0,				   				// WP_REBELBLASTER
 	0,				   				// WP_CLONERIFLE
 	0,				   				// WP_CLONECOMMANDO
-	0,				   				// WP_REBELRIFLE
+	0,						   	 	// WP_REBELRIFLE
 	0,				   				// WP_REY
 	0,				   				// WP_JANGO
 };
