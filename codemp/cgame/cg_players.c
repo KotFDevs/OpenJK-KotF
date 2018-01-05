@@ -5547,8 +5547,11 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 	float	glowscale = 0.5;
 	float 	v1, v2, len;
 
+	vec3_t rgb = { 1, 1, 1 };
+	int i;
+
 	qhandle_t	glow = 0;
-	refEntity_t saber;
+	refEntity_t saber, sbak;
 
 	VectorSubtract(blade_tip, blade_muz, blade_dir);
 	VectorSubtract(trail_tip, trail_muz, trail_dir);
@@ -5586,6 +5589,9 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 	case SABER_PURPLE:
 		glow = cgs.media.purpleSaberGlowShader;
 		break;
+	case SABER_RGB:
+		glow = cgs.media.rgbSaberGlowShader;
+		break;
 	default:
 		glow = cgs.media.blueSaberGlowShader;
 		break;
@@ -5595,10 +5601,9 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 
 	if (doLight)
 	{
-    vec3_t rgb={1,1,1};
     CG_RGBForSaberColor( color, rgb, cnum, bnum);
     VectorScale( rgb, 0.66f, rgb );
-    trap->R_AddLightToScene( mid, (blade_len*2.0f) + (Q_flrand(0.0f, 1.0f)*10.0f), rgb[0], rgb[1], rgb[2] );
+    trap->R_AddLightToScene(mid, ((blade_len*2.0f) + (Q_flrand(0.0f, 2.0f)*10.0f)), rgb[0], rgb[1], rgb[2]);
 	}
 
 	//Distance Scale
@@ -5687,6 +5692,9 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		rfx |= RF_FORCEPOST;
 	}
 
+	for (i = 0; i<3; i++)
+		rgb[i] *= 255;
+
 	{
 		saber.renderfx = rfx;
 		if (blade_len - ((effectradius*AngleScale) / 2) > 0)
@@ -5697,10 +5705,15 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 			VectorCopy(blade_dir, saber.axis[0]);
 			saber.reType = RT_SABER_GLOW;
 			saber.customShader = glow;
-			saber.shaderRGBA[0] = 0xff;
-			saber.shaderRGBA[1] = 0xff;
-			saber.shaderRGBA[2] = 0xff;
-			saber.shaderRGBA[3] = 0xff;
+
+			if (color != SABER_RGB)
+				saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff * effectalpha;
+			else
+			{
+				for (i = 0; i<3; i++)
+					saber.shaderRGBA[i] = rgb[i] * effectalpha;
+				saber.shaderRGBA[3] = 255 * effectalpha;
+			}
 
 			trap->R_AddRefEntityToScene(&saber);
 		}
@@ -5717,6 +5730,7 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
 		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 
+		sbak = saber;
 		trap->R_AddRefEntityToScene(&saber);
 
 	}
@@ -5731,11 +5745,15 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 			VectorCopy(trail_dir, saber.axis[0]);
 			saber.reType = RT_SABER_GLOW;
 			saber.customShader = glow;
-			saber.shaderRGBA[0] = 0xff * effectalpha;
-			saber.shaderRGBA[1] = 0xff * effectalpha;
-			saber.shaderRGBA[2] = 0xff * effectalpha;
-			saber.shaderRGBA[3] = 0xff * effectalpha;
 
+			if (color != SABER_RGB)
+				saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff * effectalpha;
+			else
+			{
+				for (i = 0; i<3; i++)
+					saber.shaderRGBA[i] = rgb[i] * effectalpha;
+				saber.shaderRGBA[3] = 255 * effectalpha;
+			}
 
 			trap->R_AddRefEntityToScene(&saber);
 		}
@@ -5752,6 +5770,7 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
 		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 
+		sbak = saber;
 		trap->R_AddRefEntityToScene(&saber);
 
 	}
@@ -5770,11 +5789,15 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 			VectorCopy(base_dir, saber.axis[0]);
 			saber.reType = RT_SABER_GLOW;
 			saber.customShader = glow;
-			saber.shaderRGBA[0] = 0xff * effectalpha;
-			saber.shaderRGBA[1] = 0xff * effectalpha;
-			saber.shaderRGBA[2] = 0xff * effectalpha;
-			saber.shaderRGBA[3] = 0xff * effectalpha;
 
+			if (color != SABER_RGB)
+				saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff * effectalpha;
+			else
+			{
+				for (i = 0; i<3; i++)
+					saber.shaderRGBA[i] = rgb[i] * effectalpha;
+				saber.shaderRGBA[3] = 255 * effectalpha;
+			}
 			trap->R_AddRefEntityToScene(&saber);
 		}
 
@@ -5791,6 +5814,7 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
 		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 
+		sbak = saber;
 		trap->R_AddRefEntityToScene(&saber);
 
 	}
@@ -5841,11 +5865,15 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 			VectorCopy(end_dir, saber.axis[0]);
 			saber.reType = RT_SABER_GLOW;
 			saber.customShader = glow;
-			saber.shaderRGBA[0] = 0xff * effectalpha;
-			saber.shaderRGBA[1] = 0xff * effectalpha;
-			saber.shaderRGBA[2] = 0xff * effectalpha;
-			saber.shaderRGBA[3] = 0xff * effectalpha;
 
+			if (color != SABER_RGB)
+				saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff * effectalpha;
+			else
+			{
+				for (i = 0; i<3; i++)
+					saber.shaderRGBA[i] = rgb[i] * effectalpha;
+				saber.shaderRGBA[3] = 255 * effectalpha;
+			}
 			trap->R_AddRefEntityToScene(&saber);
 		}
 
@@ -5882,8 +5910,28 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
 		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 
+		if (color != SABER_RGB)
+			saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
+		else
+		{
+			for (i = 0; i<3; i++)
+				saber.shaderRGBA[i] = rgb[i];
+			saber.shaderRGBA[3] = 255;
+		}
+		sbak = saber;
 		trap->R_AddRefEntityToScene(&saber);
 
+		if (color == SABER_RGB)
+		{
+
+			sbak.customShader = cgs.media.SaberBladeShader;
+			saber.reType = RT_LINE;
+			saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
+			saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
+			saber.radius = (coreradius * AngleScale);
+			saber.saberLength = end_len;
+			trap->R_AddRefEntityToScene(&sbak);
+		}
 	}
 }
 
@@ -6012,6 +6060,7 @@ void CG_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 	saber.radius = (radiusStart + Q_flrand(-1.0f, 1.0f) * radiusRange)*radiusmult;
 	//	saber.radius = (1.0 + Q_flrand(-1.0f, 1.0f) * 0.2f)*radiusmult;
 	saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
+
 	if (color != SABER_RGB)
 		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 	else
@@ -7181,6 +7230,22 @@ CheckTrail:
 		   case SABER_PURPLE:
 		     VectorSet(rgb1, 220.0f, 0.0f, 255.0f);
 		     break;
+		   case SABER_RGB:
+				{
+				int cnum = cent->currentState.clientNum;
+				if(cnum < MAX_CLIENTS)
+				{
+					clientInfo_t *ci = &cgs.clientinfo[cnum];
+	                                   
+				if(saberNum == 0)
+					VectorCopy(ci->rgb1, rgb1);
+				else
+					VectorCopy(ci->rgb2, rgb1);
+				}
+				else
+					VectorSet( rgb1, 0.0f, 64.0f, 255.0f );
+				}
+				break;
 		   default:
 		     VectorSet(rgb1, 0.0f, 64.0f, 255.0f);
 		     break;
