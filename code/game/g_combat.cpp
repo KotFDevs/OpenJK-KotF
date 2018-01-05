@@ -293,6 +293,9 @@ gentity_t *TossClientItems( gentity_t *self )
 				case WP_BOBA:
 					dropped->count = 15;
 					break;
+				case WP_CLONEPISTOL:
+					dropped->count = 15;
+					break;
 				default:
 					dropped->count = 0;
 					break;
@@ -5396,6 +5399,10 @@ void G_TrackWeaponUsage( gentity_t *self, gentity_t *inflictor, int add, int mod
 		case MOD_REY_ALT:
 			weapon = WP_REY;
 			break;
+		case MOD_CLONEPISTOL:
+		case MOD_CLONEPISTOL_ALT:
+			weapon = WP_CLONEPISTOL;
+			break;
 		case MOD_JANGO:
 		case MOD_JANGO_ALT:
 			weapon = WP_JANGO;
@@ -5919,6 +5926,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 				case MOD_JANGO_ALT
 				case MOD_BOBA:
 				case MOD_BOBA_ALT
+				case MOD_CLONEPISTOL:
+				case MOD_CLONEPISTOL_ALT
 				case MOD_FLECHETTE:
 				case MOD_WATER:
 				case MOD_SLIME:
@@ -5985,6 +5994,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker, const
 				case MOD_REBELRIFLE_ALT:
 				case MOD_REY:
 				case MOD_REY_ALT:
+				case MOD_CLONEPISTOL:
+				case MOD_CLONEPISTOL_ALT:
 				case MOD_JANGO:
 				case MOD_JANGO_ALT:
 				case MOD_BOBA:

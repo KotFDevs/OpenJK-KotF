@@ -171,6 +171,7 @@ qboolean playerUsableWeapons[WP_NUM_WEAPONS] =
 	qtrue,//WP_REY,
 	qtrue,//WP_JANGO,
 	qtrue,//WP_BOBA,
+	qtrue,//WP_CLONEPISTOL,
 
 	//# #eol
 	//WP_NUM_WEAPONS
@@ -294,6 +295,8 @@ const int defaultDamage[] = {
 	JANGO_DAMAGE,				// WP_JANGO
 
 	BOBA_DAMAGE,				// WP_BOBA
+
+	CLONEPISTOL_DAMAGE,					// WP_CLONEPISTOL
 };
 
 const int defaultAltDamage[] = {
@@ -348,6 +351,8 @@ const int defaultAltDamage[] = {
 	JANGO_DAMAGE,			// WP_JANGO
 
 	BOBA_DAMAGE,			// WP_BOBA
+
+	CLONEPISTOL_DAMAGE,				// WP_CLONEPISTOL
 };
 
 const int defaultSplashDamage[] = {
@@ -395,6 +400,7 @@ const int defaultSplashDamage[] = {
 	0,				   				// WP_REY
 	0,				   				// WP_JANGO
 	0,				   				// WP_BOBA
+	0,				   				// WP_CLONEPISTOL
 };
 
 const float defaultSplashRadius[] = {
@@ -442,6 +448,7 @@ const float defaultSplashRadius[] = {
 	0.0f,							// WP_REY
 	0.0f,							// WP_JANGO
 	0.0f,							// WP_BOBA
+	0.0f,							// WP_CLONEPISTOL
 };
 
 const int defaultAltSplashDamage[] = {
@@ -489,6 +496,7 @@ const int defaultAltSplashDamage[] = {
 	0,				   				// WP_REY
 	0,				   				// WP_JANGO
 	0,				   				// WP_BOBA
+	0,				   				// WP_CLONEPISTOL
 };
 
 const float defaultAltSplashRadius[] = {
@@ -536,6 +544,7 @@ const float defaultAltSplashRadius[] = {
 	0.0f,							// WP_REY
 	0.0f,							// WP_JANGO
 	0.0f,							// WP_BOBA
+	0.0f,							// WP_CLONEPISTOL
 };
 
 wpnParms_t WpnParms[] =
@@ -689,6 +698,8 @@ void WPN_WeaponType( const char **holdBuf)
 		weaponNum = WP_JANGO;
 	else if (!Q_stricmp(tokenStr, "WP_BOBA"))
 		weaponNum = WP_BOBA;
+	else if (!Q_stricmp(tokenStr, "WP_CLONEPISTOL"))
+		weaponNum = WP_CLONEPISTOL;
 	else
 	{
 		weaponNum = 0;

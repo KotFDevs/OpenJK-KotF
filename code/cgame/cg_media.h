@@ -264,7 +264,7 @@ typedef struct {
 	qhandle_t	forceShell;
 	qhandle_t	sightShell;
 	qhandle_t	drainShader;
-	
+
 	//SFX Sabers
 	qhandle_t SaberTrailShader;
 	qhandle_t SaberBladeShader;

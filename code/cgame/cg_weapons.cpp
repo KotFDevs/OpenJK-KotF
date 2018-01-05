@@ -436,6 +436,12 @@ void CG_RegisterWeapon( int weaponNum ) {
 		cgs.effects.cloneFleshImpactEffect = theFxScheduler.RegisterEffect("clone/flesh_impact");
 		break;
 
+	case WP_CLONEPISTOL:
+		cgs.effects.cloneShotEffect = theFxScheduler.RegisterEffect("clone/projectile");
+		cgs.effects.cloneWallImpactEffect = theFxScheduler.RegisterEffect("clone/wall_impact");
+		cgs.effects.cloneFleshImpactEffect = theFxScheduler.RegisterEffect("clone/flesh_impact");
+		break;
+
 	case WP_BATTLEDROID:
 		cgs.effects.blasterShotEffect = theFxScheduler.RegisterEffect("blaster/shot");
 		theFxScheduler.RegisterEffect("blaster/NPCshot");
@@ -1332,6 +1338,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 	if (( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BRYAR_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_BLASTER_PISTOL )
 			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_REY )
+			|| ( ps->weaponstate == WEAPON_CHARGING_ALT && ps->weapon == WP_CLONEPISTOL )
 			|| ( ps->weapon == WP_BOWCASTER && ps->weaponstate == WEAPON_CHARGING )
 			|| ( ps->weapon == WP_DEMP2 && ps->weaponstate == WEAPON_CHARGING_ALT ))
 	{
@@ -1353,6 +1360,14 @@ void CG_AddViewWeapon( playerState_t *ps )
 			// Hardcoded max charge time of 1 second
 			val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
 			shader = cgi_R_RegisterShader( "gfx/effects/bryarFrontFlash" );
+		}
+
+		if ( ps->weapon == WP_CLONEPISTOL
+			|| ps->weapon == WP_CLONEPISTOL )
+		{
+			// Hardcoded max charge time of 1 second
+			val = ( cg.time - ps->weaponChargeTime ) * 0.001f;
+			shader = cgi_R_RegisterShader( "gfx/effects/cloneFrontFlash" );
 		}
 
 		else if ( ps->weapon == WP_BOWCASTER )
@@ -1504,6 +1519,7 @@ const char *weaponDesc[WP_NUM_WEAPONS - 1] =
 "REY_DESC",
 "JANGO_DESC",
 "BOBA_DESC",
+"CLONEPISTOL_DESC",
 };
 
 /*
@@ -3165,6 +3181,10 @@ void CG_MissileHitWall( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, 
 		}
 		break;
 
+	case WP_CLONEPISTOL:
+		FX_CloneWeaponHitWall(origin, dir);
+		break;
+
 	}
 }
 
@@ -3351,6 +3371,10 @@ case WP_JANGO:
 
 case WP_BOBA:
 	FX_BlasterWeaponHitPlayer(other, origin, dir, humanoid);
+	break;
+
+case WP_CLONEPISTOL:
+	FX_CloneWeaponHitPlayer(other, origin, dir, humanoid);
 	break;
 
 	}

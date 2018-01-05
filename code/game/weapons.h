@@ -88,6 +88,7 @@ typedef enum //# weapon_e
 	WP_REY,
 	WP_JANGO,
 	WP_BOBA,
+	WP_CLONEPISTOL,
 
 	//# #eol
 	WP_NUM_WEAPONS
@@ -279,6 +280,12 @@ typedef struct ammoData_s
 #define	BOBA_NPC_DAMAGE_EASY		25
 #define	BOBA_NPC_DAMAGE_NORMAL	30 // 14
 #define	BOBA_NPC_DAMAGE_HARD		35 // 18
+
+// DC-17 Hand Pistol
+//--------
+#define CLONEPISTOL_VEL				1800
+#define CLONEPISTOL_DAMAGE			14
+#define CLONEPISTOL_CHARGE_UNIT		150.0f
 
 // Tenloss Disruptor
 //----------
