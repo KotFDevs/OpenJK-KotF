@@ -609,7 +609,7 @@ void G_SetEnemy( gentity_t *self, gentity_t *enemy )
 			//		 Basically, you're first one to notice enemies
 			if ( self->forcePushTime < level.time ) // not currently being pushed
 			{
-				if ( !G_TeamEnemy( self ) &&  self->client->NPC_class != CLASS_BOBAFETT)
+				if (!G_TeamEnemy(self) && self->client->NPC_class != CLASS_BOBAFETT && self->client->NPC_class != CLASS_MANDALORIAN && self->client->NPC_class != CLASS_JANGO)
 				{//team did not have an enemy previously
 					if ( self->NPC
 						&& self->client->playerTeam == TEAM_PLAYER
@@ -1488,6 +1488,11 @@ void NPC_ChangeWeapon( int newWeapon )
 		if ( NPC->client->ps.weapon == WP_SABER )
 		{
 			WP_SaberAddG2SaberModels( NPC );
+		}
+		else if (NPC->client->ps.weapon == WP_JANGO)
+		{
+			G_CreateG2AttachedWeaponModel(NPC, weaponData[NPC->client->ps.weapon].weaponMdl, NPC->handRBolt, 0);
+			G_CreateG2AttachedWeaponModel(NPC, weaponData[NPC->client->ps.weapon].weaponMdl, NPC->handLBolt, 1);
 		}
 		else
 		{

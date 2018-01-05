@@ -296,7 +296,7 @@ void Boba_ChangeWeapon( int wp )
 ////////////////////////////////////////////////////////////////////////////////////////
 qboolean Boba_StopKnockdown( gentity_t *self, gentity_t *pusher, const vec3_t pushDir, qboolean forceKnockdown )
 {
-	if ( self->client->NPC_class != CLASS_BOBAFETT )
+	if (self->client->NPC_class != CLASS_BOBAFETT && self->client->NPC_class != CLASS_MANDALORIAN && self->client->NPC_class != CLASS_JANGO)
 	{
 		return qfalse;
 	}
@@ -369,7 +369,7 @@ qboolean Boba_StopKnockdown( gentity_t *self, gentity_t *pusher, const vec3_t pu
 ////////////////////////////////////////////////////////////////////////////////////////
 qboolean Boba_Flying( gentity_t *self )
 {
-	assert(self && self->client && self->client->NPC_class==CLASS_BOBAFETT);//self->NPC &&
+	assert(self && self->client && (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO));//self->NPC &&
 	return ((qboolean)(self->client->moveType==MT_FLYSWIM));
 }
 
@@ -378,7 +378,7 @@ qboolean Boba_Flying( gentity_t *self )
 ////////////////////////////////////////////////////////////////////////////////////////
 bool	Boba_CanSeeEnemy( gentity_t *self )
 {
-	assert(self && self->NPC && self->client && self->client->NPC_class==CLASS_BOBAFETT);
+	assert(self && self->NPC && self->client && (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO));
  	return ((level.time - self->NPC->enemyLastSeenTime)<1000);
 }
 
@@ -676,7 +676,7 @@ void	Boba_Fire()
 			}
 			break;
 
-		case WP_BLASTER:
+		case WP_BOBA:
 
 			if (TIMER_Done(NPC, "nextBlasterAltFireDecide"))
 			{
@@ -687,7 +687,7 @@ void	Boba_Fire()
 					{
 						Boba_Printf("ALT FIRE On");
 						NPCInfo->scriptFlags |= SCF_ALT_FIRE;
-						NPC_ChangeWeapon(WP_BLASTER);			// Update Delay Timers
+						NPC_ChangeWeapon(WP_BOBA);			// Update Delay Timers
 					}
 				}
 				else
@@ -697,7 +697,7 @@ void	Boba_Fire()
 					{
 						Boba_Printf("ALT FIRE Off");
 						NPCInfo->scriptFlags &=~SCF_ALT_FIRE;
-						NPC_ChangeWeapon(WP_BLASTER);			// Update Delay Timers
+						NPC_ChangeWeapon(WP_BOBA);			// Update Delay Timers
 					}
 				}
 			}
@@ -710,7 +710,77 @@ void	Boba_Fire()
 				ucmd.buttons |=  BUTTON_ALT_ATTACK;
 			}
 			break;
+		case WP_JANGO:
+
+			if (TIMER_Done(NPC, "nextBlasterAltFireDecide"))
+			{
+				if (Q_irand(0, (NPC->count * 2) + 3)>2)
+				{
+					TIMER_Set(NPC, "nextBlasterAltFireDecide", Q_irand(3000, 8000));
+					if (!(NPCInfo->scriptFlags&SCF_ALT_FIRE))
+					{
+						Boba_Printf("ALT FIRE On");
+						NPCInfo->scriptFlags |= SCF_ALT_FIRE;
+						NPC_ChangeWeapon(WP_JANGO);			// Update Delay Timers
+					}
+				}
+				else
+				{
+					TIMER_Set(NPC, "nextBlasterAltFireDecide", Q_irand(2000, 5000));
+					if ((NPCInfo->scriptFlags&SCF_ALT_FIRE))
+					{
+						Boba_Printf("ALT FIRE Off");
+						NPCInfo->scriptFlags &= ~SCF_ALT_FIRE;
+						NPC_ChangeWeapon(WP_JANGO);			// Update Delay Timers
+					}
+				}
+			}
+
+			// Occasionally Alt Fire
+			//-----------------------
+			if (NPCInfo->scriptFlags&SCF_ALT_FIRE)
+			{
+				ucmd.buttons &= ~BUTTON_ATTACK;
+				ucmd.buttons |= BUTTON_ALT_ATTACK;
+			}
+			break;
+		case WP_CLONECARBINE:
+
+			if (TIMER_Done(NPC, "nextBlasterAltFireDecide"))
+			{
+				if (Q_irand(0, (NPC->count * 2) + 3)>2)
+				{
+					TIMER_Set(NPC, "nextBlasterAltFireDecide", Q_irand(3000, 8000));
+					if (!(NPCInfo->scriptFlags&SCF_ALT_FIRE))
+					{
+						Boba_Printf("ALT FIRE On");
+						NPCInfo->scriptFlags |= SCF_ALT_FIRE;
+						NPC_ChangeWeapon(WP_CLONECARBINE);			// Update Delay Timers
+					}
+				}
+				else
+				{
+					TIMER_Set(NPC, "nextBlasterAltFireDecide", Q_irand(2000, 5000));
+					if ((NPCInfo->scriptFlags&SCF_ALT_FIRE))
+					{
+						Boba_Printf("ALT FIRE Off");
+						NPCInfo->scriptFlags &= ~SCF_ALT_FIRE;
+						NPC_ChangeWeapon(WP_CLONECARBINE);			// Update Delay Timers
+					}
+				}
+			}
+
+			// Occasionally Alt Fire
+			//-----------------------
+			if (NPCInfo->scriptFlags&SCF_ALT_FIRE)
+			{
+				ucmd.buttons &= ~BUTTON_ATTACK;
+				ucmd.buttons |= BUTTON_ALT_ATTACK;
+			}
+			break;
 		}
+
+
 	}
 }
 
@@ -724,7 +794,9 @@ void Boba_FireDecide( void )
 	//--------------------------
 	if (!NPC ||											// Only NPCs
 		!NPC->client ||									// Only Clients
-		 NPC->client->NPC_class!=CLASS_BOBAFETT ||		// Only Boba
+		(NPC->client->NPC_class != CLASS_BOBAFETT && 
+		NPC->client->NPC_class != CLASS_MANDALORIAN && 
+		NPC->client->NPC_class != CLASS_JANGO) ||		// Only the Fetts
 		!NPC->enemy ||									// Only If There Is An Enemy
 		 NPC->s.weapon==WP_NONE ||						// Only If Using A Valid Weapon
 		!TIMER_Done(NPC, "nextAttackDelay") ||			// Only If Ready To Shoot Again
@@ -750,7 +822,15 @@ void Boba_FireDecide( void )
 		Boba_Fire();
 		break;
 
-	case WP_BLASTER:
+	case WP_BOBA:
+		// TODO: Add Conditions Here
+		Boba_Fire();
+		break;
+	case WP_CLONECARBINE:
+		// TODO: Add Conditions Here
+		Boba_Fire();
+		break;
+	case WP_JANGO:
 		// TODO: Add Conditions Here
 		Boba_Fire();
 		break;
@@ -881,7 +961,18 @@ void	Boba_TacticsSelect()
 
 		case BTS_RIFLE:
 			Boba_Printf("NEW TACTIC: Rifle");
-			Boba_ChangeWeapon(WP_BLASTER);
+			if (NPC->client->NPC_class == CLASS_BOBAFETT)
+			{
+				Boba_ChangeWeapon(WP_BOBA);
+			}
+			else if (NPC->client->NPC_class == CLASS_JANGO)
+			{
+				Boba_ChangeWeapon(WP_JANGO);
+			}
+			else if (NPC->client->NPC_class == CLASS_MANDALORIAN)
+			{
+				Boba_ChangeWeapon(WP_CLONECARBINE);
+			}
 			break;
 
 		case BTS_MISSILE:
@@ -1018,7 +1109,7 @@ void	Boba_Update()
 {
 	// Never Forget The Player... Never.
 	//-----------------------------------
-	if (player && player->inuse && !NPC->enemy)
+	if (player && player->inuse && !NPC->enemy && NPC->client->NPC_class != CLASS_MANDALORIAN)
 	{
 		G_SetEnemy(NPC, player);
 		NPC->svFlags				|= SVF_LOCKEDENEMY;	// Don't forget about the enemy once you've found him

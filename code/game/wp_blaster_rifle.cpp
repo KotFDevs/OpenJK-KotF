@@ -44,7 +44,7 @@ void WP_FireBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean a
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if ( ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT )
+		if (ent->client && ent->client->ps.clientNum != 0 && ((ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO) && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if ( g_spskill->integer < 2 )
 			{
@@ -67,7 +67,7 @@ void WP_FireBlasterMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean a
 	missile->s.weapon = WP_BLASTER;
 
 	// Do the damages
-	if ( ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT )
+	if (ent->s.number != 0 && ((ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO) && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if ( g_spskill->integer == 0 )
 		{
@@ -175,7 +175,7 @@ void WP_FireBattleDroidMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolea
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -198,7 +198,7 @@ void WP_FireBattleDroidMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolea
 	missile->s.weapon = WP_BATTLEDROID;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -306,7 +306,7 @@ void WP_FireFirstOrderMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -329,7 +329,7 @@ void WP_FireFirstOrderMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	missile->s.weapon = WP_THEFIRSTORDER;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -437,7 +437,7 @@ void WP_FireRebelBlasterMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboole
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -460,7 +460,7 @@ void WP_FireRebelBlasterMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboole
 	missile->s.weapon = WP_REBELBLASTER;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -568,7 +568,7 @@ void WP_FireRebelRifleMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -591,7 +591,7 @@ void WP_FireRebelRifleMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	missile->s.weapon = WP_REBELRIFLE;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -699,7 +699,7 @@ void WP_FireJangoPistolMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolea
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -722,7 +722,7 @@ void WP_FireJangoPistolMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolea
 	missile->s.weapon = WP_JANGO;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -835,7 +835,7 @@ void WP_FireBobaRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if ( ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT )
+		if ( ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO) )
 		{
 			if ( g_spskill->integer < 2 )
 			{
@@ -858,7 +858,7 @@ void WP_FireBobaRifleMissile( gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	missile->s.weapon = WP_BOBA;
 
 	// Do the damages
-	if ( ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT )
+	if ( ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_MANDALORIAN && ent->client->NPC_class != CLASS_JANGO) )
 	{
 		if ( g_spskill->integer == 0 )
 		{

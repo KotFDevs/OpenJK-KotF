@@ -344,7 +344,7 @@ void	 NPC_JumpAnimation()
 {
 	int	jumpAnim = BOTH_JUMP1;
 
-	if ( NPC->client->NPC_class == CLASS_BOBAFETT
+	if ((NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 		|| (NPC->client->NPC_class == CLASS_REBORN && NPC->s.weapon != WP_SABER)
 		|| NPC->client->NPC_class == CLASS_ROCKETTROOPER
 		||( NPCInfo->rank != RANK_CREWMAN && NPCInfo->rank <= RANK_LT_JG ) )
@@ -373,7 +373,7 @@ void	 NPC_JumpSound()
 	{
 		//FIXME: can I delay the actual jump so that it matches the anim...?
 	}
-	else if ( NPC->client->NPC_class == CLASS_BOBAFETT
+	else if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO
 		|| NPC->client->NPC_class == CLASS_ROCKETTROOPER )
 	{
 		// does this really need to be here?

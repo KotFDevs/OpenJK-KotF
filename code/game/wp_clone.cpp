@@ -45,7 +45,7 @@ void WP_FireCloneMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean altF
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -68,7 +68,7 @@ void WP_FireCloneMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean altF
 	missile->s.weapon = WP_CLONECARBINE;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -176,7 +176,7 @@ void WP_FireCloneRifleMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -199,7 +199,7 @@ void WP_FireCloneRifleMissile(gentity_t *ent, vec3_t start, vec3_t dir, qboolean
 	missile->s.weapon = WP_CLONERIFLE;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{
@@ -307,7 +307,7 @@ void WP_FireCloneCommandoMissile(gentity_t *ent, vec3_t start, vec3_t dir, qbool
 	else
 	{
 		// If an enemy is shooting at us, lower the velocity so you have a chance to evade
-		if (ent->client && ent->client->ps.clientNum != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+		if (ent->client && ent->client->ps.clientNum != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_JANGO))
 		{
 			if (g_spskill->integer < 2)
 			{
@@ -330,7 +330,7 @@ void WP_FireCloneCommandoMissile(gentity_t *ent, vec3_t start, vec3_t dir, qbool
 	missile->s.weapon = WP_CLONECOMMANDO;
 
 	// Do the damages
-	if (ent->s.number != 0 && ent->client->NPC_class != CLASS_BOBAFETT)
+	if (ent->s.number != 0 && (ent->client->NPC_class != CLASS_BOBAFETT && ent->client->NPC_class != CLASS_JANGO))
 	{
 		if (g_spskill->integer == 0)
 		{

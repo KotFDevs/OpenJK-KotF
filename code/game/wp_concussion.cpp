@@ -140,7 +140,7 @@ static void WP_FireConcussionAlt( gentity_t *ent )
 		traceEnt = &g_entities[tr.entityNum];
 
 		if ( traceEnt //&& traceEnt->NPC
-			&& ( traceEnt->s.weapon == WP_SABER || (traceEnt->client && (traceEnt->client->NPC_class == CLASS_BOBAFETT||traceEnt->client->NPC_class == CLASS_REBORN) ) ) )
+			&& (traceEnt->s.weapon == WP_SABER || (traceEnt->client && (traceEnt->client->NPC_class == CLASS_BOBAFETT || traceEnt->client->NPC_class == CLASS_MANDALORIAN || traceEnt->client->NPC_class == CLASS_JANGO || traceEnt->client->NPC_class == CLASS_REBORN))))
 		{//FIXME: need a more reliable way to know we hit a jedi?
 			hitDodged = Jedi_DodgeEvasion( traceEnt, ent, &tr, HL_NONE );
 			//acts like we didn't even hit him

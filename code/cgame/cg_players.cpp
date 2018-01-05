@@ -2780,12 +2780,12 @@ static void CG_G2PlayerAngles( centity_t *cent, vec3_t legs[3], vec3_t angles )
 			{
 				cent->gent->client->renderInfo.legsYaw = angles[YAW];
 			}
-			if ( ((cent->gent->client->ps.eFlags&EF_FORCE_GRIPPED)||((cent->gent->client->NPC_class == CLASS_BOBAFETT||cent->gent->client->NPC_class == CLASS_ROCKETTROOPER)&&cent->gent->client->moveType==MT_FLYSWIM))
+			if (((cent->gent->client->ps.eFlags&EF_FORCE_GRIPPED) || ((cent->gent->client->NPC_class == CLASS_BOBAFETT || cent->gent->client->NPC_class == CLASS_MANDALORIAN || cent->gent->client->NPC_class == CLASS_JANGO || cent->gent->client->NPC_class == CLASS_ROCKETTROOPER) && cent->gent->client->moveType == MT_FLYSWIM))
 				&& cent->gent->client->ps.groundEntityNum == ENTITYNUM_NONE )
 			{
 				vec3_t	centFwd, centRt;
 				float	divFactor = 1.0f;
-				if ( (cent->gent->client->NPC_class == CLASS_BOBAFETT||cent->gent->client->NPC_class == CLASS_ROCKETTROOPER)
+				if ((cent->gent->client->NPC_class == CLASS_BOBAFETT || cent->gent->client->NPC_class == CLASS_MANDALORIAN || cent->gent->client->NPC_class == CLASS_JANGO || cent->gent->client->NPC_class == CLASS_ROCKETTROOPER)
 					&& cent->gent->client->moveType == MT_FLYSWIM )
 				{
 					divFactor = 3.0f;

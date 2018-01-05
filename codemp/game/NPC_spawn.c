@@ -231,7 +231,7 @@ void NPC_SetMiscDefaultData( gentity_t *ent )
 	{//if a cinematic guy, default us to wait bState
 		ent->NPC->behaviorState = BS_CINEMATIC;
 	}
-	if ( ent->client->NPC_class == CLASS_BOBAFETT )
+	if (ent->client->NPC_class == CLASS_BOBAFETT)
 	{//set some stuff, precache
 		Boba_Precache();
 		ent->client->ps.fd.forcePowersKnown |= ( 1 << FP_LEVITATION );

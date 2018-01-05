@@ -1239,7 +1239,7 @@ void DoImpact( gentity_t *self, gentity_t *other, qboolean damageSelf, trace_t *
 				|| self->client->NPC_class == CLASS_VEHICLE
 				|| ( magnitude >= 700 ) )//health here is used to simulate structural integrity
 			{
-				if ( (self->s.weapon == WP_SABER || self->s.number<MAX_CLIENTS || (self->client&&(self->client->NPC_class==CLASS_BOBAFETT||self->client->NPC_class==CLASS_ROCKETTROOPER))) && self->client && self->client->ps.groundEntityNum < ENTITYNUM_NONE && magnitude < 1000 )
+				if ((self->s.weapon == WP_SABER || self->s.number<MAX_CLIENTS || (self->client && (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO || self->client->NPC_class == CLASS_ROCKETTROOPER))) && self->client && self->client->ps.groundEntityNum < ENTITYNUM_NONE && magnitude < 1000)
 				{//players and jedi take less impact damage
 					//allow for some lenience on high falls
 					magnitude /= 2;

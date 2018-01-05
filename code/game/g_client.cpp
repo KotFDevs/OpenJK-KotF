@@ -1216,13 +1216,13 @@ qboolean G_SetG2PlayerModelInfo( gentity_t *ent, const char *modelName, const ch
 			ent->kneeRBolt = gi.G2API_AddBolt(&ent->ghoul2[ent->playerModel], "*hips_r_knee");
 			ent->footLBolt = gi.G2API_AddBolt(&ent->ghoul2[ent->playerModel], "*l_leg_foot");
 			ent->footRBolt = gi.G2API_AddBolt(&ent->ghoul2[ent->playerModel], "*r_leg_foot");
-			if ( ent->client->NPC_class == CLASS_BOBAFETT
-				|| ent->client->NPC_class == CLASS_ROCKETTROOPER )
+			if (ent->client->NPC_class == CLASS_BOBAFETT || ent->client->NPC_class == CLASS_MANDALORIAN
+				|| ent->client->NPC_class == CLASS_JANGO || ent->client->NPC_class == CLASS_ROCKETTROOPER )
 			{//get jet bolts
 				ent->genericBolt1 = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*jet1" );
 				ent->genericBolt2 = gi.G2API_AddBolt( &ent->ghoul2[ent->playerModel], "*jet2" );
 			}
-			if ( ent->client->NPC_class == CLASS_BOBAFETT )
+			if (ent->client->NPC_class == CLASS_BOBAFETT || ent->client->NPC_class == CLASS_MANDALORIAN || ent->client->NPC_class == CLASS_JANGO)
 			{//get the flamethrower bolt
 				ent->genericBolt3 = gi.G2API_AddBolt(&ent->ghoul2[ent->playerModel], "*flamethrower");
 			}
@@ -2053,7 +2053,7 @@ void G_ChangePlayerModel( gentity_t *ent, const char *newModel )
 			NPC_SetAnim( ent, SETANIM_TORSO, ent->client->ps.torsoAnim, SETANIM_FLAG_NORMAL|SETANIM_FLAG_RESTART );
 			ClientUserinfoChanged( ent->s.number );
 			//Ugh, kind of a hack for now:
-			if ( ent->client->NPC_class == CLASS_BOBAFETT
+			if (ent->client->NPC_class == CLASS_BOBAFETT || ent->client->NPC_class == CLASS_MANDALORIAN || ent->client->NPC_class == CLASS_JANGO
 				|| ent->client->NPC_class == CLASS_ROCKETTROOPER )
 			{
 				//FIXME: remove saber, too?

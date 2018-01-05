@@ -90,7 +90,7 @@ void Seeker_MaintainHeight( void )
 			dif = (NPC->enemy->currentOrigin[2] +  Q_flrand( NPC->enemy->maxs[2]/2, NPC->enemy->maxs[2]+8 )) - NPC->currentOrigin[2];
 
 			float	difFactor = 1.0f;
-			if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+			if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 			{
 				if ( TIMER_Done( NPC, "flameTime" ) )
 				{
@@ -108,7 +108,7 @@ void Seeker_MaintainHeight( void )
 
 				NPC->client->ps.velocity[2] = (NPC->client->ps.velocity[2]+dif)/2;
 			}
-			if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+			if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 			{
 				NPC->client->ps.velocity[2] *= Q_flrand( 0.85f, 3.0f );
 			}
@@ -195,7 +195,7 @@ void Seeker_Strafe( void )
 		{
 			float vel = SEEKER_STRAFE_VEL;
 			float upPush = SEEKER_UPWARD_PUSH;
-			if ( NPC->client->NPC_class != CLASS_BOBAFETT )
+			if (NPC->client->NPC_class != CLASS_BOBAFETT && NPC->client->NPC_class != CLASS_MANDALORIAN && NPC->client->NPC_class != CLASS_JANGO)
 			{
 				G_Sound( NPC, G_SoundIndex( "sound/chars/seeker/misc/hiss" ));
 			}
@@ -219,7 +219,7 @@ void Seeker_Strafe( void )
 		// Pick a random side
 		side = ( rand() & 1 ) ? -1 : 1;
 		float	stDis = SEEKER_STRAFE_DIS;
-		if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+		if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 		{
 			stDis *= 2.0f;
 		}
@@ -241,7 +241,7 @@ void Seeker_Strafe( void )
 			VectorMA( NPC->client->ps.velocity, dis, dir, NPC->client->ps.velocity );
 
 			float upPush = SEEKER_UPWARD_PUSH;
-			if ( NPC->client->NPC_class != CLASS_BOBAFETT )
+			if (NPC->client->NPC_class != CLASS_BOBAFETT && NPC->client->NPC_class != CLASS_MANDALORIAN && NPC->client->NPC_class != CLASS_JANGO)
 			{
 				G_Sound( NPC, G_SoundIndex( "sound/chars/seeker/misc/hiss" ));
 			}
@@ -333,7 +333,7 @@ void Seeker_Fire( void )
 //------------------------------------
 void Seeker_Ranged( qboolean visible, qboolean advance )
 {
-	if ( NPC->client->NPC_class != CLASS_BOBAFETT )
+	if (NPC->client->NPC_class != CLASS_BOBAFETT && NPC->client->NPC_class != CLASS_MANDALORIAN && NPC->client->NPC_class != CLASS_JANGO)
 	{
 		if ( NPC->count > 0 )
 		{
@@ -371,7 +371,7 @@ void Seeker_Attack( void )
 	qboolean	visible		= NPC_ClearLOS( NPC->enemy );
 	qboolean	advance		= (qboolean)(distance > MIN_DISTANCE_SQR);
 
-	if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+	if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 	{
 		advance = (qboolean)(distance>(200.0f*200.0f));
 	}
@@ -450,7 +450,7 @@ void Seeker_FollowPlayer( void )
 
 	float	minDistSqr = MIN_DISTANCE_SQR;
 
-	if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+	if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 	{
 		if ( TIMER_Done( NPC, "flameTime" ) )
 		{
@@ -461,7 +461,7 @@ void Seeker_FollowPlayer( void )
 	if ( dis < minDistSqr )
 	{
 		// generally circle the player closely till we take an enemy..this is our target point
-		if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+		if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 		{
 			pt[0] = g_entities[0].currentOrigin[0] + cos( level.time * 0.001f + NPC->random ) * 250;
 			pt[1] = g_entities[0].currentOrigin[1] + sin( level.time * 0.001f + NPC->random ) * 250;
@@ -486,7 +486,7 @@ void Seeker_FollowPlayer( void )
 	}
 	else
 	{
-		if ( NPC->client->NPC_class != CLASS_BOBAFETT )
+		if (NPC->client->NPC_class != CLASS_BOBAFETT && NPC->client->NPC_class != CLASS_MANDALORIAN && NPC->client->NPC_class != CLASS_JANGO)
 		{
 			if ( TIMER_Done( NPC, "seekerhiss" ))
 			{
@@ -517,7 +517,7 @@ void NPC_BSSeeker_Default( void )
 {
 	if ( in_camera )
 	{
-		if ( NPC->client->NPC_class != CLASS_BOBAFETT )
+		if (NPC->client->NPC_class != CLASS_BOBAFETT && NPC->client->NPC_class != CLASS_MANDALORIAN && NPC->client->NPC_class != CLASS_JANGO)
 		{
 			// cameras make me commit suicide....
 			G_Damage( NPC, NPC, NPC, NULL, NULL, 999, 0, MOD_UNKNOWN );
@@ -532,7 +532,7 @@ void NPC_BSSeeker_Default( void )
 
 	if ( NPC->enemy && NPC->enemy->health && NPC->enemy->inuse )
 	{
-		if ( NPC->client->NPC_class != CLASS_BOBAFETT
+		if ((NPC->client->NPC_class != CLASS_BOBAFETT && NPC->client->NPC_class != CLASS_MANDALORIAN && NPC->client->NPC_class != CLASS_JANGO)
 			&& ( NPC->enemy->s.number == 0 || ( NPC->enemy->client && NPC->enemy->client->NPC_class == CLASS_SEEKER )) )
 		{
 			//hacked to never take the player as an enemy, even if the player shoots at it
@@ -541,14 +541,14 @@ void NPC_BSSeeker_Default( void )
 		else
 		{
 			Seeker_Attack();
-			if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+			if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 			{
 				Boba_FireDecide();
 			}
 			return;
 		}
 	}
-	else if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+	else if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 	{
 		NPC_BSST_Patrol();
 		return;

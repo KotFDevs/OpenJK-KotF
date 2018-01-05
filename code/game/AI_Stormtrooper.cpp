@@ -1267,7 +1267,9 @@ void NPC_BSST_Patrol( void )
 				ST_Speech( NPC, SPEECH_COVER, 0 );
 				return;
 			}
-			else if (NPC->client->NPC_class==CLASS_BOBAFETT)
+			else if (NPC->client->NPC_class == CLASS_BOBAFETT || 
+				NPC->client->NPC_class == CLASS_MANDALORIAN || 
+				NPC->client->NPC_class == CLASS_JANGO)
 			{
 				//NPCInfo->lastAlertID = level.alertEvents[eventID].ID;
 				if ( !level.alertEvents[alertEvent].owner ||

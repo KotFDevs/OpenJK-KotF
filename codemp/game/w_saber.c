@@ -5466,7 +5466,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 		self->client->ps.hasLookTarget = qfalse;
 	}
 
-	if ( self->client->ps.weapon != WP_SABER && self->client->NPC_class != CLASS_BOBAFETT )
+	if (self->client->ps.weapon != WP_SABER && (self->client->NPC_class != CLASS_BOBAFETT))
 	{
 		doFullRoutine = qfalse;
 	}
@@ -5510,7 +5510,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 		return;
 	}
 
-	if ( BG_SabersOff( &self->client->ps ) && self->client->NPC_class != CLASS_BOBAFETT )
+	if (BG_SabersOff(&self->client->ps) && (self->client->NPC_class != CLASS_BOBAFETT))
 	{
 		if ( self->s.eType != ET_NPC )
 		{//player doesn't auto-activate
@@ -5650,7 +5650,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 					//FIXME: sometimes this might make me just jump into it...?
 					self->client->ps.fd.forceJumpCharge = 480;
 				}
-				else if ( self->client->NPC_class != CLASS_BOBAFETT )
+				else if (self->client->NPC_class != CLASS_BOBAFETT)
 				{//FIXME: check forcePushRadius[NPC->client->ps.forcePowerLevel[FP_PUSH]]
 					ForceThrow( self, qfalse );
 				}
@@ -5708,7 +5708,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 				{//NPCs try to evade it
 					self->client->ps.fd.forceJumpCharge = 480;
 				}
-				else if ( self->client->NPC_class != CLASS_BOBAFETT )
+				else if (self->client->NPC_class != CLASS_BOBAFETT)
 				{//else, try to force-throw it away
 					//FIXME: check forcePushRadius[NPC->client->ps.forcePowerLevel[FP_PUSH]]
 					ForceThrow( self, qfalse );
@@ -5797,7 +5797,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 			{
 				Jedi_Ambush( self );
 			}
-			if ( self->client->NPC_class == CLASS_BOBAFETT
+			if (self->client->NPC_class == CLASS_BOBAFETT
 				&& (self->client->ps.eFlags2&EF2_FLYING)//moveType == MT_FLYSWIM
 				&& incoming->methodOfDeath != MOD_ROCKET_HOMING )
 			{//a hovering Boba Fett, not a tracking rocket
@@ -5814,7 +5814,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 			}
 			else if ( Jedi_SaberBlockGo( self, &self->NPC->last_ucmd, NULL, NULL, incoming, 0.0f ) != EVASION_NONE )
 			{//make sure to turn on your saber if it's not on
-				if ( self->client->NPC_class != CLASS_BOBAFETT )
+				if (self->client->NPC_class != CLASS_BOBAFETT)
 				{
 					//self->client->ps.SaberActivate();
 					WP_ActivateSaber(self);

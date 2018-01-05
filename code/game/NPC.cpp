@@ -1903,7 +1903,7 @@ void NPC_RunBehavior( int team, int bState )
 	{//force-only reborn
 		NPC_BehaviorSet_Jedi( bState );
 	}
-	else if ( NPC->client->NPC_class == CLASS_BOBAFETT )
+	else if (NPC->client->NPC_class == CLASS_BOBAFETT || NPC->client->NPC_class == CLASS_MANDALORIAN || NPC->client->NPC_class == CLASS_JANGO)
 	{
 		Boba_Update();
 		if (NPCInfo->surrenderTime)

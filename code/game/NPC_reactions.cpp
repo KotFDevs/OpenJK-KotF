@@ -569,7 +569,7 @@ void NPC_Pain( gentity_t *self, gentity_t *inflictor, gentity_t *other, const ve
 		G_UseTargets2(self, other, self->paintarget);
 	}
 
-	if (self->client && self->client->NPC_class==CLASS_BOBAFETT)
+	if (self->client && (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO))
 	{
 		Boba_Pain( self, inflictor, damage, mod);
 	}

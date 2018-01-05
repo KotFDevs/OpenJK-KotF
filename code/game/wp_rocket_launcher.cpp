@@ -206,7 +206,7 @@ void WP_FireRocket( gentity_t *ent, qboolean alt_fire )
 		{
 			damage = ROCKET_NPC_DAMAGE_HARD;
 		}
-		if (ent->client && ent->client->NPC_class==CLASS_BOBAFETT)
+		if (ent->client && (ent->client->NPC_class == CLASS_BOBAFETT || ent->client->NPC_class == CLASS_MANDALORIAN || ent->client->NPC_class == CLASS_JANGO))
 		{
 			damage = damage/2;
 		}

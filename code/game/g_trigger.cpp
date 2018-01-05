@@ -1222,7 +1222,7 @@ void hurt_touch( gentity_t *self, gentity_t *other, trace_t *trace )
 		if ( self->spawnflags & 32 )
 		{//falling death
 			if ( other->NPC && other->client &&
-				(other->client->NPC_class == CLASS_BOBAFETT	|| other->client->NPC_class == CLASS_ROCKETTROOPER ))
+				(other->client->NPC_class == CLASS_BOBAFETT || other->client->NPC_class == CLASS_MANDALORIAN || other->client->NPC_class == CLASS_JANGO || other->client->NPC_class == CLASS_ROCKETTROOPER))
 			{//boba never falls to his death!
 				//FIXME:  fall through if jetpack broken?
 				JET_FlyStart(other);

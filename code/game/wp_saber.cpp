@@ -2783,7 +2783,7 @@ qboolean WP_SaberDamageForTrace( int ignore, vec3_t start, vec3_t end, float dmg
 
 		if ( attacker && attacker->client && attacker->client->ps.saberInFlight )
 		{//thrown saber hit something
-			if ( ( hitEnt && hitEnt->client && hitEnt->health > 0 && ( hitEnt->client->NPC_class == CLASS_DESANN || !Q_stricmp("Yoda",hitEnt->NPC_type) || hitEnt->client->NPC_class == CLASS_LUKE || hitEnt->client->NPC_class == CLASS_BOBAFETT || (hitEnt->client->ps.powerups[PW_GALAK_SHIELD] > 0) ) ) ||
+			if ((hitEnt && hitEnt->client && hitEnt->health > 0 && (hitEnt->client->NPC_class == CLASS_DESANN || !Q_stricmp("Yoda", hitEnt->NPC_type) || hitEnt->client->NPC_class == CLASS_LUKE || hitEnt->client->NPC_class == CLASS_BOBAFETT || hitEnt->client->NPC_class == CLASS_MANDALORIAN || hitEnt->client->NPC_class == CLASS_JANGO || (hitEnt->client->ps.powerups[PW_GALAK_SHIELD] > 0))) ||
 				 ( owner && owner->client && owner->health > 0 && ( owner->client->NPC_class == CLASS_DESANN || !Q_stricmp("Yoda",owner->NPC_type) || owner->client->NPC_class == CLASS_LUKE || (owner->client->ps.powerups[PW_GALAK_SHIELD] > 0) ) ) )
 			{//Luke and Desann slap thrown sabers aside
 				//FIXME: control the direction of the thrown saber... if hit Galak's shield, bounce directly away from his origin?
@@ -6036,7 +6036,7 @@ void WP_SaberImpact( gentity_t *owner, gentity_t *saber, trace_t *trace )
 	else if ( other->client && other->health > 0
 		&& ( (other->NPC && (other->NPC->aiFlags&NPCAI_BOSS_CHARACTER))
 			//|| other->client->NPC_class == CLASS_ALORA
-			|| other->client->NPC_class == CLASS_BOBAFETT
+			|| other->client->NPC_class == CLASS_BOBAFETT || other->client->NPC_class == CLASS_MANDALORIAN || other->client->NPC_class == CLASS_JANGO
 			|| ( other->client->ps.powerups[PW_GALAK_SHIELD] > 0 ) ) )
 	{//Luke, Desann and Tavion slap thrown sabers aside
 		WP_SaberDrop( owner, saber );
@@ -7515,7 +7515,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 		}
 	}
 
-	if ( self->client->NPC_class == CLASS_BOBAFETT )
+	if (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO)
 	{//Boba doesn't dodge quite as much
 		if ( Q_irand( 0, 2-g_spskill->integer) )
 		{//easier level guys do this less
@@ -7523,7 +7523,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 		}
 	}
 
-	if ( self->client->NPC_class != CLASS_BOBAFETT
+	if ((self->client->NPC_class != CLASS_BOBAFETT && self->client->NPC_class != CLASS_MANDALORIAN && self->client->NPC_class != CLASS_JANGO)
 		&& (self->client->NPC_class != CLASS_REBORN || self->s.weapon == WP_SABER)
 		&& (self->client->NPC_class != CLASS_ROCKETTROOPER||!self->NPC||self->NPC->rank<RANK_LT)//if a rockettrooper, but not an officer, do these normal checks
 		)
@@ -7704,7 +7704,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 					//FIXME: sometimes this might make me just jump into it...?
 					self->client->ps.forceJumpCharge = 480;
 				}
-				else if ( self->client->NPC_class != CLASS_BOBAFETT
+				else if ((self->client->NPC_class != CLASS_BOBAFETT && self->client->NPC_class != CLASS_MANDALORIAN && self->client->NPC_class != CLASS_JANGO)
 					&& (self->client->NPC_class != CLASS_REBORN || self->s.weapon == WP_SABER)
 					&& self->client->NPC_class != CLASS_ROCKETTROOPER )
 				{//FIXME: check forcePushRadius[NPC->client->ps.forcePowerLevel[FP_PUSH]]
@@ -7727,7 +7727,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 			}
 			else
 			{
-				if ( self->client->NPC_class == CLASS_BOBAFETT
+				if (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO
 					|| self->client->NPC_class == CLASS_ROCKETTROOPER )
 				{
 					/*
@@ -7851,7 +7851,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 			{
 				Jedi_Ambush( self );
 			}
-			if ( ( self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_ROCKETTROOPER )
+			if ((self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO || self->client->NPC_class == CLASS_ROCKETTROOPER)
 				&& self->client->moveType == MT_FLYSWIM
 				&& incoming->methodOfDeath != MOD_ROCKET_ALT )
 			{//a hovering Boba Fett, not a tracking rocket
@@ -7869,7 +7869,7 @@ void WP_SaberStartMissileBlockCheck( gentity_t *self, usercmd_t *ucmd  )
 			else if ( self->client->NPC_class != CLASS_ROCKETTROOPER
 				&& Jedi_SaberBlockGo( self, &self->NPC->last_ucmd, NULL, NULL, incoming ) != EVASION_NONE )
 			{//make sure to turn on your saber if it's not on
-				if ( self->client->NPC_class != CLASS_BOBAFETT
+				if ((self->client->NPC_class != CLASS_BOBAFETT && self->client->NPC_class != CLASS_MANDALORIAN && self->client->NPC_class != CLASS_JANGO)
 					&& (self->client->NPC_class != CLASS_REBORN || self->s.weapon == WP_SABER) )
 				{
 					self->client->ps.SaberActivate();
@@ -8688,7 +8688,7 @@ void WP_ForceKnockdown( gentity_t *self, gentity_t *pusher, qboolean pull, qbool
 			if ( self->s.number >= MAX_CLIENTS )
 			{//randomize getup times - but not for boba
 				int addTime;
-				if ( self->client->NPC_class == CLASS_BOBAFETT )
+				if (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO)
 				{
 					addTime = Q_irand( -500, 0 );
 				}
@@ -9536,6 +9536,8 @@ void ForceThrow( gentity_t *self, qboolean pull, qboolean fake )
 							&& push_list[x]->client->NPC_class != CLASS_ROCKETTROOPER//rockettroopers never drop their weapon
 							&& push_list[x]->client->NPC_class != CLASS_VEHICLE
 							&& push_list[x]->client->NPC_class != CLASS_BOBAFETT
+							&& push_list[x]->client->NPC_class != CLASS_MANDALORIAN
+							&& push_list[x]->client->NPC_class != CLASS_JANGO
 							&& push_list[x]->client->NPC_class != CLASS_TUSKEN
 							&& push_list[x]->client->NPC_class != CLASS_HAZARD_TROOPER
 							&& push_list[x]->client->NPC_class != CLASS_ASSASSIN_DROID
@@ -10437,6 +10439,8 @@ void ForceTelepathy( gentity_t *self )
 		case CLASS_ASSASSIN_DROID:
 		case CLASS_SABER_DROID:
 		case CLASS_BOBAFETT:
+		case CLASS_MANDALORIAN:
+		case CLASS_JANGO:
 			break;
 		case CLASS_RANCOR:
 			if ( !(traceEnt->spawnflags&1) )
@@ -10852,11 +10856,13 @@ void ForceGrip( gentity_t *self )
 				&& traceEnt->client->NPC_class != CLASS_HAZARD_TROOPER
 				&& traceEnt->client->NPC_class != CLASS_TUSKEN
 				&& traceEnt->client->NPC_class != CLASS_BOBAFETT
+				&& traceEnt->client->NPC_class != CLASS_MANDALORIAN
+				&& traceEnt->client->NPC_class != CLASS_JANGO
 				&& traceEnt->client->NPC_class != CLASS_ASSASSIN_DROID
 				&& traceEnt->s.weapon != WP_CONCUSSION	// so rax can't drop his
 				)
 			{
-				if ( traceEnt->client->NPC_class == CLASS_BOBAFETT )
+				if (traceEnt->client->NPC_class == CLASS_BOBAFETT || traceEnt->client->NPC_class == CLASS_MANDALORIAN || traceEnt->client->NPC_class == CLASS_JANGO)
 				{//he doesn't drop them, just puts it away
 					ChangeWeapon( traceEnt, WP_MELEE );
 				}
@@ -12506,7 +12512,7 @@ void ForceJump( gentity_t *self, usercmd_t *ucmd )
 		return;
 	}
 
-	if ( self->client->NPC_class == CLASS_BOBAFETT
+	if (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO
 		|| self->client->NPC_class == CLASS_ROCKETTROOPER )
 	{
 		if ( self->client->ps.forceJumpCharge > 300 )
@@ -12531,7 +12537,7 @@ void ForceJump( gentity_t *self, usercmd_t *ucmd )
 	switch( WP_GetVelocityForForceJump( self, jumpVel, ucmd ) )
 	{
 	case FJ_FORWARD:
-		if ( ((self->client->NPC_class == CLASS_BOBAFETT||self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300 )
+		if (((self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO || self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300)
 			|| (self->client->ps.saber[0].saberFlags&SFL_NO_FLIPS)
 			|| (self->client->ps.dualSabers && (self->client->ps.saber[1].saberFlags&SFL_NO_FLIPS) )
 			|| ( self->NPC &&
@@ -12553,7 +12559,7 @@ void ForceJump( gentity_t *self, usercmd_t *ucmd )
 		}
 		break;
 	case FJ_BACKWARD:
-		if ( ((self->client->NPC_class == CLASS_BOBAFETT||self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300 )
+		if (((self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO || self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300)
 			|| (self->client->ps.saber[0].saberFlags&SFL_NO_FLIPS)
 			|| (self->client->ps.dualSabers && (self->client->ps.saber[1].saberFlags&SFL_NO_FLIPS) )
 			|| ( self->NPC &&
@@ -12568,7 +12574,7 @@ void ForceJump( gentity_t *self, usercmd_t *ucmd )
 		}
 		break;
 	case FJ_RIGHT:
-		if ( ((self->client->NPC_class == CLASS_BOBAFETT||self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300 )
+		if (((self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO || self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300)
 			|| (self->client->ps.saber[0].saberFlags&SFL_NO_FLIPS)
 			|| (self->client->ps.dualSabers && (self->client->ps.saber[1].saberFlags&SFL_NO_FLIPS) )
 			|| ( self->NPC &&
@@ -12583,7 +12589,7 @@ void ForceJump( gentity_t *self, usercmd_t *ucmd )
 		}
 		break;
 	case FJ_LEFT:
-		if ( ((self->client->NPC_class == CLASS_BOBAFETT||self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300 )
+		if (((self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO || self->client->NPC_class == CLASS_ROCKETTROOPER) && self->client->ps.forceJumpCharge > 300)
 			|| (self->client->ps.saber[0].saberFlags&SFL_NO_FLIPS)
 			|| (self->client->ps.dualSabers && (self->client->ps.saber[1].saberFlags&SFL_NO_FLIPS) )
 			|| ( self->NPC &&
@@ -13594,7 +13600,7 @@ static void WP_ForcePowerRun( gentity_t *self, forcePowers_t forcePower, usercmd
 			}
 			else if ( gripEnt->client
 				&& gripEnt->health>0	//dead dudes don't fly
-				&& (gripEnt->client->NPC_class == CLASS_BOBAFETT || gripEnt->client->NPC_class == CLASS_ROCKETTROOPER)
+				&& (gripEnt->client->NPC_class == CLASS_BOBAFETT || gripEnt->client->NPC_class == CLASS_MANDALORIAN || gripEnt->client->NPC_class == CLASS_JANGO || gripEnt->client->NPC_class == CLASS_ROCKETTROOPER)
 				&& self->client->ps.forcePowerDebounce[FP_GRIP] < level.time
 				&& !Q_irand( 0, 3 )
 				)
@@ -14033,7 +14039,7 @@ static void WP_ForcePowerRun( gentity_t *self, forcePowers_t forcePower, usercmd
 				}
 				else if ( drainEnt->client
 					&& drainEnt->health>0	//dead dudes don't fly
-					&& (drainEnt->client->NPC_class == CLASS_BOBAFETT || drainEnt->client->NPC_class == CLASS_ROCKETTROOPER)
+					&& (drainEnt->client->NPC_class == CLASS_BOBAFETT || drainEnt->client->NPC_class == CLASS_MANDALORIAN || drainEnt->client->NPC_class == CLASS_JANGO || drainEnt->client->NPC_class == CLASS_ROCKETTROOPER)
 					&& self->client->ps.forcePowerDebounce[FP_DRAIN] < level.time
 					&& !Q_irand( 0, 10 ) )
 				{//boba fett - fly away!
@@ -14369,7 +14375,7 @@ void WP_ForcePowersUpdate( gentity_t *self, usercmd_t *ucmd )
 	}
 
 	if ( !self->s.number
-		&& self->client->NPC_class == CLASS_BOBAFETT )
+		&& (self->client->NPC_class == CLASS_BOBAFETT || self->client->NPC_class == CLASS_MANDALORIAN || self->client->NPC_class == CLASS_JANGO))
 	{//Boba Fett
 		if ( ucmd->buttons & BUTTON_FORCE_LIGHTNING )
 		{//start flamethrower
