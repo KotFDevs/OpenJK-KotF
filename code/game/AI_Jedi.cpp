@@ -1226,6 +1226,12 @@ static void Jedi_AdjustSaberAnimLevel( gentity_t *self, int newLevel )
 		case SS_STRONG:
 			gi.Printf( S_COLOR_RED"%s Saber Attack Set: strong\n", self->NPC_type );
 			break;
+		case SS_DESANN:
+			gi.Printf(S_COLOR_RED"%s Saber Attack Set: desann\n", self->NPC_type);
+			break;
+		case SS_TAVION:
+			gi.Printf(S_COLOR_RED"%s Saber Attack Set: tavion\n", self->NPC_type);
+			break;
 		}
 	}
 }
@@ -1237,7 +1243,7 @@ static void Jedi_CheckDecreaseSaberAnimLevel( void )
 		if ( TIMER_Done( NPC, "saberLevelDebounce" ) && !Q_irand( 0, 10 ) )
 		{
 			//Jedi_AdjustSaberAnimLevel( NPC, (NPC->client->ps.saberAnimLevel-1) );//drop
-			Jedi_AdjustSaberAnimLevel( NPC, Q_irand( SS_FAST, SS_STRONG ));//random
+			Jedi_AdjustSaberAnimLevel( NPC, Q_irand( SS_FAST, SS_TAVION ));//random
 			TIMER_Set( NPC, "saberLevelDebounce", Q_irand( 3000, 10000 ) );
 		}
 	}
@@ -6043,7 +6049,7 @@ void NPC_Jedi_Pain( gentity_t *self, gentity_t *inflictor, gentity_t *other, con
 		}
 		if ( !Q_irand( 0, 3 ) )
 		{//ouch... maybe switch up which saber power level we're using
-			Jedi_AdjustSaberAnimLevel( self, Q_irand( SS_FAST, SS_STRONG ) );
+			Jedi_AdjustSaberAnimLevel( self, Q_irand( SS_FAST, SS_TAVION ) );
 		}
 		if ( !Q_irand( 0, 1 ) )//damage > 20 || self->health < 40 ||
 		{

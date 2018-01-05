@@ -881,7 +881,7 @@ int WP_SaberInitBladeData( gentity_t *ent )
 		{
 			if ( !ent->client->ps.saberAnimLevel )
 			{
-				if ( ent->client->NPC_class == CLASS_DESANN )
+				/**if ( ent->client->NPC_class == CLASS_DESANN )
 				{
 					ent->client->ps.saberAnimLevel = SS_DESANN;
 				}
@@ -913,14 +913,14 @@ int WP_SaberInitBladeData( gentity_t *ent )
 				else if ( ent->NPC && ent->client->playerTeam == TEAM_ENEMY && ent->NPC->rank == RANK_LT )
 				{//boss always starts with strong attacks
 					ent->client->ps.saberAnimLevel = SS_STRONG;
-				}
-				else if ( ent->client->NPC_class == CLASS_PLAYER )
+				}**/
+				if ( ent->client->NPC_class == CLASS_PLAYER )
 				{
 					ent->client->ps.saberAnimLevel = g_entities[0].client->ps.saberAnimLevel;
 				}
 				else
 				{//?
-					ent->client->ps.saberAnimLevel = Q_irand( SS_FAST, SS_STRONG );
+					ent->client->ps.saberAnimLevel = Q_irand( SS_FAST, SS_TAVION );
 				}
 			}
 		}
@@ -943,6 +943,14 @@ int WP_SaberInitBladeData( gentity_t *ent )
 					else if (ent->client->ps.saberStylesKnown & (1<<SS_STRONG))
 					{
 						ent->client->ps.saberAnimLevel = SS_STRONG;
+					}
+					else if (ent->client->ps.saberStylesKnown & (1<<SS_DESANN))
+					{
+						ent->client->ps.saberAnimLevel = SS_DESANN;
+					}
+					else if (ent->client->ps.saberStylesKnown & (1<<SS_TAVION))
+					{
+						ent->client->ps.saberAnimLevel = SS_TAVION;
 					}
 					else
 					{
