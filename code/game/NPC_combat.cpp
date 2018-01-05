@@ -379,8 +379,14 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
 			}
-			
+
 		case WP_REBELRIFLE:
+			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
+			{//rapid-fire blasters
+				attDelay += Q_irand( 0, 500 );
+			}
+
+		case WP_BOBA:
 			if ( self->NPC->scriptFlags & SCF_ALT_FIRE )
 			{//rapid-fire blasters
 				attDelay += Q_irand( 0, 500 );
@@ -389,15 +395,15 @@ void G_AttackDelay( gentity_t *self, gentity_t *enemy )
 			{//regular blaster
 				attDelay -= Q_irand( 0, 500 );
 			}
-		
+
 		case WP_REY:
 			attDelay -= Q_irand( 500, 1500 );
 			break;
-			
+
 		case WP_JANGO:
 			attDelay -= Q_irand( 500, 1500 );
 			break;
-			
+
 		/*
 		case WP_DEMP2:
 			break;
@@ -1098,7 +1104,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_THEFIRSTORDER:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
@@ -1127,7 +1133,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_CLONECARBINE:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
@@ -1156,7 +1162,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_REBELBLASTER:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
@@ -1185,7 +1191,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_CLONERIFLE:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
@@ -1214,7 +1220,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_CLONECOMMANDO:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
@@ -1243,7 +1249,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_REBELRIFLE:
 		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
 		{
@@ -1272,7 +1278,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 			//	ent->NPC->burstSpacing = 1000;//attackdebounce
 		}
 		break;
-		
+
 	case WP_REY:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 		if (ent->weaponModel[1] > 0)
@@ -1310,7 +1316,7 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 				ent->NPC->burstSpacing = 500;//attack debounce
 		}
 		break;
-		
+
 	case WP_JANGO:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 		if (ent->weaponModel[1] > 0)
@@ -1349,13 +1355,42 @@ void ChangeWeapon(gentity_t *ent, int newWeapon)
 		}
 		break;
 
+	case WP_BOBA:
+		if (ent->NPC->scriptFlags & SCF_ALT_FIRE)
+		{
+			ent->NPC->aiFlags |= NPCAI_BURST_WEAPON;
+			ent->NPC->burstMin = 3;
+	#ifdef BASE_SAVE_COMPAT
+			ent->NPC->burstMean = 3;
+	#endif
+			ent->NPC->burstMax = 3;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1500;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+		}
+		else
+		{
+			ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
+			if (g_spskill->integer == 0)
+				ent->NPC->burstSpacing = 1000;//attack debounce
+			else if (g_spskill->integer == 1)
+				ent->NPC->burstSpacing = 750;//attack debounce
+			else
+				ent->NPC->burstSpacing = 500;//attack debounce
+			//	ent->NPC->burstSpacing = 1000;//attackdebounce
+		}
+		break;
+
 	default:
 		ent->NPC->aiFlags &= ~NPCAI_BURST_WEAPON;
 		break;
 
 	}
 }
-	
+
 
 void NPC_ChangeWeapon( int newWeapon )
 {
@@ -1768,11 +1803,11 @@ int NPC_AttackDebounceForWeapon (void)
 	case WP_BRYAR_PISTOL://prifle
 		return 3000;
 		break;
-		
+
 	case WP_REY:
 		return 3000;
 		break;
-		
+
 	case WP_JANGO:
 		return 3000;
 		break;
@@ -1827,11 +1862,11 @@ float NPC_MaxDistSquaredForWeapon (void)
 	case WP_BRYAR_PISTOL://prifle
 		return 1024 * 1024;
 		break;
-		
+
 	case WP_REY:
 	    return 1024 * 1024;
 	    break;
-		
+
 	case WP_JANGO:
 		return 1024 * 1024;
 		break;

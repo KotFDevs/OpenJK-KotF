@@ -13944,6 +13944,7 @@ static void PM_Weapon( void )
 			case WP_CLONERIFLE:
 			case WP_CLONECOMMANDO:
 			case WP_REBELRIFLE:
+			case WP_BOBA:
 				if ( pm->gent && pm->gent->client && pm->gent->client->NPC_class == CLASS_GALAKMECH )
 				{//
 					if ( pm->cmd.buttons & BUTTON_ALT_ATTACK )

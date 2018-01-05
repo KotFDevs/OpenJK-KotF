@@ -175,6 +175,8 @@ static void IT_Name(const char **holdBuf)
 		itemNum = ITM_REY_PICKUP;
 	else if (!Q_stricmp(tokenStr, "ITM_JANGO_PICKUP"))
 		itemNum = ITM_JANGO_PICKUP;
+	else if (!Q_stricmp(tokenStr, "ITM_BOBA_PICKUP"))
+		 itemNum = ITM_BOBA_PICKUP;
 
 	//ammo
 	else if (!Q_stricmp(tokenStr,"ITM_AMMO_FORCE_PICKUP"))
@@ -392,7 +394,7 @@ static void IT_Tag(const char **holdBuf)
 	else if (!Q_stricmp(tokenStr,"WP_SCEPTER"))
 		tag = WP_SCEPTER;
 	else if (!Q_stricmp(tokenStr,"WP_NOGHRI_STICK"))
-		tag = WP_NOGHRI_STICK; 
+		tag = WP_NOGHRI_STICK;
 	else if (!Q_stricmp(tokenStr, "WP_BATTLEDROID"))
 		tag = WP_BATTLEDROID;
 	else if (!Q_stricmp(tokenStr, "WP_THEFIRSTORDER"))
@@ -411,6 +413,8 @@ static void IT_Tag(const char **holdBuf)
 		tag = WP_REY;
 	else if (!Q_stricmp(tokenStr, "WP_JANGO"))
 		tag = WP_JANGO;
+	else if (!Q_stricmp(tokenStr, "WP_BOBA"))
+	  tag = WP_BOBA;
 	else if (!Q_stricmp(tokenStr,"AMMO_FORCE"))
 		tag = AMMO_FORCE;
 	else if (!Q_stricmp(tokenStr,"AMMO_BLASTER"))
@@ -737,4 +741,3 @@ void IT_LoadItemParms (void)
 
 	gi.FS_FreeFile( buffer );	//let go of the buffer
 }
-

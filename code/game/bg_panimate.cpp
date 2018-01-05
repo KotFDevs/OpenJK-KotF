@@ -6076,6 +6076,7 @@ void PM_TorsoAnimation( void )
 				case WP_CLONERIFLE:
 				case WP_CLONECOMMANDO:
 				case WP_REBELRIFLE:
+				case WP_BOBA:
 					if ( pm->gent && pm->gent->client && pm->gent->client->NPC_class == CLASS_GALAKMECH )
 					{//
 						if ( pm->gent->alt_fire )
@@ -6092,7 +6093,7 @@ void PM_TorsoAnimation( void )
 						PM_SetAnim(pm,SETANIM_TORSO,TORSO_WEAPONREADY3,SETANIM_FLAG_NORMAL);
 					}
 					break;
-					
+
 			case WP_REY:
 				if ( pm->gent
 					&& pm->gent->weaponModel[1] > 0 )
@@ -6132,7 +6133,7 @@ void PM_TorsoAnimation( void )
 					}
 				}
 				break;
-				
+
 			case WP_JANGO:
 				if ( pm->gent
 					&& pm->gent->weaponModel[1] > 0 )
@@ -6172,7 +6173,7 @@ void PM_TorsoAnimation( void )
 					}
 				}
 				break;
-					
+
 				case WP_TRIP_MINE:
 				case WP_DET_PACK:
 					if ( PM_RunningAnim( pm->ps->legsAnim )
@@ -6262,6 +6263,7 @@ void PM_TorsoAnimation( void )
 				&& pm->ps->weapon != WP_CLONERIFLE
 				&& pm->ps->weapon != WP_CLONECOMMANDO
 				&& pm->ps->weapon != WP_REBELRIFLE
+				&& pm->ps->weapon != WP_BOBA
 				&& pm->ps->weapon != WP_REY
 				&& pm->ps->weapon != WP_JANGO
 				&& pm->ps->weapon != WP_FLECHETTE
@@ -6340,7 +6342,7 @@ void PM_TorsoAnimation( void )
 						}
 					}
 					break;
-					
+
 				case WP_REY:
 					if ( pm->gent
 						&& pm->gent->weaponModel[1] > 0 )
@@ -6380,7 +6382,7 @@ void PM_TorsoAnimation( void )
 						}
 					}
 					break;
-					
+
 				case WP_JANGO:
 					if ( pm->gent
 						&& pm->gent->weaponModel[1] > 0 )

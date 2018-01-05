@@ -35,7 +35,6 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 vec3_t	forwardVec, vrightVec, up;
 vec3_t	muzzle;
-
 gentity_t *ent_list[MAX_GENTITIES];
 extern cvar_t	*g_debugMelee;
 
@@ -85,6 +84,7 @@ float weaponSpeed[WP_NUM_WEAPONS][2] =
 	{ REBELRIFLE_VELOCITY, REBELRIFLE_VELOCITY },// WP_REBELRIFLE
 	{ REY_VEL,REY_VEL },//WP_REY,
 	{ JANGO_VELOCITY, JANGO_VELOCITY },// WP_JANGO
+	{ BOBA_VELOCITY, BOBA_VELOCITY },// WP_BOBA
 
 };
 
@@ -368,6 +368,8 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case MOD_REY_ALT:
 		case MOD_JANGO:
 		case MOD_JANGO_ALT:
+		case MOD_BOBA:
+		case MOD_BOBA_ALT:
 		case MOD_DISRUPTOR:
 		case MOD_SNIPER:
 		case MOD_BOWCASTER:
@@ -414,6 +416,7 @@ qboolean W_AccuracyLoggableWeapon( int weapon, qboolean alt_fire, int mod )
 		case WP_REBELRIFLE:
 		case WP_REY:
 		case WP_JANGO:
+		case WP_BOBA:
 		case WP_DISRUPTOR:
 		case WP_BOWCASTER:
 		case WP_ROCKET_LAUNCHER:
@@ -610,6 +613,18 @@ void CalcMuzzlePoint( gentity_t *const ent, vec3_t forwardVec, vec3_t right, vec
 		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
 		break;
 
+	case WP_BOBA:
+		ViewHeightFix(ent);
+		muzzlePoint[2] += ent->client->ps.viewheight;//By eyes
+		muzzlePoint[2] -= 1;
+		if (ent->s.number == 0)
+			VectorMA(muzzlePoint, 12, forwardVec, muzzlePoint); // player, don't set this any lower otherwise the projectile will impact immediately when your back is to a wall
+		else
+			VectorMA(muzzlePoint, 2, forwardVec, muzzlePoint); // NPC, don't set too far forwardVec otherwise the projectile can go through doors
+
+		VectorMA(muzzlePoint, 1, vrightVec, muzzlePoint);
+		break;
+
 	case WP_SABER:
 		if(ent->NPC!=NULL &&
 			(ent->client->ps.torsoAnim == TORSO_WEAPONREADY2 ||
@@ -689,6 +704,7 @@ vec3_t WP_MuzzlePoint[WP_NUM_WEAPONS] =
 	{12,	6,		-6  },  // WP_REBELRIFLE,
 	{12,	6,		-6	},	// WP_REY,
 	{12,	6,		-6	},	// WP_JANGO,
+	{12,	6,		-6	},	// WP_BOBA,
 };
 
 void WP_RocketLock( gentity_t *ent, float lockDist )
@@ -1695,6 +1711,21 @@ void FireWeapon( gentity_t *ent, qboolean alt_fire )
 	case WP_JANGO:
 		WP_FireJangoPistol(ent, alt_fire);
 		break;
+
+	case WP_BOBA:
+		if (alt_fire)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				WP_FireBobaRifle(ent, alt_fire);
+			}
+			break;
+		}
+		else
+		{
+			WP_FireBobaRifle(ent, alt_fire);
+			break;
+		}
 
 	case WP_TUSKEN_STAFF:
 	default:
