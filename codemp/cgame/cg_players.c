@@ -5449,6 +5449,9 @@ static void CG_RGBForSaberColor(saber_colors_t color, vec3_t rgb, int cnum, int 
 		case SABER_UNSTABLE_RED:
 			VectorSet(rgb, 1.0f, 0.2f, 0.2f);
 			break;
+		case SABER_BLACK:
+ 			VectorSet(rgb, 1.0f, 1.0f, 1.0f );
+ 			break;
 		default:
 			break;
 	}
@@ -5618,6 +5621,12 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade_unstable");
 		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end");
 		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail");
+		break;
+	case SABER_BLACK:
+		glow = cgs.media.blackSaberGlowShader;
+		cgs.media.SaberBladeShader = trap->R_RegisterShader("SFX_Sabers/saber_blade_black");
+		cgs.media.SaberEndShader = trap->R_RegisterShader("SFX_Sabers/saber_end_black");
+		cgs.media.SaberTrailShader = trap->R_RegisterShader("SFX_Sabers/saber_trail_black");
 		break;
 	default:
 		glow = cgs.media.blueSaberGlowShader;
@@ -6019,6 +6028,10 @@ void CG_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 			glow = cgs.media.unstableRedSaberGlowShader;
 			blade = cgs.media.unstableRedSaberCoreShader;
 			break;
+		case SABER_BLACK:
+ 			glow = cgs.media.blackSaberGlowShader;
+ 			blade = cgs.media.blackSaberCoreShader;
+ 			break;
 		default:
 			glow = cgs.media.blueSaberGlowShader;
 			blade = cgs.media.blueSaberCoreShader;
@@ -7062,6 +7075,9 @@ CheckTrail:
 						case SABER_UNSTABLE_RED:
 							VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
 							break;
+						case SABER_BLACK:
+ 							VectorSet( rgb1, 255.0f, 255.0f, 255.0f );
+ 							break;
 						default:
 							VectorSet( rgb1, 0.0f, 64.0f, 255.0f );
 							break;
@@ -7099,6 +7115,10 @@ CheckTrail:
 								fx.mShader = cgs.media.swordTrailShader;
 								VectorSet( rgb1, 32.0f, 32.0f, 32.0f ); // make the sith sword trail pretty faint
 								trailDur *= 2.0f; // stay around twice as long?
+							}
+							else if(scolor == SABER_BLACK)
+							{
+								fx.mShader = cgs.media.blackSaberBlurShader;
 							}
 							else
 							{
@@ -7286,6 +7306,9 @@ CheckTrail:
 			case SABER_UNSTABLE_RED:
 	 			VectorSet(rgb1, 255.0f, 0.0f, 0.0f);
 	 			break;
+			case SABER_BLACK:
+				VectorSet( rgb1, 255.0f, 255.0f, 255.0f );
+				break;
 		   default:
 		     VectorSet(rgb1, 0.0f, 64.0f, 255.0f);
 		     break;

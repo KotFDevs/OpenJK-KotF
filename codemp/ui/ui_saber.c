@@ -57,6 +57,8 @@ static qhandle_t rgbSaberGlowShader;
 static qhandle_t rgbSaberCoreShader;
 static qhandle_t unstableRedSaberGlowShader;
 static qhandle_t unstableRedSaberCoreShader;
+static qhandle_t blackSaberGlowShader;
+static qhandle_t blackSaberCoreShader;
 
 void UI_CacheSaberGlowGraphics( void )
 {//FIXME: these get fucked by vid_restarts
@@ -76,6 +78,8 @@ void UI_CacheSaberGlowGraphics( void )
 	rgbSaberCoreShader 			= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/rgb_line" );
 	unstableRedSaberGlowShader 	= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/unstable_red_glow" );
 	unstableRedSaberCoreShader 	= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/unstable_red_line" );
+	blackSaberGlowShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/black_glow" );
+	blackSaberCoreShader		= trap->R_RegisterShaderNoMip( "gfx/effects/sabers/black_line" );
 }
 
 qboolean UI_SaberModelForSaber( const char *saberName, char *saberModel )
@@ -322,6 +326,11 @@ void UI_DoSFXSaber( vec3_t blade_muz, vec3_t blade_dir, float lengthMax, float r
 			glow = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_glow");
 			blade = trap->R_RegisterShaderNoMip("gfx/effects/sabers/unstable_red_line");
 			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade_unstable");
+			break;
+		case SABER_BLACK:
+			glow = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/black_glow" );
+			blade = trap->R_RegisterShaderNoMip( "gfx/effects/sabers/black_line" );
+			SaberBladeShader = trap->R_RegisterShaderNoMip("SFX_Sabers/saber_blade_black");
 			break;
 		default:
 			break;
@@ -616,6 +625,11 @@ void UI_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 			glow = unstableRedSaberGlowShader;
 			blade = unstableRedSaberCoreShader;
 			VectorSet(rgb, 1.0f, 0.2f, 0.2f);
+			break;
+		case SABER_BLACK:
+			glow = blackSaberGlowShader;
+			blade = blackSaberCoreShader;
+			VectorSet(rgb, 1.0f, 1.0f, 1.0f );
 			break;
 		default:
 			break;

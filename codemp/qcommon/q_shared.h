@@ -360,6 +360,7 @@ typedef enum
 	SABER_PURPLE,
 	SABER_RGB,
 	SABER_UNSTABLE_RED,
+	SABER_BLACK,
 	NUM_SABER_COLORS
 } saber_colors_t;
 
