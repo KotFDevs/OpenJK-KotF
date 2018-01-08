@@ -358,7 +358,7 @@ void WP_SaberSetDefaults( saberInfo_t *saber, qboolean setColors = qtrue )
 	{
 		if ( setColors )
 		{
-			saber->blade[i].color = SABER_RED;
+			saber->blade[i].color = ((saber_colors_t)(Q_irand(SABER_ORANGE, SABER_PURPLE)));
 		}
 		saber->blade[i].radius = SABER_RADIUS_STANDARD;
 		saber->blade[i].lengthMax = 32;
