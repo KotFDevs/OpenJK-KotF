@@ -5957,17 +5957,6 @@ void CG_DoSFXSaber(vec3_t blade_muz, vec3_t blade_tip, vec3_t trail_tip, vec3_t 
 		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
 		
 		trap->R_AddRefEntityToScene(&saber);
-
-		if(color == SABER_RGB)
-		{
-			saber.customShader = cgs.media.SaberBladeShader;
-			saber.reType = RT_LINE;
-			saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
-			saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
-			saber.radius = (coreradius * AngleScale);
-			saber.saberLength = end_len;
-			trap->R_AddRefEntityToScene(&saber);
-		}
 	}
 }
 
@@ -6108,16 +6097,6 @@ void CG_DoSaber(vec3_t origin, vec3_t dir, float length, float lengthMax, float 
 	saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;	
 
 	trap->R_AddRefEntityToScene( &saber );
-
-	if(color == SABER_RGB)
-	{	
-		saber.customShader = cgs.media.rgbSaberCoreShader;
-		saber.reType = RT_LINE;
-		saber.shaderTexCoord[0] = saber.shaderTexCoord[1] = 1.0f;
-		saber.shaderRGBA[0] = saber.shaderRGBA[1] = saber.shaderRGBA[2] = saber.shaderRGBA[3] = 0xff;
-		saber.radius = (radiusStart + Q_flrand(-1.0f, 1.0f) * radiusRange)*radiusmult;
-		trap->R_AddRefEntityToScene( &saber );
-	}
 }
 
 //--------------------------------------------------------------
