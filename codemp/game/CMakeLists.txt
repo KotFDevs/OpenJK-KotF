@@ -221,7 +221,7 @@ if(MakeApplicationBundles AND BuildMPEngine)
 		COMPONENT ${JKAMPCoreComponent})
 	install(TARGETS ${MPGame}
 		LIBRARY
-		DESTINATION "${JKAInstallDir}/${MPEngine}.app/Contents/MacOS/base"
+		DESTINATION "${JKAInstallDir}/${MPEngine}.app/Contents/MacOS/KotF"
 		COMPONENT ${JKAMPCoreComponent})
 elseif(WIN32)
 	install(TARGETS ${MPGame}
@@ -233,7 +233,7 @@ elseif(WIN32)
 		# vanilla JKA's DLLs
 		install(TARGETS ${MPGame}
 			RUNTIME
-			DESTINATION "${JKAInstallDir}/base"
+			DESTINATION "${JKAInstallDir}/KotF"
 			COMPONENT ${JKAMPCoreComponent})
 	endif()
 else()
@@ -243,7 +243,7 @@ else()
 		COMPONENT ${JKAMPCoreComponent})
 	install(TARGETS ${MPGame}
 		LIBRARY
-		DESTINATION "${JKAInstallDir}/base"
+		DESTINATION "${JKAInstallDir}/KotF"
 		COMPONENT ${JKAMPCoreComponent})
 endif()
 
