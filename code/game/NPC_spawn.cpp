@@ -5005,37 +5005,37 @@ static void NPC_Spawn_f(void)
 	else if (!Q_stricmp("kotor_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 0;
+		NPCspawner->spawnflags |= 4;
 		SP_NPC_KOTOR_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("prequel_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 0;
+		NPCspawner->spawnflags |= 4;
 		SP_NPC_PREQUEL_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("swtor_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 0;
+		NPCspawner->spawnflags |= 4;
 		SP_NPC_SWTOR_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("swtor_sith", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 0;
+		NPCspawner->spawnflags |= 4;
 		SP_NPC_SWTOR_SITH(NPCspawner);
 	}
 	else if (!Q_stricmp("legacy_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 0;
+		NPCspawner->spawnflags |= 4;
 		SP_NPC_LEGACY_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("legacy_sith", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 0;
+		NPCspawner->spawnflags |= 4;
 		SP_NPC_LEGACY_SITH(NPCspawner);
 	}
 	else if (!Q_stricmp("imperial", NPCspawner->NPC_type))
