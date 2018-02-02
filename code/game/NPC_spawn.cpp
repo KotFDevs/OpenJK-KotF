@@ -2853,143 +2853,6 @@ void SP_NPC_PREQUEL_JEDI(gentity_t *self)
 
 	SP_NPC_spawner(self);
 }
-void SP_NPC_IMPERIAL(gentity_t *self)
-{
-	if (!self->NPC_type)
-	{
-		if (self->spawnflags & 4)
-		{//random!
-			int sanityCheck = 20;	//just in case
-			while (sanityCheck--)
-			{
-				switch (Q_irand(0, 6))
-				{
-				case 0:
-					self->NPC_type = "imperial1";
-					break;
-				case 1:
-					self->NPC_type = "imperial2";
-					break;
-				case 2:
-					self->NPC_type = "imperial3";
-					break;
-				case 3:
-					self->NPC_type = "imperial4";
-					break;
-				case 4:
-					self->NPC_type = "imperial5";
-					break;
-				case 5:
-					self->NPC_type = "imperial6";
-					break;
-				case 6:
-				default://just in case
-					self->NPC_type = "imperial1";
-					break;
-				}
-				if (strstr(self->NPC_type, g_char_model->string) != NULL)
-				{//bah, we're using this one, try again
-					continue;
-				}
-				break;	//get out of the while
-			}
-		}
-	}
-
-	SP_NPC_spawner(self);
-}
-
-void SP_NPC_IMPOFFICER(gentity_t *self)
-{
-	if (!self->NPC_type)
-	{
-		if (self->spawnflags & 4)
-		{//random!
-			int sanityCheck = 20;	//just in case
-			while (sanityCheck--)
-			{
-				switch (Q_irand(0, 6))
-				{
-				case 0:
-					self->NPC_type = "impofficer1";
-					break;
-				case 1:
-					self->NPC_type = "impofficer2";
-					break;
-				case 2:
-					self->NPC_type = "impofficer3";
-					break;
-				case 3:
-					self->NPC_type = "impofficer4";
-					break;
-				case 4:
-					self->NPC_type = "impofficer5";
-					break;
-				case 5:
-					self->NPC_type = "impofficer6";
-					break;
-				case 6:
-				default://just in case
-					self->NPC_type = "impofficer1";
-					break;
-				}
-				if (strstr(self->NPC_type, g_char_model->string) != NULL)
-				{//bah, we're using this one, try again
-					continue;
-				}
-				break;	//get out of the while
-			}
-		}
-	}
-
-	SP_NPC_spawner(self);
-}
-
-void SP_NPC_IMPCOMMANDER(gentity_t *self)
-{
-	if (!self->NPC_type)
-	{
-		if (self->spawnflags & 4)
-		{//random!
-			int sanityCheck = 20;	//just in case
-			while (sanityCheck--)
-			{
-				switch (Q_irand(0, 6))
-				{
-				case 0:
-					self->NPC_type = "impcommander1";
-					break;
-				case 1:
-					self->NPC_type = "impcommander2";
-					break;
-				case 2:
-					self->NPC_type = "impcommander3";
-					break;
-				case 3:
-					self->NPC_type = "impcommander4";
-					break;
-				case 4:
-					self->NPC_type = "impcommander5";
-					break;
-				case 5:
-					self->NPC_type = "impcommander6";
-					break;
-				case 6:
-				default://just in case
-					self->NPC_type = "impcommander1";
-					break;
-				}
-				if (strstr(self->NPC_type, g_char_model->string) != NULL)
-				{//bah, we're using this one, try again
-					continue;
-				}
-				break;	//get out of the while
-			}
-		}
-	}
-
-	SP_NPC_spawner(self);
-}
 
 void SP_NPC_SWTOR_JEDI(gentity_t *self)
 {
@@ -3986,21 +3849,119 @@ void SP_NPC_Imperial( gentity_t *self)
 	{
 		if ( self->spawnflags & 1 )
 		{
-			self->NPC_type = "ImpOfficer";
+			int sanityCheck = 20;	//just in case
+			while (sanityCheck--)
+			{
+				switch (Q_irand(0, 6))
+				{
+				case 0:
+					self->NPC_type = "impofficer1";
+					break;
+				case 1:
+					self->NPC_type = "impofficer2";
+					break;
+				case 2:
+					self->NPC_type = "impofficer3";
+					break;
+				case 3:
+					self->NPC_type = "impofficer4";
+					break;
+				case 4:
+					self->NPC_type = "impofficer5";
+					break;
+				case 5:
+					self->NPC_type = "impofficer6";
+					break;
+				case 6:
+				default://just in case
+					self->NPC_type = "impofficer1";
+					break;
+				}
+				if (strstr(self->NPC_type, g_char_model->string) != NULL)
+				{//bah, we're using this one, try again
+					continue;
+				}
+				break;	//get out of the while
+			}
 		}
 		else if ( self->spawnflags & 2 )
 		{
-			self->NPC_type = "ImpCommander";
+			int sanityCheck = 20;	//just in case
+			while (sanityCheck--)
+			{
+				switch (Q_irand(0, 6))
+				{
+				case 0:
+					self->NPC_type = "impcommander1";
+					break;
+				case 1:
+					self->NPC_type = "impcommander2";
+					break;
+				case 2:
+					self->NPC_type = "impcommander3";
+					break;
+				case 3:
+					self->NPC_type = "impcommander4";
+					break;
+				case 4:
+					self->NPC_type = "impcommander5";
+					break;
+				case 5:
+					self->NPC_type = "impcommander6";
+					break;
+				case 6:
+				default://just in case
+					self->NPC_type = "impofficer1";
+					break;
+				}
+				if (strstr(self->NPC_type, g_char_model->string) != NULL)
+				{//bah, we're using this one, try again
+					continue;
+				}
+				break;	//get out of the while
+			}
 		}
 		else
 		{
-			self->NPC_type = "Imperial";
+			int sanityCheck = 20;	//just in case
+			while (sanityCheck--)
+			{
+				switch (Q_irand(0, 6))
+				{
+				case 0:
+					self->NPC_type = "imperial1";
+					break;
+				case 1:
+					self->NPC_type = "imperial2";
+					break;
+				case 2:
+					self->NPC_type = "imperial3";
+					break;
+				case 3:
+					self->NPC_type = "imperial4";
+					break;
+				case 4:
+					self->NPC_type = "imperial5";
+					break;
+				case 5:
+					self->NPC_type = "imperial6";
+					break;
+				case 6:
+				default://just in case
+					self->NPC_type = "imperial1";
+					break;
+				}
+				if (strstr(self->NPC_type, g_char_model->string) != NULL)
+				{//bah, we're using this one, try again
+					continue;
+				}
+				break;	//get out of the while
+			}
 		}
 	}
 
 	SP_NPC_spawner( self );
 }
-
 /*QUAKED NPC_ImpWorker(1 0 0) (-16 -16 -24) (16 16 40) x x x x DROPTOFLOOR CINEMATIC NOTSOLID STARTINSOLID SHY
 DROPTOFLOOR - NPC can be in air, but will spawn on the closest floor surface below it
 CINEMATIC - Will spawn with no default AI (BS_CINEMATIC)
@@ -5044,56 +5005,56 @@ static void NPC_Spawn_f(void)
 	else if (!Q_stricmp("kotor_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
+		NPCspawner->spawnflags |= 0;
 		SP_NPC_KOTOR_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("prequel_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
+		NPCspawner->spawnflags |= 0;
 		SP_NPC_PREQUEL_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("swtor_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
+		NPCspawner->spawnflags |= 0;
 		SP_NPC_SWTOR_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("swtor_sith", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
+		NPCspawner->spawnflags |= 0;
 		SP_NPC_SWTOR_SITH(NPCspawner);
 	}
 	else if (!Q_stricmp("legacy_jedi", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
+		NPCspawner->spawnflags |= 0;
 		SP_NPC_LEGACY_JEDI(NPCspawner);
 	}
 	else if (!Q_stricmp("legacy_sith", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
+		NPCspawner->spawnflags |= 0;
 		SP_NPC_LEGACY_SITH(NPCspawner);
 	}
 	else if (!Q_stricmp("imperial", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
-		SP_NPC_IMPERIAL(NPCspawner);
+		NPCspawner->spawnflags |= 0;
+		SP_NPC_Imperial(NPCspawner);
 	}
 	else if (!Q_stricmp("impofficer", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
-		SP_NPC_IMPOFFICER(NPCspawner);
+		NPCspawner->spawnflags |= 1;
+		SP_NPC_Imperial(NPCspawner);
 	}
 	else if (!Q_stricmp("impcommander", NPCspawner->NPC_type))
 	{//special case, for testing
 		NPCspawner->NPC_type = NULL;
-		NPCspawner->spawnflags |= 4;
-		SP_NPC_IMPCOMMANDER(NPCspawner);
+		NPCspawner->spawnflags |= 2;
+		SP_NPC_Imperial(NPCspawner);
 	}
 	else if ( isVehicle )
 	{
