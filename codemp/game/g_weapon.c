@@ -35,32 +35,32 @@ static vec3_t muzzle;
 
 // Bryar Pistol
 //--------
-#define BRYAR_PISTOL_VEL			1600
-#define BRYAR_PISTOL_DAMAGE			10
+#define BRYAR_PISTOL_VEL			3500
+#define BRYAR_PISTOL_DAMAGE			45
 #define BRYAR_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
 #define BRYAR_ALT_SIZE				1.0f
 
 // E11 Blaster
 //---------
-#define BLASTER_SPREAD				1.6f//1.2f
-#define BLASTER_VELOCITY			2300
-#define BLASTER_DAMAGE				20
+#define BLASTER_SPREAD				1.3f//1.2f
+#define BLASTER_VELOCITY			3600
+#define BLASTER_DAMAGE				40
 
 // Tenloss Disruptor
 //----------
-#define DISRUPTOR_MAIN_DAMAGE			30 //40
+#define DISRUPTOR_MAIN_DAMAGE			45 //40
 #define DISRUPTOR_MAIN_DAMAGE_SIEGE		50
 #define DISRUPTOR_NPC_MAIN_DAMAGE_CUT	0.25f
 
-#define DISRUPTOR_ALT_DAMAGE			100 //125
+#define DISRUPTOR_ALT_DAMAGE			125 //125
 #define DISRUPTOR_NPC_ALT_DAMAGE_CUT	0.2f
 #define DISRUPTOR_ALT_TRACES			3		// can go through a max of 3 damageable(sp?) entities
 #define DISRUPTOR_CHARGE_UNIT			50.0f	// distruptor charging gives us one more unit every 50ms--if you change this, you'll have to do the same in bg_pmove
 
 // Wookiee Bowcaster
 //----------
-#define	BOWCASTER_DAMAGE			50
-#define	BOWCASTER_VELOCITY			1300
+#define	BOWCASTER_DAMAGE			58
+#define	BOWCASTER_VELOCITY			3100
 #define BOWCASTER_SPLASH_DAMAGE		0
 #define BOWCASTER_SPLASH_RADIUS		0
 #define BOWCASTER_SIZE				2
@@ -72,33 +72,33 @@ static vec3_t muzzle;
 // Heavy Repeater
 //----------
 #define REPEATER_SPREAD				1.4f
-#define	REPEATER_DAMAGE				14
-#define	REPEATER_VELOCITY			1600
+#define	REPEATER_DAMAGE				25
+#define	REPEATER_VELOCITY			3000
 
 #define REPEATER_ALT_SIZE				3	// half of bbox size
-#define	REPEATER_ALT_DAMAGE				60
-#define REPEATER_ALT_SPLASH_DAMAGE		60
+#define	REPEATER_ALT_DAMAGE				45
+#define REPEATER_ALT_SPLASH_DAMAGE		45
 #define REPEATER_ALT_SPLASH_RADIUS		128
 #define REPEATER_ALT_SPLASH_RAD_SIEGE	80
 #define	REPEATER_ALT_VELOCITY			1100
 
 // DEMP2
 //----------
-#define	DEMP2_DAMAGE				35
-#define	DEMP2_VELOCITY				1800
+#define	DEMP2_DAMAGE				43
+#define	DEMP2_VELOCITY				2600
 #define	DEMP2_SIZE					2		// half of bbox size
 
-#define DEMP2_ALT_DAMAGE			8 //12		// does 12, 36, 84 at each of the 3 charge levels.
+#define DEMP2_ALT_DAMAGE			10 //12		// does 12, 36, 84 at each of the 3 charge levels.
 #define DEMP2_CHARGE_UNIT			700.0f	// demp2 charging gives us one more unit every 700ms--if you change this, you'll have to do the same in bg_weapons
 #define DEMP2_ALT_RANGE				4096
 #define DEMP2_ALT_SPLASHRADIUS		256
 
 // Golan Arms Flechette
 //---------
-#define FLECHETTE_SHOTS				5
+#define FLECHETTE_SHOTS				6
 #define FLECHETTE_SPREAD			4.0f
-#define FLECHETTE_DAMAGE			12//15
-#define FLECHETTE_VEL				3500
+#define FLECHETTE_DAMAGE			19//15
+#define FLECHETTE_VEL				3700
 #define FLECHETTE_SIZE				1
 #define FLECHETTE_MINE_RADIUS_CHECK	256
 #define FLECHETTE_ALT_DAMAGE		60
@@ -107,9 +107,9 @@ static vec3_t muzzle;
 
 // Personal Rocket Launcher
 //---------
-#define	ROCKET_VELOCITY				900
+#define	ROCKET_VELOCITY				1500
 #define	ROCKET_DAMAGE				100
-#define	ROCKET_SPLASH_DAMAGE		100
+#define	ROCKET_SPLASH_DAMAGE		80
 #define	ROCKET_SPLASH_RADIUS		160
 #define ROCKET_SIZE					3
 #define ROCKET_ALT_THINK_TIME		100
@@ -119,104 +119,137 @@ static vec3_t muzzle;
 //primary
 //man, this thing is too absurdly powerful. having to
 //slash the values way down from sp.
-#define	CONC_VELOCITY				3000
-#define	CONC_DAMAGE					75 //150
+#define	CONC_VELOCITY				2700
+#define	CONC_DAMAGE					65 //150
 #define	CONC_NPC_DAMAGE_EASY		40
 #define	CONC_NPC_DAMAGE_NORMAL		80
 #define	CONC_NPC_DAMAGE_HARD		100
-#define	CONC_SPLASH_DAMAGE			40 //50
+#define	CONC_SPLASH_DAMAGE			30 //50
 #define	CONC_SPLASH_RADIUS			200 //300
 //alt
-#define CONC_ALT_DAMAGE				25 //100
+#define CONC_ALT_DAMAGE				60 //100
 #define CONC_ALT_NPC_DAMAGE_EASY	20
 #define CONC_ALT_NPC_DAMAGE_MEDIUM	35
 #define CONC_ALT_NPC_DAMAGE_HARD	50
 
 // Stun Baton
 //--------------
-#define STUN_BATON_DAMAGE			20
-#define STUN_BATON_ALT_DAMAGE		20
-#define STUN_BATON_RANGE			8
+#define STUN_BATON_DAMAGE			65
+#define STUN_BATON_ALT_DAMAGE		65
+#define STUN_BATON_RANGE			13
 
 // Melee
 //--------------
-#define MELEE_SWING1_DAMAGE			10
-#define MELEE_SWING2_DAMAGE			12
-#define MELEE_RANGE					8
+#define MELEE_SWING1_DAMAGE			16
+#define MELEE_SWING2_DAMAGE			18
+#define MELEE_RANGE					12
 
 // E-5 carbine
 //---------
-#define BATTLEDROID_SPREAD				1.6f//1.2f
-#define BATTLEDROID_VELOCITY			2300
-#define BATTLEDROID_DAMAGE				20
+#define BATTLEDROID_SPREAD				1.2f//1.2f
+#define BATTLEDROID_VELOCITY			3700
+#define BATTLEDROID_DAMAGE				38
 
 // F-11D
 //---------
-#define THEFIRSTORDER_SPREAD				1.6f//1.2f
-#define THEFIRSTORDER_VELOCITY			2300
-#define THEFIRSTORDER_DAMAGE				20
+#define THEFIRSTORDER_SPREAD			1.4f//1.2f
+#define THEFIRSTORDER_VELOCITY			3600
+#define THEFIRSTORDER_DAMAGE			42
 
 // DC-15 Carbine
 //---------
-#define CLONECARBINE_SPREAD				1.6f//1.2f
-#define CLONECARBINE_VELOCITY			2300
-#define CLONECARBINE_DAMAGE				20
+#define CLONECARBINE_SPREAD				1.3f//1.2f
+#define CLONECARBINE_VELOCITY			3500
+#define CLONECARBINE_DAMAGE				41
 
 // DH-17
 //---------
-#define REBELBLASTER_SPREAD				1.6f//1.2f
-#define REBELBLASTER_VELOCITY			1000
-#define REBELBLASTER_DAMAGE				35
+#define REBELBLASTER_SPREAD				1.3f//1.2f
+#define REBELBLASTER_VELOCITY			3500
+#define REBELBLASTER_DAMAGE				45
 
 // DC-15 Rifle
 //---------
-#define CLONERIFLE_SPREAD				0.1f//1.2f
-#define CLONERIFLE_VELOCITY			2300
-#define CLONERIFLE_DAMAGE				20
+#define CLONERIFLE_SPREAD				1.1f//1.2f
+#define CLONERIFLE_VELOCITY				3300
+#define CLONERIFLE_DAMAGE				18
 
 // DC-17M
 //---------
-#define CLONECOMMANDO_SPREAD				0.1f//1.2f
+#define CLONECOMMANDO_SPREAD			1.2f//1.2f
 #define CLONECOMMANDO_VELOCITY			3500
-#define CLONECOMMANDO_DAMAGE				15
+#define CLONECOMMANDO_DAMAGE			35
 
 // A280
 //---------
-#define REBELRIFLE_SPREAD				1.6f//1.2f
-#define REBELRIFLE_VELOCITY			1250
-#define REBELRIFLE_DAMAGE				30
+#define REBELRIFLE_SPREAD				1.5f//1.2f
+#define REBELRIFLE_VELOCITY				2850
+#define REBELRIFLE_DAMAGE				85
 
 // LPA NN-14
 //--------
-#define REY_VEL			1600
-#define REY_DAMAGE			10
-#define REY_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
+#define REY_VEL						3000
+#define REY_DAMAGE					51
+#define REY_CHARGE_UNIT				200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
 #define REY_ALT_SIZE				1.0f
 
 // Westar 34
 //---------
-#define JANGO_SPREAD				0.1f//1.2f
-#define JANGO_VELOCITY			3000
-#define JANGO_DAMAGE				15
+#define JANGO_SPREAD				1.1f//1.2f
+#define JANGO_VELOCITY				3800
+#define JANGO_DAMAGE				48
 
 // EE-3
 //---------
-#define BOBA_SPREAD				0.5f//1.2f
-#define BOBA_VELOCITY			2200
-#define BOBA_DAMAGE				30
+#define BOBA_SPREAD					1.5f//1.2f
+#define BOBA_VELOCITY				3200
+#define BOBA_DAMAGE					70
 
 // DC-17 Hand Pistol
 //--------
-#define CLONEPISTOL_VEL			1600
-#define CLONEPISTOL_DAMAGE			10
+#define CLONEPISTOL_VEL					3600
+#define CLONEPISTOL_DAMAGE				40
 #define CLONEPISTOL_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
-#define CLONEPISTOL_ALT_SIZE				1.0f
+#define CLONEPISTOL_ALT_SIZE			1.0f
+
+// Thermal Detonators
+//----------
+#define TD_DAMAGE			150 //only do 70 on a direct impact
+#define TD_SPLASH_RAD		192
+#define TD_SPLASH_DAM		150
+#define TD_VELOCITY			900
+#define TD_MIN_CHARGE		0.15f
+#define TD_TIME				3000//6000
+#define TD_ALT_TIME			3000
+#define TD_ALT_DAMAGE		110//100
+#define TD_ALT_SPLASH_RAD	160
+#define TD_ALT_SPLASH_DAM	90//90
+#define TD_ALT_VELOCITY		600
+#define TD_ALT_MIN_CHARGE	0.15f
+#define TD_ALT_TIME			3000
+
+// Tripmines
+//--------
+#define LT_DAMAGE			130
+#define LT_SPLASH_RAD		256.0f
+#define LT_SPLASH_DAM		115
+#define LT_VELOCITY			900.0f
+#define LT_SIZE				1.5f
+#define LT_ALT_TIME			2000
+#define	LT_ACTIVATION_DELAY	500
+#define	LT_DELAY_TIME		50
+
+// Detpacks
+//--------
+#define DP_DAMAGE			150
+#define DP_SPLASH_RAD		200.0f
+#define DP_SPLASH_DAM		200
 
 // ATST Main Gun
 //--------------
-#define ATST_MAIN_VEL				4000	//
-#define ATST_MAIN_DAMAGE			25		//
-#define ATST_MAIN_SIZE				3		// make it easier to hit things
+#define ATST_MAIN_VEL					4000	//
+#define ATST_MAIN_DAMAGE				55		//
+#define ATST_MAIN_SIZE					3		// make it easier to hit things
 
 // ATST Side Gun
 //---------------
@@ -2621,21 +2654,6 @@ THERMAL DETONATOR
 ======================================================================
 */
 
-#define TD_DAMAGE			70 //only do 70 on a direct impact
-#define TD_SPLASH_RAD		128
-#define TD_SPLASH_DAM		90
-#define TD_VELOCITY			900
-#define TD_MIN_CHARGE		0.15f
-#define TD_TIME				3000//6000
-#define TD_ALT_TIME			3000
-
-#define TD_ALT_DAMAGE		60//100
-#define TD_ALT_SPLASH_RAD	128
-#define TD_ALT_SPLASH_DAM	50//90
-#define TD_ALT_VELOCITY		600
-#define TD_ALT_MIN_CHARGE	0.15f
-#define TD_ALT_TIME			3000
-
 void thermalThinkStandard(gentity_t *ent);
 
 //---------------------------------------------------------
@@ -2938,14 +2956,6 @@ LASER TRAP / TRIP MINE
 
 ======================================================================
 */
-#define LT_DAMAGE			100
-#define LT_SPLASH_RAD		256.0f
-#define LT_SPLASH_DAM		105
-#define LT_VELOCITY			900.0f
-#define LT_SIZE				1.5f
-#define LT_ALT_TIME			2000
-#define	LT_ACTIVATION_DELAY	1000
-#define	LT_DELAY_TIME		50
 
 void laserTrapExplode( gentity_t *self )
 {
@@ -3149,7 +3159,7 @@ void laserTrapStick( gentity_t *ent, vec3_t endpos, vec3_t normal )
 	{
 		ent->touch = touchLaserTrap;
 		ent->think = proxMineThink;//laserTrapExplode;
-		ent->genericValue15 = level.time + 30000; //auto-explode after 30 seconds.
+		ent->genericValue15 = level.time + 60000; //auto-explode after 60 seconds.
 		ent->nextthink = level.time + LT_ALT_TIME; // How long 'til she blows
 
 		//make it shootable
@@ -3339,6 +3349,7 @@ DET PACK
 
 ======================================================================
 */
+
 void VectorNPos(vec3_t in, vec3_t out)
 {
 	if (in[0] < 0) { out[0] = -in[0]; } else { out[0] = in[0]; }
@@ -3407,7 +3418,7 @@ void charge_stick (gentity_t *self, gentity_t *other, trace_t *trace)
 		return;
 	}
 
-	//if we get here I guess we hit hte world so we can stick to it
+	//if we get here I guess we hit the world so we can stick to it
 
 	// This requires a bit of explaining.
 	// When you suicide, all of the detpacks you have placed (either on a wall, or still falling in the air) will have
@@ -3514,9 +3525,9 @@ void drop_charge (gentity_t *self, vec3_t start, vec3_t dir)
 
 	bolt->parent = self;
 	bolt->r.ownerNum = self->s.number;
-	bolt->damage = 100;
-	bolt->splashDamage = 200;
-	bolt->splashRadius = 200;
+	bolt->damage = DP_DAMAGE;
+	bolt->splashDamage = DP_SPLASH_DAM;
+	bolt->splashRadius = DP_SPLASH_RAD;
 	bolt->methodOfDeath = MOD_DET_PACK_SPLASH;
 	bolt->splashMethodOfDeath = MOD_DET_PACK_SPLASH;
 	bolt->clipmask = MASK_SHOT;
