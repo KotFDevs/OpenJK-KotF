@@ -3117,6 +3117,29 @@ void Cmd_EngageDuel_f(gentity_t *ent)
 				challenged->client->ps.weaponTime = 400;
 				challenged->client->ps.saberHolstered = 2;
 			}
+			//fully heal duelers at the start of duels
+			if (ent->health > 0 && ent->client->ps.stats[STAT_HEALTH] > 0)
+			{
+				if (ent->health != ent->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					ent->client->ps.stats[STAT_HEALTH] = ent->health = ent->client->ps.stats[STAT_MAX_HEALTH];
+				}
+				if (ent->client->ps.stats[STAT_ARMOR] != ent->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					ent->client->ps.stats[STAT_ARMOR] = ent->client->ps.stats[STAT_MAX_HEALTH];
+				}
+			}
+			if (challenged->health > 0 && challenged->client->ps.stats[STAT_HEALTH] > 0)
+			{
+				if (challenged->health != challenged->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					challenged->client->ps.stats[STAT_HEALTH] = challenged->health = challenged->client->ps.stats[STAT_MAX_HEALTH];
+				}
+				if (challenged->client->ps.stats[STAT_ARMOR] != challenged->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					challenged->client->ps.stats[STAT_ARMOR] = challenged->client->ps.stats[STAT_MAX_HEALTH];
+				}
+			}
 		}
 		else
 		{
