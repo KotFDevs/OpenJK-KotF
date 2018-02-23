@@ -1611,13 +1611,13 @@ void G_SetTauntAnim( gentity_t *ent, int taunt )
 	{ //hack, don't do while moving
 		return;
 	}
-	if ( taunt != TAUNT_TAUNT )
-	{//normal taunt always allowed
-		if ( level.gametype != GT_DUEL && level.gametype != GT_POWERDUEL )
-		{//no taunts unless in Duel
-			return;
-		}
-	}
+//	if ( taunt != TAUNT_TAUNT )
+//	{//normal taunt always allowed
+//		if ( level.gametype != GT_DUEL && level.gametype != GT_POWERDUEL )
+//		{//no taunts unless in Duel
+//			return;
+//		}
+//	}
 
 	// fix: rocket lock bug
 	BG_ClearRocketLock(&ent->client->ps);
@@ -1986,7 +1986,7 @@ void ClientThink_real( gentity_t *ent ) {
 			{//using staff style
 				if ( client->ps.saberHolstered == 1
 					&& client->saber[0].singleBladeStyle != SS_NONE)
-				{//one blade should be off, adjust saberAnimLevel accordinly
+				{//one blade should be off, adjust saberAnimLevel accordingly
 					client->ps.fd.saberAnimLevel = client->saber[0].singleBladeStyle;
 					client->ps.fd.saberDrawAnimLevel = client->ps.fd.saberAnimLevel;
 				}
@@ -2484,13 +2484,27 @@ void ClientThink_real( gentity_t *ent ) {
 
 			G_AddEvent(ent, EV_PRIVATE_DUEL, 0);
 			G_AddEvent(duelAgainst, EV_PRIVATE_DUEL, 0);
+			
+			//Private duel announcements are now made globally because we only want one duel at a time.
+			if (ent->health > 0 && ent->client->ps.stats[STAT_HEALTH] > 0)
+			{
+				trap->SendServerCommand( -1, va("print \"%s %s %s with %d health, %d armor!\n\"", ent->client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLDUELWINNER"), duelAgainst->client->pers.netname, ent->client->ps.stats[STAT_HEALTH], ent->client->ps.stats[STAT_ARMOR]) );
+			}
+			else
+			{ //it was a draw, because we both managed to die in the same frame
+				trap->SendServerCommand( -1, va("print \"%s\n\"", G_GetStringEdString("MP_SVGAME", "PLDUELTIE")) );
+			}
 
-			//Winner gets full health.. providing he's still alive
+			//Winner gets full health and armor.. providing he's still alive
 			if (ent->health > 0 && ent->client->ps.stats[STAT_HEALTH] > 0)
 			{
 				if (ent->health < ent->client->ps.stats[STAT_MAX_HEALTH])
 				{
 					ent->client->ps.stats[STAT_HEALTH] = ent->health = ent->client->ps.stats[STAT_MAX_HEALTH];
+				}
+				if (ent->client->ps.stats[STAT_ARMOR] < ent->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					ent->client->ps.stats[STAT_ARMOR] = ent->client->ps.stats[STAT_MAX_HEALTH];
 				}
 
 				if (g_spawnInvulnerability.integer)
@@ -2499,20 +2513,7 @@ void ClientThink_real( gentity_t *ent ) {
 					ent->client->invulnerableTimer = level.time + g_spawnInvulnerability.integer;
 				}
 			}
-
-			/*
-			trap->SendServerCommand( ent-g_entities, va("print \"%s %s\n\"", ent->client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLDUELWINNER")) );
-			trap->SendServerCommand( duelAgainst-g_entities, va("print \"%s %s\n\"", ent->client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLDUELWINNER")) );
-			*/
-			//Private duel announcements are now made globally because we only want one duel at a time.
-			if (ent->health > 0 && ent->client->ps.stats[STAT_HEALTH] > 0)
-			{
-				trap->SendServerCommand( -1, va("cp \"%s %s %s!\n\"", ent->client->pers.netname, G_GetStringEdString("MP_SVGAME", "PLDUELWINNER"), duelAgainst->client->pers.netname) );
-			}
-			else
-			{ //it was a draw, because we both managed to die in the same frame
-				trap->SendServerCommand( -1, va("cp \"%s\n\"", G_GetStringEdString("MP_SVGAME", "PLDUELTIE")) );
-			}
+			
 		}
 		else
 		{
