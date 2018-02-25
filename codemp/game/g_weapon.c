@@ -36,7 +36,7 @@ static vec3_t muzzle;
 // Bryar Pistol
 //--------
 #define BRYAR_PISTOL_VEL			3500
-#define BRYAR_PISTOL_DAMAGE			45
+#define BRYAR_PISTOL_DAMAGE			27
 #define BRYAR_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
 #define BRYAR_ALT_SIZE				1.0f
 
@@ -44,7 +44,7 @@ static vec3_t muzzle;
 //---------
 #define BLASTER_SPREAD				1.3f//1.2f
 #define BLASTER_VELOCITY			3600
-#define BLASTER_DAMAGE				40
+#define BLASTER_DAMAGE				41
 
 // Tenloss Disruptor
 //----------
@@ -59,7 +59,7 @@ static vec3_t muzzle;
 
 // Wookiee Bowcaster
 //----------
-#define	BOWCASTER_DAMAGE			58
+#define	BOWCASTER_DAMAGE			63
 #define	BOWCASTER_VELOCITY			3100
 #define BOWCASTER_SPLASH_DAMAGE		0
 #define BOWCASTER_SPLASH_RADIUS		0
@@ -72,7 +72,7 @@ static vec3_t muzzle;
 // Heavy Repeater
 //----------
 #define REPEATER_SPREAD				1.4f
-#define	REPEATER_DAMAGE				25
+#define	REPEATER_DAMAGE				29
 #define	REPEATER_VELOCITY			3000
 
 #define REPEATER_ALT_SIZE				3	// half of bbox size
@@ -84,11 +84,11 @@ static vec3_t muzzle;
 
 // DEMP2
 //----------
-#define	DEMP2_DAMAGE				43
+#define	DEMP2_DAMAGE				41
 #define	DEMP2_VELOCITY				2600
 #define	DEMP2_SIZE					2		// half of bbox size
 
-#define DEMP2_ALT_DAMAGE			10 //12		// does 12, 36, 84 at each of the 3 charge levels.
+#define DEMP2_ALT_DAMAGE			9 //12		// does 12, 36, 84 at each of the 3 charge levels.
 #define DEMP2_CHARGE_UNIT			700.0f	// demp2 charging gives us one more unit every 700ms--if you change this, you'll have to do the same in bg_weapons
 #define DEMP2_ALT_RANGE				4096
 #define DEMP2_ALT_SPLASHRADIUS		256
@@ -107,7 +107,7 @@ static vec3_t muzzle;
 
 // Personal Rocket Launcher
 //---------
-#define	ROCKET_VELOCITY				1500
+#define	ROCKET_VELOCITY				1300
 #define	ROCKET_DAMAGE				100
 #define	ROCKET_SPLASH_DAMAGE		80
 #define	ROCKET_SPLASH_RADIUS		160
@@ -120,22 +120,22 @@ static vec3_t muzzle;
 //man, this thing is too absurdly powerful. having to
 //slash the values way down from sp.
 #define	CONC_VELOCITY				2700
-#define	CONC_DAMAGE					65 //150
+#define	CONC_DAMAGE					69 //150
 #define	CONC_NPC_DAMAGE_EASY		40
 #define	CONC_NPC_DAMAGE_NORMAL		80
 #define	CONC_NPC_DAMAGE_HARD		100
-#define	CONC_SPLASH_DAMAGE			30 //50
+#define	CONC_SPLASH_DAMAGE			36 //50
 #define	CONC_SPLASH_RADIUS			200 //300
 //alt
-#define CONC_ALT_DAMAGE				60 //100
+#define CONC_ALT_DAMAGE				74 //100
 #define CONC_ALT_NPC_DAMAGE_EASY	20
 #define CONC_ALT_NPC_DAMAGE_MEDIUM	35
 #define CONC_ALT_NPC_DAMAGE_HARD	50
 
 // Stun Baton
 //--------------
-#define STUN_BATON_DAMAGE			65
-#define STUN_BATON_ALT_DAMAGE		65
+#define STUN_BATON_DAMAGE			55
+#define STUN_BATON_ALT_DAMAGE		55
 #define STUN_BATON_RANGE			13
 
 // Melee
@@ -146,7 +146,7 @@ static vec3_t muzzle;
 
 // E-5 carbine
 //---------
-#define BATTLEDROID_SPREAD				1.2f//1.2f
+#define BATTLEDROID_SPREAD				1.1f//1.2f
 #define BATTLEDROID_VELOCITY			3700
 #define BATTLEDROID_DAMAGE				38
 
@@ -154,7 +154,7 @@ static vec3_t muzzle;
 //---------
 #define THEFIRSTORDER_SPREAD			1.4f//1.2f
 #define THEFIRSTORDER_VELOCITY			3600
-#define THEFIRSTORDER_DAMAGE			42
+#define THEFIRSTORDER_DAMAGE			45
 
 // DC-15 Carbine
 //---------
@@ -166,30 +166,30 @@ static vec3_t muzzle;
 //---------
 #define REBELBLASTER_SPREAD				1.3f//1.2f
 #define REBELBLASTER_VELOCITY			3500
-#define REBELBLASTER_DAMAGE				45
+#define REBELBLASTER_DAMAGE				46
 
 // DC-15 Rifle
 //---------
 #define CLONERIFLE_SPREAD				1.1f//1.2f
 #define CLONERIFLE_VELOCITY				3300
-#define CLONERIFLE_DAMAGE				18
+#define CLONERIFLE_DAMAGE				17
 
 // DC-17M
 //---------
 #define CLONECOMMANDO_SPREAD			1.2f//1.2f
 #define CLONECOMMANDO_VELOCITY			3500
-#define CLONECOMMANDO_DAMAGE			35
+#define CLONECOMMANDO_DAMAGE			44
 
 // A280
 //---------
 #define REBELRIFLE_SPREAD				1.5f//1.2f
 #define REBELRIFLE_VELOCITY				2850
-#define REBELRIFLE_DAMAGE				85
+#define REBELRIFLE_DAMAGE				82
 
 // LPA NN-14
 //--------
-#define REY_VEL						3000
-#define REY_DAMAGE					51
+#define REY_VEL						2900
+#define REY_DAMAGE					29
 #define REY_CHARGE_UNIT				200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
 #define REY_ALT_SIZE				1.0f
 
@@ -197,33 +197,33 @@ static vec3_t muzzle;
 //---------
 #define JANGO_SPREAD				1.1f//1.2f
 #define JANGO_VELOCITY				3800
-#define JANGO_DAMAGE				48
+#define JANGO_DAMAGE				44
 
 // EE-3
 //---------
 #define BOBA_SPREAD					1.5f//1.2f
 #define BOBA_VELOCITY				3200
-#define BOBA_DAMAGE					70
+#define BOBA_DAMAGE					68
 
 // DC-17 Hand Pistol
 //--------
 #define CLONEPISTOL_VEL					3600
-#define CLONEPISTOL_DAMAGE				40
+#define CLONEPISTOL_DAMAGE				18
 #define CLONEPISTOL_CHARGE_UNIT			200.0f	// bryar charging gives us one more unit every 200ms--if you change this, you'll have to do the same in bg_pmove
 #define CLONEPISTOL_ALT_SIZE			1.0f
 
 // Thermal Detonators
 //----------
-#define TD_DAMAGE			150 //only do 70 on a direct impact
-#define TD_SPLASH_RAD		192
-#define TD_SPLASH_DAM		150
+#define TD_DAMAGE			130 //only do 70 on a direct impact
+#define TD_SPLASH_RAD		170
+#define TD_SPLASH_DAM		120
 #define TD_VELOCITY			900
 #define TD_MIN_CHARGE		0.15f
 #define TD_TIME				3000//6000
 #define TD_ALT_TIME			3000
-#define TD_ALT_DAMAGE		110//100
-#define TD_ALT_SPLASH_RAD	160
-#define TD_ALT_SPLASH_DAM	90//90
+#define TD_ALT_DAMAGE		100//100
+#define TD_ALT_SPLASH_RAD	150
+#define TD_ALT_SPLASH_DAM	80//90
 #define TD_ALT_VELOCITY		600
 #define TD_ALT_MIN_CHARGE	0.15f
 #define TD_ALT_TIME			3000
