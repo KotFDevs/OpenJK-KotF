@@ -32,7 +32,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #define JK2_RAGDOLL_GRIPNOHEALTH
 
-#define MAX_SABER_VICTIMS 16
+#define MAX_SABER_VICTIMS 8192
 static int		victimEntityNum[MAX_SABER_VICTIMS];
 static float	totalDmg[MAX_SABER_VICTIMS];
 static vec3_t	dmgDir[MAX_SABER_VICTIMS];
