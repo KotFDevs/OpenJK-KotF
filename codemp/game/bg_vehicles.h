@@ -82,7 +82,7 @@ typedef struct vehWeaponInfo_s {
 
 #define	VWFOFS(x) offsetof(vehWeaponInfo_t, x)
 
-#define MAX_VEH_WEAPONS	16	//sigh... no more than 16 different vehicle weapons
+#define MAX_VEH_WEAPONS	32	//sigh... no more than 16 different vehicle weapons
 #define VEH_WEAPON_BASE	0
 #define VEH_WEAPON_NONE	-1
 
@@ -372,7 +372,7 @@ typedef struct vehicleInfo_s {
 
 #define	VFOFS(x) offsetof(vehicleInfo_t, x)
 
-#define MAX_VEHICLES	16	//sigh... no more than 64 individual vehicles
+#define MAX_VEHICLES	64	//sigh... no more than 64 individual vehicles
 #define VEHICLE_BASE	0
 #define VEHICLE_NONE	-1
 
