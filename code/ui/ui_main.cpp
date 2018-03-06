@@ -2119,7 +2119,7 @@ static qboolean UI_OwnerDrawHandleKey(int ownerDraw, int flags, float *special, 
 //unfortunately we cannot rely on any game/cgame module code to do our animation stuff,
 //because the ui can be loaded while the game/cgame are not loaded. So we're going to recreate what we need here.
 #undef MAX_ANIM_FILES
-#define MAX_ANIM_FILES 4
+#define MAX_ANIM_FILES 512
 class ui_animFileSet_t
 {
 public:
