@@ -333,7 +333,7 @@ void NPC_SetMiscDefaultData( gentity_t *ent )
 			*/
 			switch ( ent->client->ps.weapon )
 			{
-			case WP_BRYAR_PISTOL://FIXME: new weapon: imp blaster pistol
+			case WP_BRYAR_PISTOL: //FIXME: new weapon: imp blaster pistol
 	//		case WP_BLASTER_PISTOL:
 			case WP_DISRUPTOR:
 			case WP_BOWCASTER:
@@ -1475,7 +1475,7 @@ gentity_t *NPC_Spawn_Do( gentity_t *ent )
 		newent->flags |= FL_NO_KNOCKBACK;//don't fall off ledges
 	}
 
-	// If this is a vehicle we need to see what kind it is so we properlly allocate it.
+	// If this is a vehicle we need to see what kind it is so we properly allocate it.
 	if ( Q_stricmp( ent->classname, "NPC_Vehicle" ) == 0 )
 	{
 		// Get the vehicle entry index.
@@ -1495,19 +1495,19 @@ gentity_t *NPC_Spawn_Do( gentity_t *ent )
 		switch( g_vehicleInfo[iVehIndex].type )
 		{
 			case VH_ANIMAL:
-				// Create the animal (making sure all it's data is initialized).
+				// Create the animal (making sure all its data is initialized).
 				G_CreateAnimalNPC( &newent->m_pVehicle, ent->NPC_type );
 				break;
 			case VH_SPEEDER:
-				// Create the speeder (making sure all it's data is initialized).
+				// Create the speeder (making sure all its data is initialized).
 				G_CreateSpeederNPC( &newent->m_pVehicle, ent->NPC_type );
 				break;
 			case VH_FIGHTER:
-				// Create the fighter (making sure all it's data is initialized).
+				// Create the fighter (making sure all its data is initialized).
 				G_CreateFighterNPC( &newent->m_pVehicle, ent->NPC_type );
 				break;
 			case VH_WALKER:
-				// Create the walker (making sure all it's data is initialized).
+				// Create the walker (making sure all its data is initialized).
 				G_CreateWalkerNPC( &newent->m_pVehicle, ent->NPC_type );
 				break;
 
@@ -2880,7 +2880,7 @@ void SP_NPC_Jedi( gentity_t *self)
 				self->NPC_type = "jedi_zf1";
 				break;
 			case 11:
-			default://just in case
+			default: //just in case
 				self->NPC_type = "jedi_zf2";
 				break;
 			}
@@ -3335,7 +3335,7 @@ void SP_NPC_SwampTrooper( gentity_t *self)
 Greyshirt grunt, uses blaster pistol, 20 health.
 
 OFFICER - Brownshirt Officer, uses blaster rifle, 40 health
-COMMANDER - Blackshirt Commander, uses rapid-fire blaster rifle, 80 healt
+COMMANDER - Blackshirt Commander, uses rapid-fire blaster rifle, 80 health
 
 "message" - if a COMMANDER, turns on his key surface.  This is the name of the key you get when you walk over his body.  This must match the "message" field of the func_security_panel you want this key to open.  Set to "goodie" to have him carrying a goodie key that player can use to operate doors with "GOODIE" spawnflag.
 
@@ -4123,7 +4123,7 @@ void NPC_Spawn_f( gentity_t *ent )
 NPC_Kill_f
 */
 extern stringID_table_t TeamTable[];
-void NPC_Kill_f( void )
+void NPC_Kill_f( gentity_t *ent )
 {
 	int			n;
 	gentity_t	*player;
@@ -4135,12 +4135,12 @@ void NPC_Kill_f( void )
 
 	if ( !name[0] )
 	{
-		Com_Printf( S_COLOR_RED"Error, Expected:\n");
-		Com_Printf( S_COLOR_RED"NPC kill '[NPC targetname]' - kills NPCs with certain targetname\n" );
-		Com_Printf( S_COLOR_RED"or\n" );
-		Com_Printf( S_COLOR_RED"NPC kill 'all' - kills all NPCs\n" );
-		Com_Printf( S_COLOR_RED"or\n" );
-		Com_Printf( S_COLOR_RED"NPC team '[teamname]' - kills all NPCs of a certain team ('nonally' is all but your allies)\n" );
+		trap->SendServerCommand( ent-g_entities, va("Error, Expected:\n"));
+		trap->SendServerCommand( ent-g_entities, va("NPC kill '[NPC targetname]' - kills NPCs with certain targetname\n" ));
+		trap->SendServerCommand( ent-g_entities, va("or\n" ));
+		trap->SendServerCommand( ent-g_entities, va("NPC kill 'all' - kills all NPCs\n" ));
+		trap->SendServerCommand( ent-g_entities, va("or\n" ));
+		trap->SendServerCommand( ent-g_entities, va("NPC team '[teamname]' - kills all NPCs of a certain team ('nonally' is all but your allies)\n" ));
 		return;
 	}
 
@@ -4264,16 +4264,37 @@ qboolean	showBBoxes = qfalse;
 void Cmd_NPC_f( gentity_t *ent )
 {
 	char	cmd[1024];
-
+	char	cmd_ex[1024];
+	int count;
+	int countmax;
 	trap->Argv( 1, cmd, 1024 );
+	countmax = trap->Argc();
+	if (countmax > 1)
+    {
+		if (countmax > 4)
+		{
+			countmax = 4;
+		}
+		Com_Printf( S_COLOR_GREEN"%s^2 used npc %s " ,ent->client->pers.netname, cmd);
+		for (count = 2; count < countmax; count++)
+		{
+			trap->Argv( count, cmd_ex, 1024 );
+			Com_Printf( S_COLOR_GREEN"%s " ,cmd_ex);
+		}
+		Com_Printf( "\n");
+    }
+	else
+    {
+		Com_Printf( S_COLOR_GREEN"%s^2 used npc %s\n" ,ent->client->pers.netname, cmd);
+    }
 
 	if ( !cmd[0] )
 	{
-		Com_Printf( "Valid NPC commands are:\n" );
-		Com_Printf( " spawn [NPC type (from NPCs.cfg)]\n" );
-		Com_Printf( " kill [NPC targetname] or [all(kills all NPCs)] or 'team [teamname]'\n" );
-		Com_Printf( " showbounds (draws exact bounding boxes of NPCs)\n" );
-		Com_Printf( " score [NPC targetname] (prints number of kills per NPC)\n" );
+		trap->SendServerCommand( ent-g_entities, va("Valid NPC commands are:\n") );
+		trap->SendServerCommand( ent-g_entities, va(" spawn [NPC type (from NPCs.cfg)]\n") );
+		trap->SendServerCommand( ent-g_entities, va(" kill [NPC targetname] or [all(kills all NPCs)] or 'team [teamname]'\n") );
+		trap->SendServerCommand( ent-g_entities, va(" showbounds (draws exact bounding boxes of NPCs)\n") );
+		trap->SendServerCommand( ent-g_entities, va(" score [NPC targetname] (prints number of kills per NPC)\n") );
 	}
 	else if ( Q_stricmp( cmd, "spawn" ) == 0 )
 	{
@@ -4281,7 +4302,7 @@ void Cmd_NPC_f( gentity_t *ent )
 	}
 	else if ( Q_stricmp( cmd, "kill" ) == 0 )
 	{
-		NPC_Kill_f();
+		NPC_Kill_f( ent );
 	}
 	else if ( Q_stricmp( cmd, "showbounds" ) == 0 )
 	{//Toggle on and off

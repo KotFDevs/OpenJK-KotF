@@ -228,6 +228,24 @@ static void SV_Map_f( void ) {
 	Cvar_Set( "sv_cheats", cheat ? "1" : "0" );
 }
 
+/*============
+Cheat Commands added by Awec
+==============
+*/
+
+static void SV_ChtEn( void ) {
+	qboolean	cheat=qtrue;
+	
+	Com_Printf ("Cheats have been enabled\n");
+	Cvar_Set( "sv_cheats", cheat ? "1" : "0" );
+}
+
+static void SV_ChtDis( void ) {
+	qboolean	cheat=qfalse;
+	
+	Com_Printf ("Cheats have been disabled\n");
+	Cvar_Set( "sv_cheats", cheat ? "1" : "0" );
+}
 
 /*
 ================
@@ -1250,7 +1268,7 @@ static void SV_ConSay_f(void) {
 
 	Cmd_ArgsBuffer( text, sizeof(text) );
 
-	Com_Printf ("broadcast: chat \"" SVSAY_PREFIX "%s\\n\"\n", SV_ExpandNewlines((char *)text) );
+	Com_Printf (SVSAY_PREFIX "%s\\n\"\n", SV_ExpandNewlines((char *)text) );
 	SV_SendServerCommand(NULL, "chat \"" SVSAY_PREFIX "%s\"\n", text);
 }
 
@@ -1966,6 +1984,8 @@ void SV_AddOperatorCommands( void ) {
 	Cmd_AddCommand ("sv_bandel", SV_BanDel_f, "Removes a ban" );
 	Cmd_AddCommand ("sv_exceptdel", SV_ExceptDel_f, "Removes a ban exception" );
 	Cmd_AddCommand ("sv_flushbans", SV_FlushBans_f, "Removes all bans and exceptions" );
+	Cmd_AddCommand ("cheatEn", SV_ChtEn, "Turns on Cheats" );
+	Cmd_AddCommand ("cheatDis", SV_ChtDis, "Turns off Cheats" );
 }
 
 /*

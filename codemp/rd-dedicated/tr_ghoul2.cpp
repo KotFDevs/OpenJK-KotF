@@ -444,7 +444,11 @@ public:
 		*/
 
 		//Hey, this is what sof2 does. Let's try it out.
-		assert(index>=0&&index<(int)mBones.size());
+//		assert(index>=0&&index<(int)mBones.size());
+		if (index<0||index>=(int)mBones.size()) //hacky fix by Awec to stop crashes when certain NPCs were hit
+		{
+			return mFinalBones[0].boneMatrix;
+		}
 		if (mFinalBones[index].touch!=mCurrentTouch)
 		{
 			EvalLow(index);

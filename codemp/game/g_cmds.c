@@ -228,6 +228,9 @@ void G_Give( gentity_t *ent, const char *name, const char *args, int argc )
 	qboolean	give_all = qfalse;
 	gentity_t	*it_ent;
 	trace_t		trace;
+	
+	
+	Com_Printf( S_COLOR_GREEN"%s^2 used give %s\n", ent->client->pers.netname, name);
 
 	if ( !Q_stricmp( name, "all" ) )
 		give_all = qtrue;
@@ -404,13 +407,15 @@ void Cmd_God_f( gentity_t *ent ) {
 
 	ent->flags ^= FL_GODMODE;
 	if ( !(ent->flags & FL_GODMODE) )
-		msg = "godmode OFF";
-	else
-		msg = "godmode ON";
-
+	{
+		msg = "God mode OFF";
+	} else
+	{
+		msg = "God mode ON";
+	}
+	Com_Printf( S_COLOR_GREEN"%s^2 turned %s\n", ent->client->pers.netname, msg );
 	trap->SendServerCommand( ent-g_entities, va( "print \"%s\n\"", msg ) );
 }
-
 
 /*
 ==================
@@ -426,10 +431,13 @@ void Cmd_Notarget_f( gentity_t *ent ) {
 
 	ent->flags ^= FL_NOTARGET;
 	if ( !(ent->flags & FL_NOTARGET) )
+	{
 		msg = "notarget OFF";
-	else
+	} else
+	{
 		msg = "notarget ON";
-
+	}
+	Com_Printf( S_COLOR_GREEN"%s^2 turned %s\n", ent->client->pers.netname, msg );
 	trap->SendServerCommand( ent-g_entities, va( "print \"%s\n\"", msg ) );
 }
 
@@ -446,10 +454,13 @@ void Cmd_Noclip_f( gentity_t *ent ) {
 
 	ent->client->noclip = !ent->client->noclip;
 	if ( !ent->client->noclip )
+	{
 		msg = "noclip OFF";
-	else
+	} else
+	{
 		msg = "noclip ON";
-
+	}
+	Com_Printf( S_COLOR_GREEN"%s^2 turned %s\n", ent->client->pers.netname, msg );
 	trap->SendServerCommand( ent-g_entities, va( "print \"%s\n\"", msg ) );
 }
 
@@ -1589,12 +1600,12 @@ void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText ) 
 	switch ( mode ) {
 	default:
 	case SAY_ALL:
-		G_LogPrintf( "say: %s: %s\n", ent->client->pers.netname, text );
+//		G_LogPrintf( "say: %s: %s\n", ent->client->pers.netname, text );
 		Com_sprintf (name, sizeof(name), "%s%c%c"EC": ", ent->client->pers.netname, Q_COLOR_ESCAPE, COLOR_WHITE );
 		color = COLOR_GREEN;
 		break;
 	case SAY_TEAM:
-		G_LogPrintf( "sayteam: %s: %s\n", ent->client->pers.netname, text );
+//		G_LogPrintf( "sayteam: %s: %s\n", ent->client->pers.netname, text );
 		if (Team_GetLocationMsg(ent, location, sizeof(location)))
 		{
 			Com_sprintf (name, sizeof(name), EC"(%s%c%c"EC")"EC": ",
@@ -2413,7 +2424,7 @@ void Cmd_CallTeamVote_f( gentity_t *ent ) {
 			trap->SendServerCommand( i, va("print \"%s^7 called a team vote (%s)\n\"", ent->client->pers.netname, level.teamVoteStringClean[cs_offset] ) );
 	}
 
-	// start the voting, the caller autoamtically votes yes
+	// start the voting, the caller automatically votes yes
 	level.teamVoteTime[cs_offset] = level.time;
 	level.teamVoteYes[cs_offset] = 1;
 	level.teamVoteNo[cs_offset] = 0;
@@ -2519,7 +2530,7 @@ void G_LeaveVehicle( gentity_t* ent, qboolean ConCheck ) {
 	{ //tell it I'm getting off
 		gentity_t *veh = &g_entities[ent->client->ps.m_iVehicleNum];
 
-		if (veh->inuse && veh->client && veh->m_pVehicle)
+		if (veh->health > 0 && veh->inuse && veh->client && veh->m_pVehicle)
 		{
 			if ( ConCheck ) { // check connection
 				clientConnected_t pCon = ent->client->pers.connected;
@@ -2738,7 +2749,7 @@ void Cmd_ToggleSaber_f(gentity_t *ent)
 				G_Sound(ent, CHAN_AUTO, ent->client->saber[1].soundOff);
 			}
 			//prevent anything from being done for 400ms after holster
-			ent->client->ps.weaponTime = 400;
+			ent->client->ps.weaponTime = 300;
 		}
 	}
 }
@@ -2965,7 +2976,7 @@ void Cmd_SaberAttackCycle_f(gentity_t *ent)
 		ent->client->ps.fd.saberAnimLevelBase = ent->client->saberCycleQueue = selectLevel;
 	}
 }
-
+/*
 qboolean G_OtherPlayersDueling(void)
 {
 	int i = 0;
@@ -2984,7 +2995,7 @@ qboolean G_OtherPlayersDueling(void)
 
 	return qfalse;
 }
-
+*/
 void Cmd_EngageDuel_f(gentity_t *ent)
 {
 	trace_t tr;
@@ -3116,6 +3127,29 @@ void Cmd_EngageDuel_f(gentity_t *ent)
 				}
 				challenged->client->ps.weaponTime = 400;
 				challenged->client->ps.saberHolstered = 2;
+			}
+			//fully heal duelers at the start of duels
+			if (ent->health > 0 && ent->client->ps.stats[STAT_HEALTH] > 0)
+			{
+				if (ent->health != ent->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					ent->client->ps.stats[STAT_HEALTH] = ent->health = ent->client->ps.stats[STAT_MAX_HEALTH];
+				}
+				if (ent->client->ps.stats[STAT_ARMOR] != ent->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					ent->client->ps.stats[STAT_ARMOR] = ent->client->ps.stats[STAT_MAX_HEALTH];
+				}
+			}
+			if (challenged->health > 0 && challenged->client->ps.stats[STAT_HEALTH] > 0)
+			{
+				if (challenged->health != challenged->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					challenged->client->ps.stats[STAT_HEALTH] = challenged->health = challenged->client->ps.stats[STAT_MAX_HEALTH];
+				}
+				if (challenged->client->ps.stats[STAT_ARMOR] != challenged->client->ps.stats[STAT_MAX_HEALTH])
+				{
+					challenged->client->ps.stats[STAT_ARMOR] = challenged->client->ps.stats[STAT_MAX_HEALTH];
+				}
 			}
 		}
 		else
@@ -3396,11 +3430,11 @@ command_t commands[] = {
 	{ "forcechanged",		Cmd_ForceChanged_f,			0 },
 	{ "gc",					Cmd_GameCommand_f,			CMD_NOINTERMISSION },
 	{ "give",				Cmd_Give_f,					CMD_CHEAT|CMD_ALIVE|CMD_NOINTERMISSION },
-	{ "giveother",			Cmd_GiveOther_f,			CMD_CHEAT|CMD_NOINTERMISSION },
+//	{ "giveother",			Cmd_GiveOther_f,			CMD_CHEAT|CMD_NOINTERMISSION },
 	{ "god",				Cmd_God_f,					CMD_CHEAT|CMD_ALIVE|CMD_NOINTERMISSION },
 	{ "kill",				Cmd_Kill_f,					CMD_ALIVE|CMD_NOINTERMISSION },
-	{ "killother",			Cmd_KillOther_f,			CMD_CHEAT|CMD_NOINTERMISSION },
-//	{ "kylesmash",			TryGrapple,					0 },
+//	{ "killother",			Cmd_KillOther_f,			CMD_CHEAT|CMD_NOINTERMISSION },
+//	{ "kylesmash",			TryGrapple,					CMD_CHEAT|CMD_NOINTERMISSION },
 	{ "levelshot",			Cmd_LevelShot_f,			CMD_CHEAT|CMD_ALIVE|CMD_NOINTERMISSION },
 	{ "maplist",			Cmd_MapList_f,				CMD_NOINTERMISSION },
 	{ "noclip",				Cmd_Noclip_f,				CMD_CHEAT|CMD_ALIVE|CMD_NOINTERMISSION },
@@ -3415,7 +3449,7 @@ command_t commands[] = {
 //	{ "teamtask",			Cmd_TeamTask_f,				CMD_NOINTERMISSION },
 	{ "teamvote",			Cmd_TeamVote_f,				CMD_NOINTERMISSION },
 	{ "tell",				Cmd_Tell_f,					0 },
-	{ "thedestroyer",		Cmd_TheDestroyer_f,			CMD_CHEAT|CMD_ALIVE|CMD_NOINTERMISSION },
+//	{ "thedestroyer",		Cmd_TheDestroyer_f,			CMD_CHEAT|CMD_ALIVE|CMD_NOINTERMISSION },
 	{ "t_use",				Cmd_TargetUse_f,			CMD_CHEAT|CMD_ALIVE },
 	{ "voice_cmd",			Cmd_VoiceCommand_f,			CMD_NOINTERMISSION },
 	{ "vote",				Cmd_Vote_f,					CMD_NOINTERMISSION },
