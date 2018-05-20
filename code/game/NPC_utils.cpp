@@ -1047,7 +1047,7 @@ qboolean G_ValidEnemy( gentity_t *self, gentity_t *enemy )
 		|| (enemy->client->NPC_class == CLASS_WAMPA && enemy->enemy )//a rampaging wampa
 		|| (enemy->client->NPC_class == CLASS_RANCOR && enemy->enemy )//a rampaging rancor
 		|| (enemy->client->playerTeam == TEAM_FREE && enemy->client->enemyTeam == TEAM_FREE && enemy->enemy && enemy->enemy->client && (enemy->enemy->client->playerTeam == self->client->playerTeam||(enemy->enemy->client->playerTeam != TEAM_ENEMY&&self->client->playerTeam==TEAM_PLAYER))) //enemy is a rampaging non-aligned creature who is attacking someone on our team or a non-enemy (this last condition is used only if we're a good guy - in effect, we protect the innocent)
-		)
+		|| (self->client->enemyTeam == TEAM_FREE && enemy->client->NPC_class == self->client->NPC_class))
 	{
 		return qtrue;
 	}
