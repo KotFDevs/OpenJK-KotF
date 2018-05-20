@@ -4921,6 +4921,7 @@ static void NPC_Spawn_f(void)
 	trace_t			trace;
 	qboolean		isVehicle = qfalse;
 
+
 	if(!NPCspawner)
 	{
 		gi.Printf( S_COLOR_RED"NPC_Spawn Error: Out of entities!\n" );
@@ -4965,9 +4966,12 @@ static void NPC_Spawn_f(void)
 	NPCspawner->s.angles[1] = g_entities[0].client->ps.viewangles[1];
 
 	gi.linkentity(NPCspawner);
-
+	
 	NPCspawner->NPC_type = Q_strlwr( G_NewString( npc_type ) );
-	NPCspawner->NPC_targetname = G_NewString(gi.argv( 3 ));
+	
+	NPCspawner->behaviorSet[BSET_SPAWN] =  G_NewString(gi.argv(3));
+
+	NPCspawner->NPC_targetname = G_NewString(gi.argv( 4 ));
 
 	NPCspawner->count = 1;
 
